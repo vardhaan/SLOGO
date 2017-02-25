@@ -1,6 +1,8 @@
 package turtles;
 
-public class Turtle {
+import java.util.Observable;
+
+public class Turtle extends Observable implements Cloneable{
 
 	private double xPos;
 	private double yPos;
@@ -56,6 +58,10 @@ public class Turtle {
 
 	public void setHeading(double newHeading) {
 		this.heading = newHeading;
+	}
+	public boolean showTurtle(){
+		notifyChange();
+		return showing;
 	}
 	
 	
