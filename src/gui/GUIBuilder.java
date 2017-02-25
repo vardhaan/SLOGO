@@ -8,6 +8,8 @@ import java.util.function.Consumer;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -18,6 +20,7 @@ public class GUIBuilder {
 
     protected final List<String> history = new ArrayList<>();
     protected int historyPointer = 0;
+    
 
     private Consumer<String> onMessageReceivedHandler;
     
@@ -28,6 +31,8 @@ public class GUIBuilder {
 	public void buildGUI(GridPane myRoot){
 		ConsoleBuilder b = new ConsoleBuilder();
 		b.buildConsole(myRoot);
+		MenuBuilder m=new MenuBuilder();
+		m.buildMenu(myRoot);
 	}
 	
 	public GridPane buildGridPane(){
@@ -37,13 +42,21 @@ public class GUIBuilder {
 		myRoot.setVgap(2);
 		return myRoot;
 	}
-	
+	public MenuBar buildMenu(){
+	MenuBar myMenu=new MenuBar();
+	return myMenu;	
+	}
 	
 	public void buildVariableBox(BorderPane myRoot){
 		
 	}
 	
 	public void buildCommandBox(BorderPane myRoot){
+		
+	}
+
+	public void buildGUI(MenuBar myMenu) {
+		// TODO Auto-generated method stub
 		
 	}
 
