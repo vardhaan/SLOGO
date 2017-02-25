@@ -20,10 +20,10 @@ public class ConsoleBuilder {
 	}
 	
 	public void buildConsole(GridPane myRoot){
-		GridPane.setConstraints(console, 0, 1);
-		GridPane.setConstraints(previousCommands, 0, 0);
+		GridPane.setConstraints(console, 0, 2);
+		GridPane.setConstraints(previousCommands, 0, 1);
 		myRoot.getChildren().addAll(console, previousCommands);
-		createButtons(myRoot, 1);
+		createButtons(myRoot, 2);
 	}
 	
 	private void createButtons(GridPane myRoot, int row) {

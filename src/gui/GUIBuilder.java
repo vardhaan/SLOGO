@@ -31,8 +31,12 @@ public class GUIBuilder {
 	public void buildGUI(GridPane myRoot){
 		ConsoleBuilder b = new ConsoleBuilder();
 		b.buildConsole(myRoot);
+		
 		MenuBuilder m=new MenuBuilder();
 		m.buildMenu(myRoot);
+		
+		VariableBoxBuilder v = new VariableBoxBuilder();
+		v.buildVariableBox(myRoot);
 	}
 	
 	public GridPane buildGridPane(){
