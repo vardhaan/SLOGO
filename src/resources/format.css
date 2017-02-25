@@ -1,0 +1,10 @@
+.text-area{
+    -fx-min-width: 1000;
+    -fx-min-height: 80;
+    -fx-alignment: top-left;
+}
+
+.text-area .content {
+    -fx-background-color: lightsteelblue; 
+    -fx-display-caret: true;
+}
