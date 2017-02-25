@@ -1,6 +1,8 @@
 package turtles;
 
 import java.util.Observable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Turtle extends Observable implements Cloneable{
 
