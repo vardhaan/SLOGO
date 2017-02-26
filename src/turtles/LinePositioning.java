@@ -2,7 +2,7 @@ package turtles;
 import 
 public class LinePositioning {
 private int MyColorRGB;
-//Pair of XY coordinate
+//Pair of XY coordinategit 
 	public LinePositioning(Location start,Location end){
 		StartXY=start.clone();
 	}

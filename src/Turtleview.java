@@ -54,7 +54,12 @@ import javafx.util.Duration;
 import javafx.util.Pair;
 import turtles.Turtle;
 public class Turtleview extends Observable  implements Cloneable{
+	private
+	public Turtle(){
+		this(0);
+	}
 	
+	public Turtle(int id){
 	
 	
 	

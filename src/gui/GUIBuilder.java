@@ -15,11 +15,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import gui.MenuBuilder;
 
 public class GUIBuilder {
 
     protected final List<String> history = new ArrayList<>();
     protected int historyPointer = 0;
+    //public String RESOURCES_LOCATION;
     
 
     private Consumer<String> onMessageReceivedHandler;

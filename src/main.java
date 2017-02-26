@@ -5,6 +5,8 @@ import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
@@ -24,6 +26,8 @@ public class main extends Application {
 		GUIBuilder builder = new GUIBuilder();
 		GridPane myRoot = builder.buildGridPane();
 		builder.buildGUI(myRoot);
+		//MenuBar myMenu=builder.buildMenu();
+		builder.buildGUI(myRoot);
 		Scene scene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT);
 		
 		File cssFile = new File("src/resources/format.css");
@@ -37,5 +41,4 @@ public class main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-
 }

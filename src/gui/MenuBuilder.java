@@ -23,8 +23,9 @@ import javafx.stage.Stage;
 
 public class MenuBuilder {
 	private MenuBar menu;
-	private  String RESOURCES_LOCATION = "resources/languages/Spanish";
-	public  ResourceBundle myResources = ResourceBundle.getBundle(RESOURCES_LOCATION);
+	public  String RESOURCES_LOCATION = "resources/languages/Spanish";
+	private  ResourceBundle myResources = ResourceBundle.getBundle(RESOURCES_LOCATION);
+	private GridPane myroot;
 	//resources
 
 	public MenuBuilder() {
@@ -118,16 +119,19 @@ public class MenuBuilder {
 		return null;
 	}
 	private void Language() {
-		MenuItem English = new MenuItem("English");
+		MenuItem English = new MenuItem(myResources.getString("English"));
 		English.setOnAction((e-> EnglishLanguage()));
+		
 	}
 		
 		
 
 	private void EnglishLanguage() {
 		// TODO Auto-generated method stub
-		RESOURCES_LOCATION="resources/languages/english";
-		myResources=ResourceBundle.getBundle(RESOURCES_LOCATION);
+		RESOURCES_LOCATION="resources/languages/English";
+		
+		myResources=ResourceBundle.getBundle("resources/languages/English");
+		buildMenu(myroot);
 	}
 	private void BackgroundColor() {
 		Dialog dbox = new Dialog();
