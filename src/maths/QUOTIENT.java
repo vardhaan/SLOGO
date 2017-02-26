@@ -7,8 +7,8 @@ package maths;
  * @author Zhiyong
  *
  */
-public class SUM extends Maths{
-	public SUM(){
+public class QUOTIENT extends Maths{
+	public QUOTIENT(){
 		super();
 		expectedNumParameters = 2;
 	}
@@ -17,7 +17,7 @@ public class SUM extends Maths{
 	public double executeCommand() {
 		double x = parameters.remove(0);
 		double y = parameters.remove(1);
-		returnValue = x + y;
+		returnValue = x / y;
 		setReturnValue();
 		
 		return returnValue;

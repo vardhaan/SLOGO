@@ -12,6 +12,11 @@ import turtles.Turtle;
  */
 public class CS extends TurtleCommand{
 	
+	public CS(){
+		super();
+		expectedNumParameters = 0;
+	}
+	
 	@Override
 	public double executeCommand() {
 		Turtle turtle = getTurtle();
@@ -24,7 +29,7 @@ public class CS extends TurtleCommand{
 		turtle.setY(0);
 		turtle.setHeading(0);
 		//TODO: here need to get an object from the history and remove all the lines
-		
+		setReturnValue();
 		return returnValue;
 	}
 

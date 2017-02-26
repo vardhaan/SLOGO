@@ -17,6 +17,11 @@ public abstract class Maths {
 	protected double returnValue;
 	protected double expectedNumParameters;
 	protected Command dependent;
+	
+	public Maths(){
+		parameters = new ArrayList<>();
+		
+	}
 
 	
 	public List<Double> getParameters() {

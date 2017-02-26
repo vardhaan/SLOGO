@@ -22,6 +22,7 @@ public class HIDETURTLE extends TurtleCommand{
 		returnValue = 0;
 		Turtle turtle = getTurtle();
 		turtle.setShow(false);
+		setReturnValue();
 		
 		return 0;
 	}

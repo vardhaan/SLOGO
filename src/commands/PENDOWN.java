@@ -20,6 +20,7 @@ public class PENDOWN extends TurtleCommand {
 		
 		Turtle turtle = getTurtle();
 		turtle.setPenDown(true);
+		setReturnValue();
 		
 		return 1;
 	}

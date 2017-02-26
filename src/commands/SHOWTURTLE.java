@@ -22,6 +22,7 @@ public class SHOWTURTLE extends TurtleCommand{
 		returnValue = 1;
 		Turtle turtle = getTurtle();
 		turtle.setShow(true);
+		setReturnValue();
 		
 		return 1;
 	}
