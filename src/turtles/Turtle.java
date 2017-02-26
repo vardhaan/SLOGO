@@ -1,6 +1,10 @@
 package turtles;
 
-public class Turtle {
+import java.util.Observable;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Turtle extends Observable implements Cloneable{
 
 	private double xPos;
 	private double yPos;
@@ -56,6 +60,76 @@ public class Turtle {
 
 	public void setHeading(double newHeading) {
 		this.heading = newHeading;
+	}
+	public boolean showTurtle(){
+		notifyChange();
+		return showing;
+	}
+	
+	public void setOverallXChange(double overallXChange) {
+		double incrementalXChange = getIncrementalChange(overallXChange);
+		xChange = incrementalXChange;
+		
+	}
+	
+	public void setOverallYChange(double overallYChange) {
+		double incrementalXChange = getIncrementalChange(overallYChange);
+		yChange = incrementalXChange;
+		
+	}
+	
+	public void setOverallHeadingChange(double overallHeadingChange) {
+		double incrementalHeadingChange = getIncrementalChange(overallHeadingChange);
+		headingChange = incrementalHeadingChange;
+	}
+
+	private double getIncrementalChange(double overallChange) {
+		double timeToComplete = overallChange/turtleSpeed;
+		double numUpdateIncrements = timeToComplete*updateSpeed;
+		commandCounter = numUpdateIncrements;
+		double incrementalXChange = overallChange/numUpdateIncrements;
+		return incrementalXChange;
+	}
+	
+	public List<Double> getAllChange() {
+		List<Double> changes = new ArrayList<Double>();
+		changes.add(getXChange());
+		changes.add(getYChange());
+		changes.add(getHeadingChange());
+		return changes;
+	}
+	
+	private Double getXChange() {
+		if (commandCounter>1) {
+			return xChange;
+		}
+		if (commandCounter>0) {
+			return xChange*commandCounter;
+		} else {
+			return 0.0;
+		}
+	}
+	
+	private Double getYChange() {
+		if (commandCounter>1) {
+			return yChange;
+		}
+		if (commandCounter>0) {
+			return yChange*commandCounter;
+		} else {
+			return 0.0;
+		}
+	}
+	
+	private Double getHeadingChange() {
+		if (commandCounter>1) {
+			return headingChange;
+		}
+		if (commandCounter>0) {
+			return headingChange*commandCounter;
+		} else {
+			return 0.0;
+		}
 	}
 	
 	
