@@ -27,6 +27,7 @@ public class HOME extends TurtleCommand{
 		turtle.setX(0);
 		turtle.setY(0);
 		turtle.setHeading(0);
+		setReturnValue();
 		
 		return 1;
 	}

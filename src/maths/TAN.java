@@ -7,17 +7,16 @@ package maths;
  * @author Zhiyong
  *
  */
-public class SUM extends Maths{
-	public SUM(){
+public class TAN extends Maths{
+	public TAN(){
 		super();
-		expectedNumParameters = 2;
+		expectedNumParameters = 1;
 	}
 
 	@Override
 	public double executeCommand() {
-		double x = parameters.remove(0);
-		double y = parameters.remove(1);
-		returnValue = x + y;
+		double degree = parameters.remove(0);
+		returnValue = Math.tan(degree);
 		setReturnValue();
 		
 		return returnValue;

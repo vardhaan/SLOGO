@@ -22,6 +22,7 @@ public class PENUP extends TurtleCommand {
 		returnValue = 0;
 		Turtle turtle = getTurtle();
 		turtle.setPenDown(false);
+		setReturnValue();
 		
 		return 0;
 	}

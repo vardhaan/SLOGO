@@ -7,17 +7,16 @@ package maths;
  * @author Zhiyong
  *
  */
-public class SUM extends Maths{
-	public SUM(){
+public class MINUS extends Maths{
+	public MINUS(){
 		super();
-		expectedNumParameters = 2;
+		expectedNumParameters = 1;
 	}
 
 	@Override
 	public double executeCommand() {
 		double x = parameters.remove(0);
-		double y = parameters.remove(1);
-		returnValue = x + y;
+		returnValue = -x ;
 		setReturnValue();
 		
 		return returnValue;
