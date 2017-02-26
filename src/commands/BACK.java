@@ -17,7 +17,11 @@ public class BACK extends TurtleCommand {
 		// TODO Auto-generated method stub
 		setReturnValue();
 		Turtle target = getTurtle();
-		set
+		double degree = target.getHeading();
+		double y = Math.sin(degree) * returnValue;
+		double x = Math.cos(degree) * returnValue;
+		target.setOverallXChange(x);
+		target.setOverallYChange(y);
 		return 0;
 	}
 

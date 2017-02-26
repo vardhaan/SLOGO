@@ -47,6 +47,10 @@ public class Turtle {
 		return this.yPos - (getGridHeight()/2.0);
 	}
 	
+	public double getHeading() {
+		return this.heading;
+	}
+	
 	private double getGridHeight() {
 		//TODO: IMPLEMENT, GET FROM FRONTEND
 		return 0.0;
