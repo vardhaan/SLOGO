@@ -28,6 +28,7 @@ public class Turtle extends Observable implements Cloneable{
 		setX(DEFAULT_X_POS);
 		setY(DEFAULT_Y_POS);
 		setHeading(DEFAULT_ANGLE);
+		showing = true;
 	}
 	
 	public void setX(double newX) {
@@ -66,8 +67,17 @@ public class Turtle extends Observable implements Cloneable{
 		this.heading = newHeading;
 	}
 	public boolean showTurtle(){
-		notifyChange();
+		//notifyChange();
 		return showing;
+	}
+	
+	public void setShow(boolean b){
+		showing = b;
+		
+	}
+	//here the method is for the PENDOWN command
+	public void setPenDown(boolean b){
+		penDown = b;
 	}
 	
 	public void setOverallXChange(double overallXChange) {

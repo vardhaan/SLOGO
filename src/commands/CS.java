@@ -3,18 +3,14 @@
  */
 package commands;
 
-import turtles.Turtle;
+import java.lang.reflect.Method;
 
+import turtles.Turtle;
 /**
  * @author Zhiyong
  *
  */
-public class HOME extends TurtleCommand{
-	
-	public HOME(){
-		super();
-		expectedNumParameters = 0;
-	}
+public class CS extends TurtleCommand{
 	
 	@Override
 	public double executeCommand() {
@@ -27,8 +23,9 @@ public class HOME extends TurtleCommand{
 		turtle.setX(0);
 		turtle.setY(0);
 		turtle.setHeading(0);
+		//TODO: here need to get an object from the history and remove all the lines
 		
-		return 1;
+		return returnValue;
 	}
 
 }

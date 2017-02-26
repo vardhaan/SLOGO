@@ -1,5 +1,7 @@
 package commands;
 
+import turtles.Turtle;
+
 /**
  * @author Zhiyong
  *
@@ -15,6 +17,10 @@ public class PENDOWN extends TurtleCommand {
 	public double executeCommand() {
 		penDown = true;
 		returnValue = 1;
+		
+		Turtle turtle = getTurtle();
+		turtle.setPenDown(true);
+		
 		return 1;
 	}
 	
