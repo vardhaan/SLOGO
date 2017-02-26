@@ -3,6 +3,8 @@
  */
 package commands;
 
+import turtles.Turtle;
+
 /**
  * @author Zhiyong
  *
@@ -18,6 +20,8 @@ public class PENUP extends TurtleCommand {
 	public double executeCommand() {
 		penDown = false;
 		returnValue = 0;
+		Turtle turtle = getTurtle();
+		turtle.setPenDown(false);
 		
 		return 0;
 	}
