@@ -3,26 +3,49 @@ package gui;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Orientation;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollBar;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 
 public class ConsoleBuilder {
 	private TextArea console;
-	private TextArea previousCommands;
+	private SplitPane previousCommands;
 	private String[] buts = {"Execute", "Clear"};
     
 	public ConsoleBuilder(){
 		console = new TextArea();
-		previousCommands = new TextArea();
-		previousCommands.setEditable(false);
+		console.setPrefColumnCount(80);
+		console.setPrefRowCount(5);
+		previousCommands = new SplitPane();
+		previousCommands.setOrientation(Orientation.VERTICAL);
+		
 	}
 	
 	public void buildConsole(GridPane myRoot){
 		GridPane.setConstraints(console, 0, 2);
 		GridPane.setConstraints(previousCommands, 0, 1);
-		myRoot.getChildren().addAll(console, previousCommands);
+		
+		ScrollBar scrollVertical = new ScrollBar();
+		GridPane.setConstraints(scrollVertical, 0, 1);
+		scrollVertical.setMin(0);
+		scrollVertical.setMax(100);
+		scrollVertical.setOrientation(Orientation.VERTICAL);
+		scrollVertical.setTranslateX(-8);
+		scrollVertical.valueProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
+				previousCommands.setTranslateY(-new_val.doubleValue() - 7);
+			}
+		});
+		
+		myRoot.getChildren().addAll(console, previousCommands, scrollVertical);
 		createButtons(myRoot, 2);
 	}
 	
@@ -53,8 +76,12 @@ public class ConsoleBuilder {
 		ButtonBuilder.addButtonsTo(buttons, myRoot);
 	}
 	
-	public void addPreviousCommand(String previous){
-		previousCommands.appendText("\n" + previous);
+	public void addPreviousCommand(String previousText){
+		StackPane previousPane = new StackPane();
+		Button pcommandButton = new Button(previousText);
+		//pcommandButton.setOnAction(executePreviousCommand);
+		previousPane.getChildren().add(pcommandButton);
+		previousCommands.getItems().add(previousPane);
 	}
 	
 }

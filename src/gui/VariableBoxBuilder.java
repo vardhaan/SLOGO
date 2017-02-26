@@ -9,6 +9,8 @@ public class VariableBoxBuilder {
 	public VariableBoxBuilder(){
 		variables = new TextArea();
 		variables.setEditable(false);
+		variables.setPrefColumnCount(10);
+		variables.setPrefRowCount(5);
 		double xloc = 10;
 		double yloc = 11;
 		double angle = 12.1;
@@ -16,8 +18,8 @@ public class VariableBoxBuilder {
 	}
 	
 	public void buildVariableBox(GridPane myRoot){
-		GridPane.setConstraints(variables, 3, 1);
-		GridPane.setColumnSpan(variables, 3);
+		GridPane.setConstraints(variables, 1, 1);
+		GridPane.setColumnSpan(variables, 2);
 		myRoot.getChildren().addAll(variables);
 	}
 	

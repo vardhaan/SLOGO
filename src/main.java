@@ -26,10 +26,10 @@ public class main extends Application {
 		builder.buildGUI(myRoot);
 		Scene scene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT);
 		
-		File cssFile = new File("src/resources/format.css");
+	/*	File cssFile = new File("src/resources/format.css");
 		scene.getStylesheets().clear();
 		scene.getStylesheets().add("file:///" + cssFile.getAbsolutePath().replace("\\", "/"));
-		
+	*/	
         s.setScene(scene);
         s.show();
 	}
