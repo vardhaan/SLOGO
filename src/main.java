@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 public class main extends Application {
 	public static final double SCENE_WIDTH = 1400;
 	public static final double SCENE_HEIGHT = 800;
+	public static final String STAGE_TITLE = "SLOGO Team 1";
 	
 	@Override
 	public void start(Stage s) throws Exception {
@@ -27,13 +28,13 @@ public class main extends Application {
 		GridPane myRoot = builder.buildGridPane();
 		builder.buildGUI(myRoot);
 		//MenuBar myMenu=builder.buildMenu();
-		builder.buildGUI(myRoot);
 		Scene scene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT);
 		
 	/*	File cssFile = new File("src/resources/format.css");
 		scene.getStylesheets().clear();
 		scene.getStylesheets().add("file:///" + cssFile.getAbsolutePath().replace("\\", "/"));
 	*/	
+		s.setTitle(STAGE_TITLE);
         s.setScene(scene);
         s.show();
 	}
