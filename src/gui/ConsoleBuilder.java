@@ -26,15 +26,19 @@ public class ConsoleBuilder {
 		console.setPrefRowCount(5);
 		previousCommands = new SplitPane();
 		previousCommands.setOrientation(Orientation.VERTICAL);
+		//previousCommands.setMaxSize(100,100);
 		
 	}
 	
 	public void buildConsole(GridPane myRoot){
-		GridPane.setConstraints(console, 0, 2);
-		GridPane.setConstraints(previousCommands, 0, 1);
+		GridPane.setConstraints(console, 0, 3);
+		GridPane.setConstraints(previousCommands, 1, 2);
+		GridPane.setColumnSpan(previousCommands, 2);
+		System.out.println(previousCommands.getHeight());
+		System.out.println(previousCommands.getWidth());
 		
 		ScrollBar scrollVertical = new ScrollBar();
-		GridPane.setConstraints(scrollVertical, 0, 1);
+		GridPane.setConstraints(scrollVertical, 1, 2);
 		scrollVertical.setMin(0);
 		scrollVertical.setMax(100);
 		scrollVertical.setOrientation(Orientation.VERTICAL);
@@ -46,7 +50,7 @@ public class ConsoleBuilder {
 		});
 		
 		myRoot.getChildren().addAll(console, previousCommands, scrollVertical);
-		createButtons(myRoot, 2);
+		createButtons(myRoot, 3);
 	}
 	
 	private void createButtons(GridPane myRoot, int row) {
