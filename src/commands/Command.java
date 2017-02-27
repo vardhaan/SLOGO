@@ -10,6 +10,11 @@ public abstract class Command {
 	protected Command dependent;
 
 	
+	public Command() {
+		parameters = new ArrayList<Double>();
+		returnValue = 0;
+	}
+	
 	public List<Double> getParameters() {
 		return parameters;
 	}
@@ -17,6 +22,18 @@ public abstract class Command {
 	public double getNumParameters() {
 		return expectedNumParameters;
 		
+	}
+	
+	public boolean needsParameter() {
+		return !(parameters.size() == expectedNumParameters);
+	}
+	
+	public boolean needsCommand() {
+		return needsParameter();
+	}
+	
+	public void addCommand(Command toAdd) {
+		toAdd.setDependent(this);
 	}
 	
 	public double getReturnValue() {

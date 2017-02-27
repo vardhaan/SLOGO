@@ -10,6 +10,7 @@ public class CommandEngine {
 	
 	public CommandEngine() {
 		commandQueue = new ArrayList<Command>();
+		variables = new HashMap<String, Double>();
 	}
 	
 	
@@ -91,8 +92,12 @@ public class CommandEngine {
 			}
 		}
 		if (commandIndex!=-1) {
-			toAdd.setDependent(commandQueue.get(commandIndex));
-			commandQueue.add(commandIndex, toAdd);
+			if (commandQueue.get(commandIndex) instanceof LongCommand) {
+				commandQueue.get(commandIndex).addCommand(toAdd);
+			} else {
+				toAdd.setDependent(commandQueue.get(commandIndex));
+				commandQueue.add(commandIndex, toAdd);
+			}
 		} else {
 			commandQueue.add(toAdd);
 		}
@@ -102,15 +107,27 @@ public class CommandEngine {
 	public void addParameter(Double d) {
 		int commandIndex = -1;
 		for (int i=0;i<commandQueue.size();i++) {
-			if (commandQueue.get(i).getParameters().size() != commandQueue.get(i).getNumParameters()) {
+			if (commandQueue.get(i).needsParameter()) {
 				commandIndex = i;
 			}
+			
 		}
 		if (commandIndex!=-1) {
-			commandQueue.get(commandIndex).getParameters().add(d);
+			commandQueue.get(commandIndex).addParameter(d);
 		} else {
 			//TODO: THROW EXCEPTION: TOO MANY PARAMETERS
 		}
+	}
+	
+	public Command getMostRecentOfType(String type) throws ClassNotFoundException {
+		Class<?> clazz = Class.forName(type);
+		Command mostRecent = null;
+		for (int i=0;i<commandQueue.size();i++) {
+			if (clazz.isInstance(commandQueue.get(i))) {
+				mostRecent = commandQueue.get(i);
+			}
+		}
+		return mostRecent; //error check in receiving method
 	}
 	
 	
