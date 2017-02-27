@@ -1,14 +1,14 @@
 /**
  * 
  */
-package maths;
+package Boolean;
 
 /**
  * @author Zhiyong
  *
  */
-public class MINUS extends Maths{
-	public MINUS(){
+public class  NOT extends Boolean{
+	public NOT(){
 		super();
 		expectedNumParameters = 1;
 	}
@@ -16,7 +16,7 @@ public class MINUS extends Maths{
 	@Override
 	public double executeCommand() {
 		double x = parameters.get(0);
-		returnValue = -x ;
+		returnValue = (x == 0)? 1 : 0;
 		setReturnValue();
 		
 		return returnValue;

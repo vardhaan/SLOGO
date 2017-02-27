@@ -1,22 +1,23 @@
 /**
  * 
  */
-package maths;
+package Boolean;
 
 /**
  * @author Zhiyong
  *
  */
-public class MINUS extends Maths{
-	public MINUS(){
+public class  OR extends Boolean{
+	public OR(){
 		super();
-		expectedNumParameters = 1;
+		expectedNumParameters = 2;
 	}
 
 	@Override
 	public double executeCommand() {
 		double x = parameters.get(0);
-		returnValue = -x ;
+		double y = parameters.get(1);
+		returnValue = (x != 0 || y != 0)? 1 : 0;
 		setReturnValue();
 		
 		return returnValue;
