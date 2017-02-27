@@ -17,7 +17,7 @@ public class QUOTIENT extends Maths{
 	public double executeCommand() {
 		double x = parameters.remove(0);
 		double y = parameters.remove(1);
-		returnValue = x / y;
+		returnValue = (y==0)? 0 : x / y;
 		setReturnValue();
 		
 		return returnValue;
