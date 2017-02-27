@@ -1,14 +1,14 @@
 /**
  * 
  */
-package Boolean;
+package commands;
 
 /**
  * @author Zhiyong
  *
  */
-public class EQUAL extends Boolean{
-	public EQUAL(){
+public class LESS extends Command{
+	public LESS(){
 		super();
 		expectedNumParameters = 2;
 	}
@@ -17,7 +17,7 @@ public class EQUAL extends Boolean{
 	public double executeCommand() {
 		double x = parameters.get(0);
 		double y = parameters.get(1);
-		returnValue = (x == y)? 1 : 0;
+		returnValue = (x < y)? 1 : 0;
 		setReturnValue();
 		
 		return returnValue;

@@ -1,13 +1,13 @@
 /**
  * 
  */
-package maths;
+package commands;
 
 /**
  * @author Zhiyong
  *
  */
-public class PI extends Maths{
+public class PI extends Command{
 	public PI(){
 		super();
 		expectedNumParameters = 0;

@@ -1,22 +1,23 @@
 /**
  * 
  */
-package Boolean;
+package commands;
 
 /**
  * @author Zhiyong
  *
  */
-public class  NOT extends Boolean{
-	public NOT(){
+public class SUM extends Command{
+	public SUM(){
 		super();
-		expectedNumParameters = 1;
+		expectedNumParameters = 2;
 	}
 
 	@Override
 	public double executeCommand() {
 		double x = parameters.get(0);
-		returnValue = (x == 0)? 1 : 0;
+		double y = parameters.get(1);
+		returnValue = x + y;
 		setReturnValue();
 		
 		return returnValue;

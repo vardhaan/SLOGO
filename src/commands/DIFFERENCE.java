@@ -1,14 +1,14 @@
 /**
  * 
  */
-package maths;
+package commands;
 
 /**
  * @author Zhiyong
  *
  */
-public class QUOTIENT extends Maths{
-	public QUOTIENT(){
+public class DIFFERENCE extends Command{
+	public DIFFERENCE(){
 		super();
 		expectedNumParameters = 2;
 	}
@@ -17,7 +17,7 @@ public class QUOTIENT extends Maths{
 	public double executeCommand() {
 		double x = parameters.get(0);
 		double y = parameters.get(1);
-		returnValue = (y==0)? 0 : x / y;
+		returnValue = x - y;
 		setReturnValue();
 		
 		return returnValue;

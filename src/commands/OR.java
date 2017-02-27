@@ -1,13 +1,13 @@
 /**
  * 
  */
-package Boolean;
+package commands;
 
 /**
  * @author Zhiyong
  *
  */
-public class  OR extends Boolean{
+public class  OR extends Command{
 	public OR(){
 		super();
 		expectedNumParameters = 2;

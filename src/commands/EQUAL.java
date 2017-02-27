@@ -1,14 +1,14 @@
 /**
  * 
  */
-package Boolean;
+package commands;
 
 /**
  * @author Zhiyong
  *
  */
-public class AND extends Boolean{
-	public AND(){
+public class EQUAL extends Command{
+	public EQUAL(){
 		super();
 		expectedNumParameters = 2;
 	}
@@ -17,7 +17,7 @@ public class AND extends Boolean{
 	public double executeCommand() {
 		double x = parameters.get(0);
 		double y = parameters.get(1);
-		returnValue = (x != 0 && y != 0)? 1 : 0;
+		returnValue = (x == y)? 1 : 0;
 		setReturnValue();
 		
 		return returnValue;

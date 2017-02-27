@@ -1,22 +1,22 @@
 /**
  * 
  */
-package maths;
+package commands;
 
 /**
  * @author Zhiyong
  *
  */
-public class LOG extends Maths{
-	public LOG(){
+public class MINUS extends Command{
+	public MINUS(){
 		super();
 		expectedNumParameters = 1;
 	}
 
 	@Override
 	public double executeCommand() {
-		double degree = parameters.get(0);
-		returnValue =(degree == 0)? 0 : Math.log(degree);
+		double x = parameters.get(0);
+		returnValue = -x ;
 		setReturnValue();
 		
 		return returnValue;

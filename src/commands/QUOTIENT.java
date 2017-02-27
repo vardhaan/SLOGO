@@ -1,14 +1,14 @@
 /**
  * 
  */
-package Boolean;
+package commands;
 
 /**
  * @author Zhiyong
  *
  */
-public class NOTEQUAL extends Boolean{
-	public NOTEQUAL(){
+public class QUOTIENT extends Command{
+	public QUOTIENT(){
 		super();
 		expectedNumParameters = 2;
 	}
@@ -17,7 +17,7 @@ public class NOTEQUAL extends Boolean{
 	public double executeCommand() {
 		double x = parameters.get(0);
 		double y = parameters.get(1);
-		returnValue = (x != y)? 1 : 0;
+		returnValue = (y==0)? 0 : x / y;
 		setReturnValue();
 		
 		return returnValue;
