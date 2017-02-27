@@ -17,7 +17,7 @@ public class RANDOM extends Maths{
 
 	@Override
 	public double executeCommand() {
-		double max = parameters.remove(0);
+		double max = parameters.get(0);
 		Random random = new Random((long) max);
 		returnValue = random.nextDouble() ;
 		setReturnValue();

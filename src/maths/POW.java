@@ -15,8 +15,8 @@ public class POW extends Maths{
 
 	@Override
 	public double executeCommand() {
-		double x = parameters.remove(0);
-		double y = parameters.remove(1);
+		double x = parameters.get(0);
+		double y = parameters.get(1);
 		returnValue = Math.pow(x, y);
 		setReturnValue();
 		

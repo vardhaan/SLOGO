@@ -15,7 +15,7 @@ public class TAN extends Maths{
 
 	@Override
 	public double executeCommand() {
-		double degree = parameters.remove(0);
+		double degree = parameters.get(0);
 		returnValue = (degree %  (Math.PI/2) == 0) ? 0 :Math.tan(degree);
 		setReturnValue();
 		

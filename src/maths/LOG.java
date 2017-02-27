@@ -15,7 +15,7 @@ public class LOG extends Maths{
 
 	@Override
 	public double executeCommand() {
-		double degree = parameters.remove(0);
+		double degree = parameters.get(0);
 		returnValue =(degree == 0)? 0 : Math.log(degree);
 		setReturnValue();
 		
