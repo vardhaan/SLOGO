@@ -1,16 +1,14 @@
 /**
  * 
  */
-package maths;
-
-import java.util.Random;
+package commands;
 
 /**
  * @author Zhiyong
  *
  */
-public class SIN extends Maths{
-	public SIN(){
+public class COS extends Command{
+	public COS(){
 		super();
 		expectedNumParameters = 1;
 	}
@@ -18,7 +16,7 @@ public class SIN extends Maths{
 	@Override
 	public double executeCommand() {
 		double degree = parameters.get(0);
-		returnValue = Math.sin(degree);
+		returnValue = Math.cos(degree);
 		setReturnValue();
 		
 		return returnValue;

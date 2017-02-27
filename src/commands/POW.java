@@ -1,14 +1,14 @@
 /**
  * 
  */
-package maths;
+package commands;
 
 /**
  * @author Zhiyong
  *
  */
-public class REMAINDER extends Maths{
-	public REMAINDER(){
+public class POW extends Command{
+	public POW(){
 		super();
 		expectedNumParameters = 2;
 	}
@@ -17,7 +17,7 @@ public class REMAINDER extends Maths{
 	public double executeCommand() {
 		double x = parameters.get(0);
 		double y = parameters.get(1);
-		returnValue = x % y;
+		returnValue = Math.pow(x, y);
 		setReturnValue();
 		
 		return returnValue;

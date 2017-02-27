@@ -1,14 +1,14 @@
 /**
  * 
  */
-package maths;
+package commands;
 
 /**
  * @author Zhiyong
  *
  */
-public class POW extends Maths{
-	public POW(){
+public class NOTEQUAL extends Command{
+	public NOTEQUAL(){
 		super();
 		expectedNumParameters = 2;
 	}
@@ -17,7 +17,7 @@ public class POW extends Maths{
 	public double executeCommand() {
 		double x = parameters.get(0);
 		double y = parameters.get(1);
-		returnValue = Math.pow(x, y);
+		returnValue = (x != y)? 1 : 0;
 		setReturnValue();
 		
 		return returnValue;

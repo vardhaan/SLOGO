@@ -1,14 +1,14 @@
 /**
  * 
  */
-package Boolean;
+package commands;
 
 /**
  * @author Zhiyong
  *
  */
-public class LESS extends Boolean{
-	public LESS(){
+public class PRODUCT extends Command{
+	public PRODUCT(){
 		super();
 		expectedNumParameters = 2;
 	}
@@ -17,7 +17,7 @@ public class LESS extends Boolean{
 	public double executeCommand() {
 		double x = parameters.get(0);
 		double y = parameters.get(1);
-		returnValue = (x < y)? 1 : 0;
+		returnValue = x * y;
 		setReturnValue();
 		
 		return returnValue;

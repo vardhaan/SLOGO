@@ -1,7 +1,7 @@
 /**
  * 
  */
-package maths;
+package commands;
 
 import java.util.Random;
 
@@ -9,7 +9,7 @@ import java.util.Random;
  * @author Zhiyong
  *
  */
-public class RANDOM extends Maths{
+public class RANDOM extends Command{
 	public RANDOM(){
 		super();
 		expectedNumParameters = 1;
