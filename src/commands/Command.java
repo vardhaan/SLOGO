@@ -27,8 +27,12 @@ public abstract class Command {
 		this.parameters.add(param);
 	}
 	
-	public void sendReturnToDependent() {
+	protected void sendReturnToDependent() {
 		dependent.addParameter(returnValue);
+	}
+	
+	public void setDependent(Command dependent) {
+		this.dependent = dependent;
 	}
 	
 	public void setReturnValue() {
@@ -37,7 +41,10 @@ public abstract class Command {
 			for (int i=0;i<parameters.size();i++) {
 				returnValue = parameters.get(i);
 			}
-			sendReturnToDependent();
+			if (dependent!=null) {
+				sendReturnToDependent();
+
+			}
 		} else {
 			//TODO: SOME EXCEPTION
 		}
