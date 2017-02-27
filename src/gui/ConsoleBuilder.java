@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
@@ -24,9 +25,10 @@ public class ConsoleBuilder {
 		console = new TextArea();
 		console.setPrefColumnCount(80);
 		console.setPrefRowCount(5);
+		console.setMinHeight(150);
 		previousCommands = new SplitPane();
 		previousCommands.setOrientation(Orientation.VERTICAL);
-		//previousCommands.setMaxSize(100,100);
+		SplitPane.setResizableWithParent(previousCommands, Boolean.FALSE);
 		
 	}
 	
@@ -34,22 +36,13 @@ public class ConsoleBuilder {
 		GridPane.setConstraints(console, 0, 3);
 		GridPane.setConstraints(previousCommands, 1, 2);
 		GridPane.setColumnSpan(previousCommands, 2);
-		System.out.println(previousCommands.getHeight());
-		System.out.println(previousCommands.getWidth());
-		
-		ScrollBar scrollVertical = new ScrollBar();
-		GridPane.setConstraints(scrollVertical, 1, 2);
-		scrollVertical.setMin(0);
-		scrollVertical.setMax(100);
-		scrollVertical.setOrientation(Orientation.VERTICAL);
-		scrollVertical.setTranslateX(-8);
-		scrollVertical.valueProperty().addListener(new ChangeListener<Number>() {
-			public void changed(ObservableValue<? extends Number> ov, Number old_val, Number new_val) {
-				previousCommands.setTranslateY(-new_val.doubleValue() - 7);
-			}
-		});
-		
-		myRoot.getChildren().addAll(console, previousCommands, scrollVertical);
+		ScrollPane previousScroll = new ScrollPane();
+		previousScroll.setContent(previousCommands);
+		previousScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+		GridPane.setConstraints(previousScroll, 1, 2);
+		GridPane.setColumnSpan(previousScroll, 2);
+		//previousScroll.setFitToHeight(true);
+		myRoot.getChildren().addAll(console, previousCommands, previousScroll);
 		createButtons(myRoot, 3);
 	}
 	
