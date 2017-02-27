@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Command {
-	protected ArrayList<Double> parameters;
+	protected List<Double> parameters;
 	protected double returnValue;
 	protected double expectedNumParameters;
 	protected Command dependent;

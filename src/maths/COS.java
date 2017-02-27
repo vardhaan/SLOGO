@@ -15,7 +15,7 @@ public class COS extends Maths{
 
 	@Override
 	public double executeCommand() {
-		double degree = parameters.remove(0);
+		double degree = parameters.get(0);
 		returnValue = Math.cos(degree);
 		setReturnValue();
 		
