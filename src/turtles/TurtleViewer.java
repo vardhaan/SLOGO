@@ -1,3 +1,4 @@
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -36,57 +37,47 @@ public class TurtleViewer extends Observable implements Observer, Iterable<Turtl
 	public static final String TURTLE_IMAGE="";
 	private BufferedImage display;
 	//private Workspace myWorkspace;
-	
-	
+
+
 	public static final double DEFAULT_TURTLE_SPEED = 100; //pixels or degrees per second
 	public static final double DEFAULT_X_POS = 0;
 	public static final double DEFAULT_Y_POS = 0;
 	public static final double DEFAULT_ANGLE = 90;
-	
-	public TurtleViewer(Dimension size,){
-		panelSize=size;
-		display=new BufferedImage(panelSize.width,panelsize.height,Bu)
-	}
+
+
+
 	public void getTurtle(Turtle turtlename){
 		turtles.add(turtlename);
-	
-}
-	public void TurtleImage(String ImagePath){
-		try{
-			BufferedImage TurtleImage=ImageIO.read(new File("src/images/"+ImagePath));
-		}
-		catch(IOException e){
-			Graphics2D graph=(Graphics2D) display.getGraphics();
-			graph.setColor(Color.GREEN);
-			graph.fillRect(0, 0, display.getHeight(), display.getWidth());
-			graph.dispose();
-		}
-		
-		
+
 	}
-	public void PaintingView (Turtle turtle){
+	public void PaintingView (Turtle turtle, String ImagePath){
 		Graphics2D g= (Graphics2D) display.getGraphics();
-		
+
 		//for(Line line: turtle.getGraph)
-	if(turtle.getShow()){
-		BuffereImage Turtle-ImageIO.read(arg0)
+		if(turtle.getShow()){
+			BufferedImage Turtle=ImageIO.read(new File("src/images/"+ImagePath));
+		}
+		if (turtle.getPen()){
+			g.setColor(Color.black);
+			g.setStroke(new BasicStroke(10,BasicStroke.CAP_ROUND,BasicStroke.JOIN_BEVEL));
+			g.drawLine(turtle.getX(), y1, x2, y2);
+		}
 	}
+
+	public Iterator<Turtle> iterator() {
+		return turtles.iterator();
 	}
-	/*
-public Iterator<Turtle> iterator() {
-	return turtles.iterator();
-}
 
-@Override
-public void update(Observable turtle, Object arg1) {
-	setChanged();
-	notifyObservers();
+	@Override
+	public void update(Observable turtle, Object arg1) {
+		setChanged();
+		notifyObservers();
 
-}
-public void addObserver(Observer o){
-	setChanged();
-	notifyObservers();
-	super.addObserver(o);
-}
-*/
+	}
+	public void addObserver(Observer o){
+		setChanged();
+		notifyObservers();
+		super.addObserver(o);
+	}
+
 }
