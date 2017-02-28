@@ -3,46 +3,54 @@ package gui;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollBar;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 
 public class ConsoleBuilder {
 	private TextArea console;
 	private SplitPane previousCommands;
 	private String[] buts = {"Execute", "Clear"};
+	private ObservableList<Button> pcommands;
+	private ListView<Button> plist;
     
 	public ConsoleBuilder(){
 		console = new TextArea();
 		console.setPrefColumnCount(80);
 		console.setPrefRowCount(5);
 		console.setMinHeight(150);
+		pcommands = FXCollections.observableArrayList();
+		plist = new ListView<Button>();
+		plist.setItems(pcommands);
+		plist.setOrientation(Orientation.VERTICAL);
+		plist.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 		previousCommands = new SplitPane();
 		previousCommands.setOrientation(Orientation.VERTICAL);
+		
+		//previousCommands.set
 		SplitPane.setResizableWithParent(previousCommands, Boolean.FALSE);
 		
 	}
 	
 	public void buildConsole(GridPane myRoot){
 		GridPane.setConstraints(console, 0, 3);
-		GridPane.setConstraints(previousCommands, 1, 2);
-		GridPane.setColumnSpan(previousCommands, 2);
+		GridPane.setConstraints(plist, 1, 2);
+		GridPane.setColumnSpan(plist, 2);
 		ScrollPane previousScroll = new ScrollPane();
 		previousScroll.setContent(previousCommands);
 		previousScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 		GridPane.setConstraints(previousScroll, 1, 2);
 		GridPane.setColumnSpan(previousScroll, 2);
-		//previousScroll.setFitToHeight(true);
-		myRoot.getChildren().addAll(console, previousCommands, previousScroll);
+		myRoot.getChildren().addAll(console, plist);
 		createButtons(myRoot, 3);
 	}
 	
@@ -74,11 +82,10 @@ public class ConsoleBuilder {
 	}
 	
 	public void addPreviousCommand(String previousText){
-		StackPane previousPane = new StackPane();
 		Button pcommandButton = new Button(previousText);
 		//pcommandButton.setOnAction(executePreviousCommand);
-		previousPane.getChildren().add(pcommandButton);
-		previousCommands.getItems().add(previousPane);
+		pcommands.add(pcommandButton);
+		
 	}
 	
 }

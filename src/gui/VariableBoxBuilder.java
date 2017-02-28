@@ -15,7 +15,7 @@ public class VariableBoxBuilder {
 		double xloc = 10;
 		double yloc = 11;
 		double angle = 12.1;
-		variables.setText(String.format("X: %f \n Y: %f \n Angle: %f", xloc, yloc, angle));
+		variables.setText(String.format("X: %f \nY: %f \nAngle: %f", xloc, yloc, angle));
 	}
 	
 	public void buildVariableBox(GridPane myRoot){
