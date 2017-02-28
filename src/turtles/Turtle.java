@@ -75,9 +75,15 @@ public class Turtle extends Observable implements Cloneable{
 		showing = b;
 		
 	}
+	public boolean getShow(){
+		return showing;
+	}
 	//here the method is for the PENDOWN command
 	public void setPenDown(boolean b){
 		penDown = b;
+	}
+	public boolean getPen(){
+		return penDown;
 	}
 	
 	public void setOverallXChange(double overallXChange) {

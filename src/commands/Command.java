@@ -3,6 +3,8 @@ package commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import exceptions.ParameterNotEnoughException;
+
 public abstract class Command {
 	protected List<Double> parameters;
 	protected double returnValue;
@@ -52,18 +54,13 @@ public abstract class Command {
 		this.dependent = dependent;
 	}
 	
-	public void setReturnValue() {
-		// TODO Auto-generated method stub
+	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
-			for (int i=0;i<parameters.size();i++) {
-				returnValue = parameters.get(i);
-			}
-			if (dependent!=null) {
-				sendReturnToDependent();
-
-			}
+				returnValue = getReturnValue();
 		} else {
-			//TODO: SOME EXCEPTION
+			ParameterNotEnoughException p =  new ParameterNotEnoughException();
+			//TODO: the frontend get the message of the exception
+			p.getMessage();
 		}
 		
 	}

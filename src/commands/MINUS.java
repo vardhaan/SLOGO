@@ -3,6 +3,8 @@
  */
 package commands;
 
+import exceptions.ParameterNotEnoughException;
+
 /**
  * @author Zhiyong
  *
@@ -17,7 +19,11 @@ public class MINUS extends Command{
 	public double executeCommand() {
 		double x = parameters.get(0);
 		returnValue = -x ;
-		setReturnValue();
+		try {
+			setReturnValue();
+		} catch (ParameterNotEnoughException e) {
+			e.getMessage();
+		}
 		
 		return returnValue;
 	}

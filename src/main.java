@@ -27,7 +27,7 @@ public class main extends Application {
 		GUIBuilder builder = new GUIBuilder();
 		GridPane myRoot = builder.buildGridPane();
 		builder.buildGUI(myRoot);
-		//MenuBar myMenu=builder.buildMenu();
+		MenuBar myMenu=builder.buildMenu();
 		Scene scene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT);
 		
 		File cssFile = new File("src/resources/format.css");

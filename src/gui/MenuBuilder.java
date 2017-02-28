@@ -39,6 +39,12 @@ public class MenuBuilder {
 		GridPane.setConstraints(menu, 0, 0);
 		myRoot.getChildren().addAll(menu);
 	}
+	public void updateMenu(GridPane myRoot){
+		myRoot.getChildren().removeAll(menu);
+		//myRoot.getChildren().addAll(menu);
+		
+	}
+	
 
 	private Menu intHelpMenu() {
 		MenuItem viewHelp = new MenuItem(myResources.getString("View_Readme"));
@@ -96,17 +102,19 @@ public class MenuBuilder {
 		colorShiftPen.setOnAction(e -> colorShiftPen());
 		MenuItem BackgroundColor= new MenuItem("Background_Color");
 		BackgroundColor.setOnAction(e-> BackgroundColor());
-		Menu Language = new Menu("Language");
-		Language.getItems().add(new MenuItem(myResources.getString("English")));
-		Language.getItems().add(new MenuItem("Chinese"));
-		Language.getItems().add(new MenuItem("French"));
-		Language.getItems().add(new MenuItem("German"));
-		Language.getItems().add(new MenuItem("Italian"));
-		Language.getItems().add(new MenuItem("Portuguese"));
-		Language.getItems().add(new MenuItem("Russian"));
-		Language.getItems().add(new MenuItem("Syntax"));
-		Language.getItems().add(new MenuItem("Spanish"));
-		Language.setOnAction(e-> Language());
+		Menu Language = initLanguage();
+		//enu reset=initResetMenu();
+		//Language.getItems().add(new MenuItem(myResources.getString("English")));
+		//myResources.getString("English").setOnAction(e->English());
+		//Language.getItems().add(new MenuItem("Chinese"));
+		//Language.getItems().add(new MenuItem("French"));
+		//Language.getItems().add(new MenuItem("German"));
+		//Language.getItems().add(new MenuItem("Italian"));
+		//Language.getItems().add(new MenuItem("Portuguese"));
+		//Language.getItems().add(new MenuItem("Russian"));
+		//Language.getItems().add(new MenuItem("Syntax"));
+		//Language.getItems().add(new MenuItem("Spanish"));
+		//Language.setOnAction(e-> Language());
 		MenuItem TurtleImage= new MenuItem("Change_Image");
 		TurtleImage.setOnAction(e-> TurtleImageChange());
 		return new Menu("Settings", null, Language,BackgroundColor,colorShiftPen, TurtleImage );
@@ -114,23 +122,35 @@ public class MenuBuilder {
 
 	}
 
+	private Menu initLanguage() {
+		MenuItem English = new MenuItem(myResources.getString("English"));
+		English.setOnAction((e-> EnglishLanguage()));
+		return new Menu("Language",null,English);
+	}
 	private Object TurtleImageChange() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	private void Language() {
+	/*private Menu Language() {
+		//if(keyPressed)
 		MenuItem English = new MenuItem(myResources.getString("English"));
 		English.setOnAction((e-> EnglishLanguage()));
+		return new Menu("Language",null,English);
 		
 	}
+	*/
 		
 		
 
 	private void EnglishLanguage() {
 		// TODO Auto-generated method stub
 		RESOURCES_LOCATION="resources/languages/English";
-		
 		myResources=ResourceBundle.getBundle("resources/languages/English");
+		Menu settings=initSettingsMenu();
+		Menu reset=initResetMenu();
+		Menu help= intHelpMenu();
+		menu=new MenuBar(settings, reset, help);
+		//updateMenu(myroot);
 		buildMenu(myroot);
 	}
 	private void BackgroundColor() {
