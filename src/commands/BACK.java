@@ -16,6 +16,8 @@ public class BACK extends TurtleCommand {
 	@Override
 	public double executeCommand() {
 	
+		returnValue = parameters.get(0);
+		
 		try {
 			setReturnValue();
 		} catch (ParameterNotEnoughException e) {
@@ -25,9 +27,9 @@ public class BACK extends TurtleCommand {
 		double degree = target.getHeading();
 		double y = Math.sin(degree) * returnValue;
 		double x = Math.cos(degree) * returnValue;
-		target.setOverallXChange(x);
+		target.setOverallXChange(-x);
 		target.setOverallYChange(y);
-		return 0;
+		return returnValue;
 	}
-
+	
 }
