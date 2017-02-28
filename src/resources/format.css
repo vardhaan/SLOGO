@@ -1,10 +1,9 @@
-.text-area{
-    -fx-min-width: 1000;
-    -fx-min-height: 80;
-    -fx-alignment: top-left;
+.split-pane:vertical > * > .split-pane-divider {
+   -fx-border-color:  transparent;
+   -fx-background-color: transparent;
+   -fx-background-insets: 0;
 }
 
 .text-area .content {
-    -fx-background-color: lightsteelblue; 
-    -fx-display-caret: true;
+    -fx-background-color: lightsteelblue;
 }
