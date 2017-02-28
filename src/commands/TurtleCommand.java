@@ -12,11 +12,10 @@ public abstract class TurtleCommand extends Command {
 	protected boolean showTurtle;
 	
 	public TurtleCommand() {
-		this.turtleTarget = TurtleHandler.DEFAULT_TURTLE;
+		turtleTarget = TurtleHandler.DEFAULT_TURTLE;
 		parameters = new ArrayList<Double>();
 		penDown = true;
 		showTurtle = true;
-
 	}
 	
 	public Turtle getTurtle() {
@@ -29,17 +28,16 @@ public abstract class TurtleCommand extends Command {
 	public abstract double executeCommand();
 	
 	
-	
 	public void setTurtleX() {
-		//TODO: IMPLEMENT
+		//TODO
 	}
 	
-	public void setTurtleY() {
-		//TODO: IMPLEMENT
+	public  void setTurtleY() {
+		//TODO
 	}
 	
-	public void setDegree() {
-		//TODO: IMPLEMENT
+	public  void setDegree() {
+		//TODO
 	}
 	
 	public double getNumParameters(){
