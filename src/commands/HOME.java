@@ -3,6 +3,7 @@
  */
 package commands;
 
+import exceptions.ParameterNotEnoughException;
 import turtles.Turtle;
 
 /**
@@ -27,7 +28,11 @@ public class HOME extends TurtleCommand{
 		turtle.setX(0);
 		turtle.setY(0);
 		turtle.setHeading(0);
-		setReturnValue();
+		try {
+			setReturnValue();
+		} catch (ParameterNotEnoughException e) {
+			e.getMessage();
+		}
 		
 		return 1;
 	}

@@ -5,6 +5,7 @@ package commands;
 
 import java.lang.reflect.Method;
 
+import exceptions.ParameterNotEnoughException;
 import turtles.Turtle;
 /**
  * @author Zhiyong
@@ -28,8 +29,12 @@ public class CS extends TurtleCommand{
 		turtle.setX(0);
 		turtle.setY(0);
 		turtle.setHeading(0);
-		//TODO: here need to get an object from the history and remove all the lines
-		setReturnValue();
+
+		try {
+			setReturnValue();
+		} catch (ParameterNotEnoughException e) {
+			e.getMessage();
+		}
 		return returnValue;
 	}
 

@@ -3,6 +3,8 @@
  */
 package commands;
 
+import exceptions.ParameterNotEnoughException;
+
 /**
  * @author Zhiyong
  *
@@ -17,7 +19,11 @@ public class LOG extends Command{
 	public double executeCommand() {
 		double degree = parameters.get(0);
 		returnValue =(degree == 0)? 0 : Math.log(degree);
-		setReturnValue();
+		try {
+			setReturnValue();
+		} catch (ParameterNotEnoughException e) {
+			e.getMessage();
+		}
 		
 		return returnValue;
 	}
