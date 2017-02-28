@@ -1,6 +1,7 @@
 package gui;
 
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
@@ -21,7 +22,6 @@ public class GridBuilder {
 		myGrid = new GridPane();
 		myGrid.setPrefHeight(700);
 		myGrid.setGridLinesVisible(true);
-
 	}
 
 	public void buildGrid(GridPane myRoot) {

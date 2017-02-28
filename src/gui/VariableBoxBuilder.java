@@ -1,12 +1,14 @@
 package gui;
 
+import java.util.ResourceBundle;
+
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
 
 public class VariableBoxBuilder {
 	private TextArea variables;
 	
-	public VariableBoxBuilder(){
+	public VariableBoxBuilder(ResourceBundle myResources){
 		variables = new TextArea();
 		variables.setEditable(false);
 		variables.setPrefColumnCount(10);
