@@ -43,6 +43,9 @@ public class Turtle extends Observable implements Cloneable{
 	public void setX(double newX) {
 		double gridXDisplacement = getGridWidth()/2.0;
 		this.xPos = newX + gridXDisplacement;
+		if(Math.abs(xPos)>=getGridWidth()){
+			
+		}
 	}
 	
 	public void setY(double newY) {

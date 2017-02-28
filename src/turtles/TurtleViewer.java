@@ -11,9 +11,12 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+//import javafx.scene.paint.Color;
 
 import javax.imageio.ImageIO;
 
+import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Line;
 import turtles.Turtle;
 import turtles.TurtleHandler;
 
@@ -35,7 +38,7 @@ public class TurtleViewer extends Observable implements Observer, Iterable<Turtl
 	private Dimension panelSize;
 	public static final double DEFAULT_SIZE = 700;
 	public static final String TURTLE_IMAGE="";
-	private BufferedImage display;
+	private Line line;
 	//private Workspace myWorkspace;
 
 
@@ -50,17 +53,16 @@ public class TurtleViewer extends Observable implements Observer, Iterable<Turtl
 		turtles.add(turtlename);
 
 	}
-	public void PaintingView (Turtle turtle, String ImagePath){
-		Graphics2D g= (Graphics2D) display.getGraphics();
+	public void PaintingView (Turtle turtle, String ImagePath, GridPane myRoot){
+		Line lines=line;
 
 		//for(Line line: turtle.getGraph)
 		if(turtle.getShow()){
 			BufferedImage Turtle=ImageIO.read(new File("src/images/"+ImagePath));
 		}
 		if (turtle.getPen()){
-			g.setColor(Color.black);
-			g.setStroke(new BasicStroke(10,BasicStroke.CAP_ROUND,BasicStroke.JOIN_BEVEL));
-			g.drawLine(xPos, yPos, turtle.getX(), turtle.getY());
+			lines.setFill(javafx.scene.paint.Color.AQUA);
+			
 		}
 	}
 
