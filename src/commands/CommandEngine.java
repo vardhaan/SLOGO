@@ -1,13 +1,34 @@
 package commands;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CommandEngine {
 
 	private ArrayList<Command> commandQueue;
+	private HashMap<String, Double> variables;
 	
 	public CommandEngine() {
 		commandQueue = new ArrayList<Command>();
+		variables = new HashMap<String, Double>();
+	}
+	
+	
+	private void changeVariablesToValues() {
+		for (int i=0;i<commandQueue.size();i++) {
+			Command c = commandQueue.get(i);
+			if (c instanceof VARIABLE) {
+				VARIABLE v = (VARIABLE) c;
+				v.manualSetReturn(getValueForVariable(v.getName()));
+			}
+		}
+	}
+	
+	public Double getValueForVariable(String variableName) {
+		if (variables.containsKey(variableName)) {
+			return variables.get(variableName);
+		}
+		return 0.0; //MAGIC CONSTANT
 	}
 	
 	public double executeNextCommand() {
@@ -31,6 +52,9 @@ public class CommandEngine {
 	}
 	
 	public void executeCommands() {
+		setAllReturnValues(); 
+		addVariablesToMap();
+		changeVariablesToValues();
 		if(commandsReadyToExecute()) {
 			for (int i=0;i<commandQueue.size();i++) {
 				Command c = commandQueue.get(i);
@@ -41,6 +65,25 @@ public class CommandEngine {
 		}
 	}
 	
+	private void setAllReturnValues() {
+		for (int i=0;i<commandQueue.size();i++) {
+			Command c = commandQueue.get(i);
+			c.setReturnValue();
+		}
+	}
+	
+	
+	private void addVariablesToMap() {
+		for (int i=0;i<commandQueue.size();i++) {
+			Command c = commandQueue.get(i);
+			if (c instanceof MAKE) {
+				MAKE m = (MAKE) c;
+				variables.put(m.getVariableName(), m.getReturnValue());
+			}
+		}
+	}
+	
+	
 	public void addCommand(Command toAdd) {
 		int commandIndex = -1;
 		for (int i=0;i<commandQueue.size();i++) {
@@ -49,11 +92,42 @@ public class CommandEngine {
 			}
 		}
 		if (commandIndex!=-1) {
-			commandQueue.add(commandIndex, toAdd);
+			if (commandQueue.get(commandIndex) instanceof LongCommand) {
+				commandQueue.get(commandIndex).addCommand(toAdd);
+			} else {
+				toAdd.setDependent(commandQueue.get(commandIndex));
+				commandQueue.add(commandIndex, toAdd);
+			}
 		} else {
 			commandQueue.add(toAdd);
 		}
 		
+	}
+	
+	public void addParameter(Double d) {
+		int commandIndex = -1;
+		for (int i=0;i<commandQueue.size();i++) {
+			if (commandQueue.get(i).needsParameter()) {
+				commandIndex = i;
+			}
+			
+		}
+		if (commandIndex!=-1) {
+			commandQueue.get(commandIndex).addParameter(d);
+		} else {
+			//TODO: THROW EXCEPTION: TOO MANY PARAMETERS
+		}
+	}
+	
+	public Command getMostRecentOfType(String type) throws ClassNotFoundException {
+		Class<?> clazz = Class.forName(type);
+		Command mostRecent = null;
+		for (int i=0;i<commandQueue.size();i++) {
+			if (clazz.isInstance(commandQueue.get(i))) {
+				mostRecent = commandQueue.get(i);
+			}
+		}
+		return mostRecent; //error check in receiving method
 	}
 	
 	

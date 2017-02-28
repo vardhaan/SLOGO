@@ -1,22 +1,24 @@
 /**
  * 
  */
-package maths;
+package commands;
+
+import java.util.Random;
 
 /**
  * @author Zhiyong
  *
  */
-public class ATAN extends Maths{
-	public ATAN(){
+public class SIN extends Command{
+	public SIN(){
 		super();
 		expectedNumParameters = 1;
 	}
 
 	@Override
 	public double executeCommand() {
-		double degree = parameters.remove(0);
-		returnValue = Math.atan(degree);
+		double degree = parameters.get(0);
+		returnValue = Math.sin(degree);
 		setReturnValue();
 		
 		return returnValue;

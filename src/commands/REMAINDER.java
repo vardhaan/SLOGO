@@ -1,23 +1,23 @@
 /**
  * 
  */
-package maths;
+package commands;
 
 /**
  * @author Zhiyong
  *
  */
-public class QUOTIENT extends Maths{
-	public QUOTIENT(){
+public class REMAINDER extends Command{
+	public REMAINDER(){
 		super();
 		expectedNumParameters = 2;
 	}
 
 	@Override
 	public double executeCommand() {
-		double x = parameters.remove(0);
-		double y = parameters.remove(1);
-		returnValue = (y==0)? 0 : x / y;
+		double x = parameters.get(0);
+		double y = parameters.get(1);
+		returnValue = x % y;
 		setReturnValue();
 		
 		return returnValue;

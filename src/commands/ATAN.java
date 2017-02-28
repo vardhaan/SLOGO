@@ -1,14 +1,14 @@
 /**
  * 
  */
-package maths;
+package commands;
 
 /**
  * @author Zhiyong
  *
  */
-public class LOG extends Maths{
-	public LOG(){
+public class ATAN extends Command{
+	public ATAN(){
 		super();
 		expectedNumParameters = 1;
 	}
@@ -16,7 +16,7 @@ public class LOG extends Maths{
 	@Override
 	public double executeCommand() {
 		double degree = parameters.remove(0);
-		returnValue =(degree == 0)? 0 : Math.log(degree);
+		returnValue = Math.atan(degree);
 		setReturnValue();
 		
 		return returnValue;

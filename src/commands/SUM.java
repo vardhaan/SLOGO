@@ -1,23 +1,23 @@
 /**
  * 
  */
-package maths;
+package commands;
 
 /**
  * @author Zhiyong
  *
  */
-public class PRODUCT extends Maths{
-	public PRODUCT(){
+public class SUM extends Command{
+	public SUM(){
 		super();
 		expectedNumParameters = 2;
 	}
 
 	@Override
 	public double executeCommand() {
-		double x = parameters.remove(0);
-		double y = parameters.remove(1);
-		returnValue = x * y;
+		double x = parameters.get(0);
+		double y = parameters.get(1);
+		returnValue = x + y;
 		setReturnValue();
 		
 		return returnValue;

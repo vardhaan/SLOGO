@@ -1,22 +1,22 @@
 /**
  * 
  */
-package maths;
+package commands;
 
 /**
  * @author Zhiyong
  *
  */
-public class MINUS extends Maths{
-	public MINUS(){
+public class COS extends Command{
+	public COS(){
 		super();
 		expectedNumParameters = 1;
 	}
 
 	@Override
 	public double executeCommand() {
-		double x = parameters.remove(0);
-		returnValue = -x ;
+		double degree = parameters.get(0);
+		returnValue = Math.cos(degree);
 		setReturnValue();
 		
 		return returnValue;

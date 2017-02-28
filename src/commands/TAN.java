@@ -1,22 +1,22 @@
 /**
  * 
  */
-package maths;
+package commands;
 
 /**
  * @author Zhiyong
  *
  */
-public class COS extends Maths{
-	public COS(){
+public class TAN extends Command{
+	public TAN(){
 		super();
 		expectedNumParameters = 1;
 	}
 
 	@Override
 	public double executeCommand() {
-		double degree = parameters.remove(0);
-		returnValue = Math.cos(degree);
+		double degree = parameters.get(0);
+		returnValue = (degree %  (Math.PI/2) == 0) ? 0 :Math.tan(degree);
 		setReturnValue();
 		
 		return returnValue;
