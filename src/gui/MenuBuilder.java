@@ -40,7 +40,7 @@ public class MenuBuilder {
 		myRoot.getChildren().addAll(menu);
 	}
 	public void updateMenu(GridPane myRoot){
-		myRoot.getChildren().removeAll(menu);
+		myRoot.getChildren().remove(menu);
 		//myRoot.getChildren().addAll(menu);
 		
 	}

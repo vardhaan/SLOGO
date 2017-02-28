@@ -60,7 +60,7 @@ public class TurtleViewer extends Observable implements Observer, Iterable<Turtl
 		if (turtle.getPen()){
 			g.setColor(Color.black);
 			g.setStroke(new BasicStroke(10,BasicStroke.CAP_ROUND,BasicStroke.JOIN_BEVEL));
-			g.drawLine(turtle.getX(), y1, x2, y2);
+			g.drawLine(xPos, yPos, turtle.getX(), turtle.getY());
 		}
 	}
 
