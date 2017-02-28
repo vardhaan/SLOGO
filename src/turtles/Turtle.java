@@ -23,12 +23,18 @@ public class Turtle extends Observable implements Cloneable{
 	public static final double DEFAULT_X_POS = 0;
 	public static final double DEFAULT_Y_POS = 0;
 	public static final double DEFAULT_ANGLE = 90;
-	
-	public Turtle() {
+	public static final double size=700;
+	public Turtle(int id) {
 		setX(DEFAULT_X_POS);
 		setY(DEFAULT_Y_POS);
 		setHeading(DEFAULT_ANGLE);
 		showing = true;
+		penDown=true;
+		myImageIndex=0;
+		myPenColorIndex=0;
+		turtleSpeed=DEFAULT_TURTLE_SPEED;
+		myID=id;
+	
 	}
 	
 	public void setX(double newX) {
@@ -55,12 +61,12 @@ public class Turtle extends Observable implements Cloneable{
 	
 	private double getGridHeight() {
 		//TODO: IMPLEMENT, GET FROM FRONTEND
-		return 0.0;
+		return size;
 	}
 	
 	private double getGridWidth() {
 		//TODO: IMPLEMENT, GET FROM FRONTEND
-		return 0.0;
+		return size;
 	}
 	
 	public void setHeading(double newHeading) {
@@ -83,6 +89,9 @@ public class Turtle extends Observable implements Cloneable{
 	}
 	
 	public boolean  isPenDown(){
+		return penDown;
+	}
+	public boolean getPen(){
 		return penDown;
 	}
 	
@@ -118,7 +127,24 @@ public class Turtle extends Observable implements Cloneable{
 		changes.add(getHeadingChange());
 		return changes;
 	}
+	public int setImageIndex(int index){
+		myImageIndex=index;			
+		return myImageIndex;
+	}
 	
+	public int getImageIndex(){
+		return myImageIndex;
+	}
+	public int getID(){
+		return myID;
+	}
+	public int setPenColorIndex(int index){
+		myPenColorIndex=index;
+		return myPenColorIndex;
+	}
+	public int getPenColorIndex(){
+		return myPenColorIndex;
+	}
 	private Double getXChange() {
 		if (commandCounter>1) {
 			//if the xChange is greater than 
