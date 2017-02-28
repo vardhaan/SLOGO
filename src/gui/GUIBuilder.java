@@ -31,8 +31,8 @@ public class GUIBuilder {
 		VariableBoxBuilder v = new VariableBoxBuilder();
 		v.buildVariableBox(myRoot);
 		
-		//GridBuilder g = new GridBuilder();
-		//g.buildGrid(myRoot);
+		GridBuilder g = new GridBuilder();
+		g.buildGrid(myRoot);
 	}
 
 	public GridPane buildGridPane(){
