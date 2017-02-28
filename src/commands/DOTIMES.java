@@ -1,9 +1,9 @@
 package commands;
 
-public class REPEAT extends ListContainingCommand {
+public class DOTIMES extends ListContainingCommand{
 
 	
-	public REPEAT() {
+	public DOTIMES() {
 		super();
 		expectedNumParameters = 1;
 	}
@@ -13,7 +13,5 @@ public class REPEAT extends ListContainingCommand {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	
 
 }

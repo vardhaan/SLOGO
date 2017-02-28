@@ -110,6 +110,7 @@ public class Turtle extends Observable implements Cloneable{
 		changes.add(getXChange());
 		changes.add(getYChange());
 		changes.add(getHeadingChange());
+		
 		return changes;
 	}
 	
