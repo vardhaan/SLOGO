@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.ParameterNotEnoughException;
 import turtles.Turtle;
 
 /**
@@ -20,7 +21,12 @@ public class PENDOWN extends TurtleCommand {
 		
 		Turtle turtle = getTurtle();
 		turtle.setPenDown(true);
-		setReturnValue();
+		try {
+			setReturnValue();
+		} catch (ParameterNotEnoughException e) {
+			
+			e.getMessage();
+		}
 		
 		return 1;
 	}

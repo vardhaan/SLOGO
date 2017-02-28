@@ -3,6 +3,8 @@
  */
 package commands;
 
+import exceptions.ParameterNotEnoughException;
+
 /**
  * @author Zhiyong
  *
@@ -16,7 +18,12 @@ public class PI extends Command{
 	@Override
 	public double executeCommand() {
 		returnValue = Math.PI;
-		setReturnValue();
+		try {
+			setReturnValue();
+		} catch (ParameterNotEnoughException e) {
+			
+			e.getMessage();
+		}
 		
 		return returnValue;
 	}

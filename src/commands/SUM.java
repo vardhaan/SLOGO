@@ -3,6 +3,8 @@
  */
 package commands;
 
+import exceptions.ParameterNotEnoughException;
+
 /**
  * @author Zhiyong
  *
@@ -18,7 +20,12 @@ public class SUM extends Command{
 		double x = parameters.get(0);
 		double y = parameters.get(1);
 		returnValue = x + y;
-		setReturnValue();
+		try {
+			setReturnValue();
+		} catch (ParameterNotEnoughException e) {
+			
+			e.getMessage();
+		}
 		
 		return returnValue;
 	}

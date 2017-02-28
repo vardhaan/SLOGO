@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.ParameterNotEnoughException;
 import turtles.Turtle;
 
 public class BACK extends TurtleCommand {
@@ -14,8 +15,12 @@ public class BACK extends TurtleCommand {
 
 	@Override
 	public double executeCommand() {
-		// TODO Auto-generated method stub
-		setReturnValue();
+	
+		try {
+			setReturnValue();
+		} catch (ParameterNotEnoughException e) {
+			e.getMessage();
+		}
 		Turtle target = getTurtle();
 		double degree = target.getHeading();
 		double y = Math.sin(degree) * returnValue;

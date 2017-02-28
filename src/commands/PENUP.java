@@ -3,6 +3,7 @@
  */
 package commands;
 
+import exceptions.ParameterNotEnoughException;
 import turtles.Turtle;
 
 /**
@@ -22,7 +23,11 @@ public class PENUP extends TurtleCommand {
 		returnValue = 0;
 		Turtle turtle = getTurtle();
 		turtle.setPenDown(false);
-		setReturnValue();
+		try {
+			setReturnValue();
+		} catch (ParameterNotEnoughException e) {
+			e.getMessage();
+		}
 		
 		return 0;
 	}
