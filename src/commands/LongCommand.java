@@ -3,12 +3,13 @@ package commands;
 import java.util.ArrayList;
 
 public abstract class LongCommand extends Command {
-	protected ArrayList<Command> subCommands;
+	 protected ArrayList<Command> subCommands;
+	 protected Double expectedNumCommands;
 
 	public LongCommand() {
 		super();
 		subCommands = new ArrayList<Command>();
-		expectedNumParameters = Double.MAX_VALUE;
+		expectedNumCommands = Double.MAX_VALUE;
 	}
 	
 	
@@ -17,9 +18,6 @@ public abstract class LongCommand extends Command {
 	// COULD BE AUTOFAIL STATEMENT HERE???
 	@Override
 	public boolean needsParameter() {
-		if (needsCommand() == false) {
-			return false;
-		}
 		for (int i=0;i<subCommands.size();i++) {
 			if (subCommands.get(i).needsParameter()) {
 				return true;
@@ -41,7 +39,7 @@ public abstract class LongCommand extends Command {
 	
 	@Override 
 	public boolean needsCommand() {
-		return !(subCommands.size() == expectedNumParameters);
+		return !(subCommands.size() == expectedNumCommands);
 	}
 	
 	@Override
@@ -60,14 +58,10 @@ public abstract class LongCommand extends Command {
 			dep.addCommand(toAdd);
 		} else {
 			subCommands.add(toAdd);
-			checkIfListDone();
 		}
 	}
 	
-	private void checkIfListDone() {
-		if (subCommands.get(subCommands.size()-1) instanceof LISTEND) {
-			subCommands.remove(subCommands.get(subCommands.size()-1));
-		}
-		expectedNumParameters = subCommands.size();
-	}
+	
+	
+	
 }

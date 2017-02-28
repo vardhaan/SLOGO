@@ -9,7 +9,6 @@ public class Turtle extends Observable implements Cloneable{
 	private double xPos;
 	private double yPos;
 	private double heading;
-	private boolean penDown;
 	private boolean showing;
 	private double xChange;
 	private double yChange;
@@ -17,9 +16,7 @@ public class Turtle extends Observable implements Cloneable{
 	private double commandCounter;
 	private double updateSpeed;
 	private double turtleSpeed;
-	private int myID;
-	private int myImageIndex;
-	private int myPenColorIndex;
+	private boolean penDown;
 	
 	
 	public static final double DEFAULT_TURTLE_SPEED = 100; //pixels or degrees per second
@@ -74,10 +71,11 @@ public class Turtle extends Observable implements Cloneable{
 		//TODO: IMPLEMENT, GET FROM FRONTEND
 		return size;
 	}
-
+	
 	public void setHeading(double newHeading) {
 		this.heading = newHeading;
 	}
+	
 	public boolean showTurtle(){
 		//notifyChange();
 		return showing;
@@ -87,12 +85,14 @@ public class Turtle extends Observable implements Cloneable{
 		showing = b;
 		
 	}
-	public boolean getShow(){
-		return showing;
-	}
+	
 	//here the method is for the PENDOWN command
 	public void setPenDown(boolean b){
-		penDown = b;
+		penDown = b ;
+	}
+	
+	public boolean  isPenDown(){
+		return penDown;
 	}
 	public boolean getPen(){
 		return penDown;
@@ -114,13 +114,13 @@ public class Turtle extends Observable implements Cloneable{
 		double incrementalHeadingChange = getIncrementalChange(overallHeadingChange);
 		headingChange = incrementalHeadingChange;
 	}
-
+	
 	private double getIncrementalChange(double overallChange) {
 		double timeToComplete = overallChange/turtleSpeed;
 		double numUpdateIncrements = timeToComplete*updateSpeed;
 		commandCounter = numUpdateIncrements;
-		double incrementalXChange = overallChange/numUpdateIncrements;
-		return incrementalXChange;
+		double incrementalChange = overallChange/numUpdateIncrements;
+		return incrementalChange;
 	}
 	
 	public List<Double> getAllChange() {
@@ -128,6 +128,7 @@ public class Turtle extends Observable implements Cloneable{
 		changes.add(getXChange());
 		changes.add(getYChange());
 		changes.add(getHeadingChange());
+		
 		return changes;
 	}
 	public int setImageIndex(int index){
@@ -150,13 +151,19 @@ public class Turtle extends Observable implements Cloneable{
 	}
 	private Double getXChange() {
 		if (commandCounter>1) {
-			return xChange;
+			//if the xChange is greater than 
+			return xChange ;
 		}
 		if (commandCounter>0) {
 			return xChange*commandCounter;
 		} else {
 			return 0.0;
 		}
+	}
+	
+	private double getWidth(){
+		//TODO: get the size of the grid
+		return 0;
 	}
 	
 	private Double getYChange() {
@@ -180,6 +187,5 @@ public class Turtle extends Observable implements Cloneable{
 			return 0.0;
 		}
 	}
-	
-	
+		
 }
