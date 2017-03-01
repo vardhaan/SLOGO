@@ -38,7 +38,9 @@ public class Parser {
 	        
 	    }
 	    
-	    public void parse(String s) throws ClassNotFoundException {
+	    
+	    
+	    public void parse(String s) throws Exception {
 	    	System.out.println("happending");
 	    	String[] tokens = s.split(WHITESPACE);
 	    	if (tokens.length == 0) {

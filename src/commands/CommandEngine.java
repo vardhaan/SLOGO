@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import exceptions.ParameterNotEnoughException;
+import turtles.TurtleViewer;
 
 public class CommandEngine {
 
 	public ArrayList<Command> commandQueue;
 	private HashMap<String, Double> variables;
 	private HashMap<String, Command> methods;
+	private TurtleViewer tViewer;
 	
 	public CommandEngine() {
 		commandQueue = new ArrayList<Command>();
@@ -17,6 +19,10 @@ public class CommandEngine {
 		methods = new HashMap<String, Command>();
 	}
 	
+	
+	public void setTurtleViewer(TurtleViewer tv) {
+		tViewer = tv;
+	}
 	
 	private void changeVariablesToValues() {
 		for (int i=0;i<commandQueue.size();i++) {
@@ -55,13 +61,17 @@ public class CommandEngine {
 		return true;
 	}
 	
-	public void executeCommands() {
+	public void executeCommands() throws Exception {
 		setAllReturnValues(); 
 		addVariablesToMap();
 		changeVariablesToValues();
 		if(commandsReadyToExecute()) {
 			for (int i=0;i<commandQueue.size();i++) {
 				Command c = commandQueue.get(i);
+				if (c instanceof TurtleCommand) {
+					TurtleCommand tc = (TurtleCommand) c;
+					tc.setTurtle(tViewer.getTurtle(0));
+				}
 				Double ret = c.executeCommand(); //what to do with return value
 			}
 		} else {
