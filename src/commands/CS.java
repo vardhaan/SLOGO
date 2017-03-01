@@ -3,8 +3,6 @@
  */
 package commands;
 
-import java.lang.reflect.Method;
-
 import exceptions.ParameterNotEnoughException;
 import turtles.Turtle;
 /**
