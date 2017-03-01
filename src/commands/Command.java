@@ -10,6 +10,7 @@ public abstract class Command {
 	protected double returnValue;
 	protected double expectedNumParameters;
 	protected Command dependent;
+	protected int numCommandAsParam;
 
 	
 	public Command() {
@@ -29,7 +30,7 @@ public abstract class Command {
 	}
 	
 	public boolean needsParameter() {
-		return !(parameters.size() == expectedNumParameters);
+		return !(parameters.size() + numCommandAsParam == expectedNumParameters);
 	}
 	
 	public boolean needsCommand() {
@@ -51,19 +52,18 @@ public abstract class Command {
 	protected void sendReturnToDependent() {
 		if (dependent != null) {
 			dependent.addParameter(returnValue);
-			System.out.println(dependent.getParameters().size());
+			dependent.numCommandAsParam--;
 		}
 		
 	}
 	
 	public void setDependent(Command dependent) {
 		this.dependent = dependent;
-		dependent.expectedNumParameters--;
-		System.out.println("dependent now has: " + dependent.expectedNumParameters);
+		dependent.numCommandAsParam++;
+		System.out.println("dependent now has: " + (dependent.numCommandAsParam+dependent.parameters.size()));
 	}
 	
 	public void setReturnValue() throws ParameterNotEnoughException {
-		System.out.println("triggered");
 		if (parameters.size() == expectedNumParameters) {
 				returnValue = (parameters.get(parameters.size()-1));
 				

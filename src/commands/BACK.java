@@ -23,12 +23,13 @@ public class BACK extends TurtleCommand {
 		} catch (ParameterNotEnoughException e) {
 			e.getMessage();
 		}
-		Turtle target = getTurtle();
+		
 		double degree = target.getHeading();
 		double y = Math.sin(degree) * returnValue;
 		double x = Math.cos(degree) * returnValue;
 		target.setOverallXChange(-x);
 		target.setOverallYChange(y);
+		System.out.println(target.getX());
 		return returnValue;
 	}
 	

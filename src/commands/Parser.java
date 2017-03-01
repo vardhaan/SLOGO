@@ -42,7 +42,7 @@ public class Parser {
 	    
 	    
 	    public void parse(String s) throws Exception {
-	    	
+	    	engine.reset();
 	    	String[] tokens = s.split(WHITESPACE);
 	    	if (tokens.length == 0) {
 	    		//TODO: THROW EXCEPTION OR DO NOTHING
@@ -72,7 +72,17 @@ public class Parser {
 	    	}
 	    	engine.executeCommands();
 	    	
+	    	
 	    }
+	    
+	    public boolean commandsLeftToExecute() {
+	    	return !(engine.commandExecuteIndex >= (engine.commandQueue.size()-1));
+	    }
+	    
+	    public void executeNextCommand() {
+	    	Double retval = engine.executeNextCommand();
+	    }
+	    
 	    
 	    public Object makeClass (Class<?> clazz) {
 

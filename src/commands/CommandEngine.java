@@ -12,6 +12,7 @@ public class CommandEngine {
 	private HashMap<String, Double> variables;
 	private HashMap<String, Command> methods;
 	private TurtleViewer tViewer;
+	protected int commandExecuteIndex = 0;
 	
 	public CommandEngine() {
 		commandQueue = new ArrayList<Command>();
@@ -43,8 +44,9 @@ public class CommandEngine {
 	
 	public double executeNextCommand() {
 		if (!commandQueue.isEmpty()) {
-			Command next = commandQueue.get(0);
+			Command next = commandQueue.get(commandExecuteIndex);
 			double returnVal = next.executeCommand();
+			commandExecuteIndex++;
 			return returnVal;
 		} else {
 			//TODO: GET UPDATE TO STOP RUNNING SOMEHOW
@@ -54,10 +56,13 @@ public class CommandEngine {
 	
 	public boolean commandsReadyToExecute() {
 		for (Command c : commandQueue) {
-			if (c.getNumParameters() != c.getParameters().size()) {
+			if (c.getNumParameters() != c.getParameters().size() + c.numCommandAsParam) {
+				System.out.println("thic is cNumPar: " + c.getNumParameters() + " " + (c.getParameters().size()+c.numCommandAsParam));
+
 				return false;
 			}
 		}
+		
 		return true;
 	}
 	
@@ -65,6 +70,7 @@ public class CommandEngine {
 		setAllReturnValues(); 
 		addVariablesToMap();
 		changeVariablesToValues();
+		System.out.println("reaches here");
 		if(commandsReadyToExecute()) {
 			for (int i=0;i<commandQueue.size();i++) {
 				System.out.println("this is i: " + i);
@@ -147,6 +153,7 @@ public class CommandEngine {
 		}
 		if (commandIndex!=-1) {
 			commandQueue.get(commandIndex).addParameter(d);
+			System.out.println("Adding param to command at: " + commandIndex);
 		} else {
 			//TODO: THROW EXCEPTION: TOO MANY PARAMETERS
 		}
