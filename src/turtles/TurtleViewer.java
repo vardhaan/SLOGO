@@ -94,13 +94,19 @@ public class TurtleViewer extends Observable implements Observer{
 		}
 		 */
 	}
-
+	public void setX(ImageView turtleImage, int myID) throws Exception {
+		turtleImage.setX(getTurtle(myID).getX());
+	}
+	public void setY(ImageView turtleImage, int myID) throws Exception {
+		turtleImage.setY(getTurtle(myID).getY());
+	}
+	
 
 	@Override
 	public void update(Observable turtle, Object arg1) {
+		
 		setChanged();
 		notifyObservers();
-
 	}
 	public void addObserver(Observer o){
 		setChanged();
