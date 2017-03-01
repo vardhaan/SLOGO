@@ -17,6 +17,9 @@ public class Turtle extends Observable implements Cloneable{
 	private double updateSpeed;
 	private double turtleSpeed;
 	private boolean penDown;
+	private int myImageIndex;
+	private int myPenColorIndex;
+	private int myID;
 	
 	
 	public static final double DEFAULT_TURTLE_SPEED = 100; //pixels or degrees per second

@@ -15,6 +15,8 @@ import java.util.Observer;
 
 import javax.imageio.ImageIO;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Line;
 import turtles.Turtle;
@@ -22,7 +24,7 @@ import turtles.TurtleHandler;
 
 public class TurtleViewer extends Observable implements Observer, Iterable<Turtle>{
 
-
+	private Turtle myTurtle;
 	private List<Turtle> turtles=new ArrayList<Turtle>();
 	private double xPos;
 	private double yPos;
@@ -40,13 +42,25 @@ public class TurtleViewer extends Observable implements Observer, Iterable<Turtl
 	public static final String TURTLE_IMAGE="";
 	private Line line;
 	//private Workspace myWorkspace;
-
+	public static String turtleimage1="slogo1.jpg";
 
 	public static final double DEFAULT_TURTLE_SPEED = 100; //pixels or degrees per second
 	public static final double DEFAULT_X_POS = 0;
 	public static final double DEFAULT_Y_POS = 0;
 	public static final double DEFAULT_ANGLE = 90;
+	private ImageView myTurtleImage;
 
+	public TurtleViewer(int myID){
+		myTurtle=new Turtle(myID);
+	}
+
+	public void buildTurtle(GridPane myRoot){
+		Image image2 = new Image(getClass().getClassLoader().getResourceAsStream(turtleimage1));
+		myTurtleImage=new ImageView(image2);
+		myTurtleImage.setX(myTurtle.getX());
+		myTurtleImage.setY(myTurtle.getY());
+		myRoot.getChildren().add(myTurtleImage);
+	}
 
 
 	public void getTurtle(Turtle turtlename){
@@ -56,14 +70,14 @@ public class TurtleViewer extends Observable implements Observer, Iterable<Turtl
 	public void PaintingView (Turtle turtle, String ImagePath, GridPane myRoot){
 		Line lines=line;
 
-		//for(Line line: turtle.getGraph)
-		if(turtle.getShow()){
-			BufferedImage Turtle=ImageIO.read(new File("src/images/"+ImagePath));
-		}
+
+		
+		/*
 		if (turtle.getPen()){
 			lines.setFill(javafx.scene.paint.Color.AQUA);
-			
+
 		}
+		 */
 	}
 
 	public Iterator<Turtle> iterator() {
