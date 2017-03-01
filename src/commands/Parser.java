@@ -35,6 +35,7 @@ public class Parser {
 	    }
 	    
 	    public void parse(String s) throws ClassNotFoundException {
+	    	System.out.println("happending");
 	    	String[] tokens = s.split(WHITESPACE);
 	    	if (tokens.length == 0) {
 	    		//TODO: THROW EXCEPTION OR DO NOTHING
