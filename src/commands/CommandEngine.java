@@ -3,6 +3,8 @@ package commands;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import exceptions.ParameterNotEnoughException;
+
 public class CommandEngine {
 
 	public ArrayList<Command> commandQueue;
@@ -70,7 +72,12 @@ public class CommandEngine {
 	private void setAllReturnValues() {
 		for (int i=0;i<commandQueue.size();i++) {
 			Command c = commandQueue.get(i);
-			c.setReturnValue();
+			try {
+				c.setReturnValue();
+			} catch (ParameterNotEnoughException e) {
+				
+				e.getMessage();
+			}
 		}
 	}
 	
