@@ -17,14 +17,16 @@ public class FORWARD extends TurtleCommand {
 	@Override
 	public double executeCommand() {
 		
-		Turtle target = getTurtle();
+		
 		returnValue = parameters.get(0);
+		
 		/*double degree = target.getHeading();
 		double y = Math.sin(degree) * returnValue;
 		double x = Math.cos(degree) * returnValue;
 		target.setOverallXChange(x);
 		target.setOverallYChange(-y);*/
 		target.setX(target.getX() + returnValue);
+		System.out.println("This is new x: " + target.getX());
 		
 		
 		return returnValue;

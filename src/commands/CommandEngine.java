@@ -67,6 +67,7 @@ public class CommandEngine {
 		changeVariablesToValues();
 		if(commandsReadyToExecute()) {
 			for (int i=0;i<commandQueue.size();i++) {
+				System.out.println("this is i: " + i);
 				Command c = commandQueue.get(i);
 				if (c instanceof TurtleCommand) {
 					TurtleCommand tc = (TurtleCommand) c;
@@ -111,6 +112,7 @@ public class CommandEngine {
 			}
 		}
 		if (commandIndex!=-1) {
+			System.out.println("Adding to command at " + commandIndex);
 			if (commandQueue.get(commandIndex) instanceof ListContainingCommand) {
 				ListContainingCommand lcc = (ListContainingCommand) commandQueue.get(commandIndex);
 				if (lcc.addCommandWithin()) {
@@ -137,7 +139,7 @@ public class CommandEngine {
 	
 	public void addParameter(Double d) {
 		int commandIndex = -1;
-		for (int i=0;i<commandQueue.size();i++) {
+		for (int i=commandQueue.size()-1;i>-1;i--) {
 			if (commandQueue.get(i).needsParameter()) {
 				commandIndex = i;
 			}
@@ -154,6 +156,7 @@ public class CommandEngine {
 	public Command getMostRecentOfType(String type) throws ClassNotFoundException {
 		Class<?> clazz = Class.forName(type);
 		Command mostRecent = null;
+		
 		for (int i=0;i<commandQueue.size();i++) {
 			if (clazz.isInstance(commandQueue.get(i))) {
 				mostRecent = commandQueue.get(i);
