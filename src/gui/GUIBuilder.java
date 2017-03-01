@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
+import commands.Parser;
 import javafx.geometry.Insets;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import gui.MenuBuilder;
 import turtles.TurtleViewer;
 
@@ -25,7 +27,16 @@ public class GUIBuilder {
 	}
 
 	public void buildGUI(GridPane myRoot){
-		ConsoleBuilder b = new ConsoleBuilder(myResources);
+		
+		Pane myRoot2 = new Pane();
+		TurtleViewer tv = new TurtleViewer(0);
+		tv.buildTurtle(myRoot2);
+		myRoot.getChildren().add(myRoot2);
+		GridPane.setConstraints(myRoot2, 0, 1);
+		
+		Parser myParser = new Parser(tv);
+		
+		ConsoleBuilder b = new ConsoleBuilder(myResources, myParser);
 		b.buildConsole(myRoot);
 
 		MenuBuilder2 m=new MenuBuilder2();
@@ -36,8 +47,7 @@ public class GUIBuilder {
 		
 		GridBuilder g = new GridBuilder();
 		g.buildGrid(myRoot);
-		TurtleViewer one=new TurtleViewer(0);
-		one.buildTurtle(myRoot);
+		
 		
 	}
 
@@ -48,6 +58,8 @@ public class GUIBuilder {
 		myRoot.setVgap(5);
 		return myRoot;
 	}
+	
+	
 	public MenuBar buildMenu(){
 		MenuBar myMenu=new MenuBar();
 		return myMenu;	

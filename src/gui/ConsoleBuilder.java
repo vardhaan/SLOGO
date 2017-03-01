@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ResourceBundle;
 
+import commands.Parser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,9 +21,11 @@ public class ConsoleBuilder {
 	private ObservableList<Button> pcommands;
 	private ListView<Button> plist;
 	private ResourceBundle myResources;
+	private Parser myParser;
     
-	public ConsoleBuilder(ResourceBundle myResourcesIn){
+	public ConsoleBuilder(ResourceBundle myResourcesIn, Parser parserIn){
 		myResources = myResourcesIn;
+		myParser = parserIn;
 		
 		console = new TextArea();
 		console.setPrefColumnCount(80);
@@ -52,6 +55,12 @@ public class ConsoleBuilder {
 			public void handle(ActionEvent e) {
 				addPreviousCommand(console.getText());
 				console.clear();
+				try {
+					myParser.parse(console.getText());
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		};
 		EventHandler<ActionEvent> clear = new EventHandler<ActionEvent>() {
@@ -73,7 +82,14 @@ public class ConsoleBuilder {
 	
 	public void addPreviousCommand(String previousText){
 		Button pcommandButton = new Button(previousText);
-		//pcommandButton.setOnAction(executePreviousCommand);
+		pcommandButton.setOnAction(e -> {
+			try {
+				myParser.parse(previousText);
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		});
 		pcommands.add(pcommandButton);
 		
 	}

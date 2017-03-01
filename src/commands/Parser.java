@@ -10,6 +10,8 @@ import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
+import turtles.TurtleViewer;
+
 
 /*
  * NEED TO CONVERT TO PARSE LINE BY LINE!!!!!!
@@ -19,6 +21,7 @@ import java.util.regex.Pattern;
 public class Parser {
 	 private List<Entry<String, Pattern>> mySymbols;
 	 public CommandEngine engine;
+	 private TurtleViewer myTurtleViewer;
 	 
 	 
 	 public static final String DEFAULT_LANGUAGE_BUNDLE = "English";
@@ -26,9 +29,10 @@ public class Parser {
 	 public static final String RESOURCE_BUNDLE_URL = "resources/languages/";
 	 public static final String WHITESPACE = "\\s+";
 
-	    public Parser() {
+	    public Parser(TurtleViewer turtleIn) {
 	    	mySymbols = new ArrayList<>();
 	        engine = new CommandEngine();
+	        myTurtleViewer = turtleIn;
 	    	addPatterns(RESOURCE_BUNDLE_URL+DEFAULT_LANGUAGE_BUNDLE);
 	    	addPatterns(RESOURCE_BUNDLE_URL+DEFAULT_SYNTAX_BUNDLE);
 	        
@@ -120,12 +124,12 @@ public class Parser {
 	        return regex.matcher(text).matches();
 	    }
 	    
-	    public static void main(String[] args) throws ClassNotFoundException {
-	    	Parser p = new Parser();
-	    	String s = " MAKE :maki 50  DOTIMES [ :maki 10 ] [ fd10 ]";
-	    	p.parse(s);
-	    	System.out.println(p.engine.commandQueue.size());
-	    	
-	    	
-	    }
+//	    public static void main(String[] args) throws ClassNotFoundException {
+//	    	Parser p = new Parser();
+//	    	String s = " MAKE :maki 50  DOTIMES [ :maki 10 ] [ fd10 ]";
+//	    	p.parse(s);
+//	    	System.out.println(p.engine.commandQueue.size());
+//	    	
+//	    	
+//	    }
 }
