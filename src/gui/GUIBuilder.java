@@ -27,7 +27,7 @@ public class GUIBuilder {
 		ConsoleBuilder b = new ConsoleBuilder(myResources);
 		b.buildConsole(myRoot);
 
-		MenuBuilder m=new MenuBuilder();
+		MenuBuilder2 m=new MenuBuilder2();
 		m.buildMenu(myRoot);
 
 		VariableBoxBuilder v = new VariableBoxBuilder(myResources);
