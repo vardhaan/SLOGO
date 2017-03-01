@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import exceptions.ParameterNotEnoughException;
+import turtles.TurtleViewer;
 
 public class CommandEngine {
 
 	public ArrayList<Command> commandQueue;
 	private HashMap<String, Double> variables;
 	private HashMap<String, Command> methods;
+	private TurtleViewer tViewer;
+	protected int commandExecuteIndex = 0;
 	
 	public CommandEngine() {
 		commandQueue = new ArrayList<Command>();
@@ -17,6 +20,10 @@ public class CommandEngine {
 		methods = new HashMap<String, Command>();
 	}
 	
+	
+	public void setTurtleViewer(TurtleViewer tv) {
+		tViewer = tv;
+	}
 	
 	private void changeVariablesToValues() {
 		for (int i=0;i<commandQueue.size();i++) {
@@ -37,8 +44,9 @@ public class CommandEngine {
 	
 	public double executeNextCommand() {
 		if (!commandQueue.isEmpty()) {
-			Command next = commandQueue.get(0);
+			Command next = commandQueue.get(commandExecuteIndex);
 			double returnVal = next.executeCommand();
+			commandExecuteIndex++;
 			return returnVal;
 		} else {
 			//TODO: GET UPDATE TO STOP RUNNING SOMEHOW
@@ -48,20 +56,29 @@ public class CommandEngine {
 	
 	public boolean commandsReadyToExecute() {
 		for (Command c : commandQueue) {
-			if (c.getNumParameters() != c.getParameters().size()) {
+			if (c.getNumParameters() != c.getParameters().size() + c.numCommandAsParam) {
+				System.out.println("thic is cNumPar: " + c.getNumParameters() + " " + (c.getParameters().size()+c.numCommandAsParam));
+
 				return false;
 			}
 		}
+		
 		return true;
 	}
 	
-	public void executeCommands() {
+	public void executeCommands() throws Exception {
 		setAllReturnValues(); 
 		addVariablesToMap();
 		changeVariablesToValues();
+		System.out.println("reaches here");
 		if(commandsReadyToExecute()) {
 			for (int i=0;i<commandQueue.size();i++) {
+				System.out.println("this is i: " + i);
 				Command c = commandQueue.get(i);
+				if (c instanceof TurtleCommand) {
+					TurtleCommand tc = (TurtleCommand) c;
+					tc.setTurtle(tViewer.getTurtle(0));
+				}
 				Double ret = c.executeCommand(); //what to do with return value
 			}
 		} else {
@@ -101,6 +118,7 @@ public class CommandEngine {
 			}
 		}
 		if (commandIndex!=-1) {
+			System.out.println("Adding to command at " + commandIndex);
 			if (commandQueue.get(commandIndex) instanceof ListContainingCommand) {
 				ListContainingCommand lcc = (ListContainingCommand) commandQueue.get(commandIndex);
 				if (lcc.addCommandWithin()) {
@@ -127,7 +145,7 @@ public class CommandEngine {
 	
 	public void addParameter(Double d) {
 		int commandIndex = -1;
-		for (int i=0;i<commandQueue.size();i++) {
+		for (int i=commandQueue.size()-1;i>-1;i--) {
 			if (commandQueue.get(i).needsParameter()) {
 				commandIndex = i;
 			}
@@ -135,6 +153,7 @@ public class CommandEngine {
 		}
 		if (commandIndex!=-1) {
 			commandQueue.get(commandIndex).addParameter(d);
+			System.out.println("Adding param to command at: " + commandIndex);
 		} else {
 			//TODO: THROW EXCEPTION: TOO MANY PARAMETERS
 		}
@@ -144,6 +163,7 @@ public class CommandEngine {
 	public Command getMostRecentOfType(String type) throws ClassNotFoundException {
 		Class<?> clazz = Class.forName(type);
 		Command mostRecent = null;
+		
 		for (int i=0;i<commandQueue.size();i++) {
 			if (clazz.isInstance(commandQueue.get(i))) {
 				mostRecent = commandQueue.get(i);

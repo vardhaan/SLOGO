@@ -7,3 +7,9 @@
     -fx-background-color: black, white ;
     -fx-background-insets: 0, 1 ;
 }
+
+.vbox .content{
+    -fx-background-color: magenta;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+}

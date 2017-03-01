@@ -54,13 +54,13 @@ public class ConsoleBuilder {
 			@Override
 			public void handle(ActionEvent e) {
 				addPreviousCommand(console.getText());
-				console.clear();
 				try {
 					myParser.parse(console.getText());
-				} catch (ClassNotFoundException e1) {
+				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				console.clear();
 			}
 		};
 		EventHandler<ActionEvent> clear = new EventHandler<ActionEvent>() {
@@ -85,7 +85,7 @@ public class ConsoleBuilder {
 		pcommandButton.setOnAction(e -> {
 			try {
 				myParser.parse(previousText);
-			} catch (ClassNotFoundException e1) {
+			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}

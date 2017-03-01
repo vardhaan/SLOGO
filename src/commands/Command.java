@@ -10,6 +10,7 @@ public abstract class Command {
 	protected double returnValue;
 	protected double expectedNumParameters;
 	protected Command dependent;
+	protected int numCommandAsParam;
 
 	
 	public Command() {
@@ -29,7 +30,7 @@ public abstract class Command {
 	}
 	
 	public boolean needsParameter() {
-		return !(parameters.size() == expectedNumParameters);
+		return !(parameters.size() + numCommandAsParam == expectedNumParameters);
 	}
 	
 	public boolean needsCommand() {
@@ -49,16 +50,24 @@ public abstract class Command {
 	}
 	
 	protected void sendReturnToDependent() {
-		dependent.addParameter(returnValue);
+		if (dependent != null) {
+			dependent.addParameter(returnValue);
+			dependent.numCommandAsParam--;
+		}
+		
 	}
 	
 	public void setDependent(Command dependent) {
 		this.dependent = dependent;
+		dependent.numCommandAsParam++;
+		System.out.println("dependent now has: " + (dependent.numCommandAsParam+dependent.parameters.size()));
 	}
 	
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
-				returnValue = getReturnValue();
+				returnValue = (parameters.get(parameters.size()-1));
+				
+				sendReturnToDependent();
 		} else {
 			ParameterNotEnoughException p =  new ParameterNotEnoughException();
 			//TODO: the frontend get the message of the exception

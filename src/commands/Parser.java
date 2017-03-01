@@ -33,21 +33,27 @@ public class Parser {
 	    	mySymbols = new ArrayList<>();
 	        engine = new CommandEngine();
 	        myTurtleViewer = turtleIn;
+	        engine.setTurtleViewer(myTurtleViewer);
 	    	addPatterns(RESOURCE_BUNDLE_URL+DEFAULT_LANGUAGE_BUNDLE);
 	    	addPatterns(RESOURCE_BUNDLE_URL+DEFAULT_SYNTAX_BUNDLE);
 	        
 	    }
 	    
-	    public void parse(String s) throws ClassNotFoundException {
-	    	System.out.println("happending");
+	    
+	    
+	    public void parse(String s) throws Exception {
+	    	engine.reset();
 	    	String[] tokens = s.split(WHITESPACE);
 	    	if (tokens.length == 0) {
 	    		//TODO: THROW EXCEPTION OR DO NOTHING
 	    	} else {
+
 	    		for (int i=0;i<tokens.length;i++) {
+    				
 	    			String symbol = getSymbol(tokens[i]);
 	    			if (checkIfValid(symbol)) {
 	    				if (symbol.equals("Constant")) {
+	    					
 	    					engine.addParameter(Double.valueOf(tokens[i]));
 	    				} else {
 	    					if (symbol.equals("Comment")) {
@@ -58,6 +64,7 @@ public class Parser {
 	    					System.out.println(className);
 	    					Object o = makeClass(clazz);
 	    					Command toAdd = (Command) o;
+	    					
 	    					engine.addCommand(toAdd);
 	    				}
 	    			}
@@ -65,7 +72,17 @@ public class Parser {
 	    	}
 	    	engine.executeCommands();
 	    	
+	    	
 	    }
+	    
+	    public boolean commandsLeftToExecute() {
+	    	return !(engine.commandExecuteIndex >= (engine.commandQueue.size()-1));
+	    }
+	    
+	    public void executeNextCommand() {
+	    	Double retval = engine.executeNextCommand();
+	    }
+	    
 	    
 	    public Object makeClass (Class<?> clazz) {
 
