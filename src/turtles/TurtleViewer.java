@@ -55,6 +55,7 @@ public class TurtleViewer extends Observable implements Observer{
 
 	public TurtleViewer(int myID){
 		myTurtle=new Turtle(myID);
+		addTurtle(myID);
 	}
 
 	public void buildTurtle(Pane myRoot){
