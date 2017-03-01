@@ -1,3 +1,4 @@
+package turtles;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -5,6 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -55,7 +57,7 @@ public class TurtleViewer extends Observable implements Observer, Iterable<Turtl
 	}
 
 	public void buildTurtle(GridPane myRoot){
-		Image image2 = new Image(getClass().getClassLoader().getResourceAsStream(turtleimage1));
+		Image image2 = new Image("images/slogo1.jpg");
 		myTurtleImage=new ImageView(image2);
 		myTurtleImage.setX(myTurtle.getX());
 		myTurtleImage.setY(myTurtle.getY());
