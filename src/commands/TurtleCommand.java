@@ -10,12 +10,17 @@ public abstract class TurtleCommand extends Command {
 	protected String turtleTarget;
 	protected boolean penDown;
 	protected boolean showTurtle;
+	protected Turtle target;
 	
 	public TurtleCommand() {
 		turtleTarget = TurtleHandler.DEFAULT_TURTLE;
 		parameters = new ArrayList<Double>();
 		penDown = true;
 		showTurtle = true;
+	}
+	
+	public void setTurtle(Turtle t) {
+		target = t;
 	}
 	
 	public Turtle getTurtle() {

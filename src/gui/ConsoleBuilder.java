@@ -57,7 +57,7 @@ public class ConsoleBuilder {
 				console.clear();
 				try {
 					myParser.parse(console.getText());
-				} catch (ClassNotFoundException e1) {
+				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
@@ -85,7 +85,7 @@ public class ConsoleBuilder {
 		pcommandButton.setOnAction(e -> {
 			try {
 				myParser.parse(previousText);
-			} catch (ClassNotFoundException e1) {
+			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
