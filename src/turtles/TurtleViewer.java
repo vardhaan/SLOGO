@@ -25,10 +25,10 @@ import javafx.scene.shape.Line;
 import turtles.Turtle;
 import turtles.TurtleHandler;
 
-public class TurtleViewer extends Observable implements Observer, Iterable<Turtle>{
+public class TurtleViewer extends Observable implements Observer{
 
 	private Turtle myTurtle;
-	private List<Turtle> turtles=new ArrayList<Turtle>();
+	private HashMap<Integer,Turtle> turtles=new HashMap<Integer,Turtle>();
 	private double xPos;
 	private double yPos;
 	private double heading;
@@ -69,10 +69,19 @@ public class TurtleViewer extends Observable implements Observer, Iterable<Turtl
 	}
 
 
-	public void getTurtle(Turtle turtlename){
-		turtles.add(turtlename);
+	public void addTurtle(int ID){
+		turtles.put(ID,new Turtle(ID));
 
 	}
+	public Turtle getTurtle(int ID) throws Exception{
+		if (turtles.containsKey(ID)){
+			return turtles.get(ID);
+		}
+		else {
+			throw new Exception("ID not found" );
+		}
+	}
+	
 	public void PaintingView (Turtle turtle, String ImagePath, GridPane myRoot){
 		Line lines=line;
 
@@ -86,9 +95,6 @@ public class TurtleViewer extends Observable implements Observer, Iterable<Turtl
 		 */
 	}
 
-	public Iterator<Turtle> iterator() {
-		return turtles.iterator();
-	}
 
 	@Override
 	public void update(Observable turtle, Object arg1) {
