@@ -10,7 +10,9 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import turtles.TurtleViewer;
 
 public class main extends Application {
 	public static final double SCENE_WIDTH = 1400;
@@ -27,7 +29,7 @@ public class main extends Application {
 		GUIBuilder builder = new GUIBuilder();
 		GridPane myRoot = builder.buildGridPane();
 		builder.buildGUI(myRoot);
-		MenuBar myMenu=builder.buildMenu();
+		
 		Scene scene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT);
 		
 		File cssFile = new File("src/resources/format.css");

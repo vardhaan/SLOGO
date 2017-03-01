@@ -20,6 +20,7 @@ import javax.imageio.ImageIO;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import turtles.Turtle;
 import turtles.TurtleHandler;
@@ -56,16 +57,15 @@ public class TurtleViewer extends Observable implements Observer, Iterable<Turtl
 		myTurtle=new Turtle(myID);
 	}
 
-	public void buildTurtle(GridPane myRoot){
+	public void buildTurtle(Pane myRoot){
 		Image image2 = new Image("images/slogo1.jpg");
 		myTurtleImage=new ImageView(image2);
-		myTurtleImage.setX(0);
-		myTurtleImage.setY(0);
+		//myTurtleImage.setX(20);
+		//myTurtleImage.setY(50);
 		myTurtleImage.setFitWidth(50);
 		myTurtleImage.setFitHeight(50);
 		myRoot.getChildren().add(myTurtleImage);
-		GridPane.setConstraints(myTurtleImage,0,1);
-		System.out.println(myTurtleImage.getX() + " " + myTurtleImage.getY());
+		
 	}
 
 

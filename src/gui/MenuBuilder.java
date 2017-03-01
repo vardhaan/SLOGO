@@ -37,7 +37,7 @@ public class MenuBuilder {
 	public void buildMenu(GridPane myRoot) {
 		// TODO Auto-generated method stub
 		GridPane.setConstraints(menu, 0, 0);
-		myRoot.getChildren().addAll(menu);
+		myRoot.getChildren().add(menu);
 	}
 	public void updateMenu(GridPane myRoot){
 		myRoot.getChildren().remove(menu);
@@ -57,7 +57,8 @@ public class MenuBuilder {
 		about.setAccelerator(new KeyCodeCombination(KeyCode.A, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN));
 		about.setOnAction(e -> about());
 		return new Menu("Help", null, viewHelp, viewJavadoc, about);
-	}// TODO Auto-generated method stub
+	}
+	// TODO Auto-generated method stub
 	private void about() {
 		Alert about= new Alert(Alert.AlertType.INFORMATION);
 		about.setHeaderText("Slogo");
@@ -127,6 +128,7 @@ public class MenuBuilder {
 		English.setOnAction((e-> EnglishLanguage()));
 		return new Menu("Language",null,English);
 	}
+	
 	private Object TurtleImageChange() {
 		// TODO Auto-generated method stub
 		return null;
@@ -144,13 +146,13 @@ public class MenuBuilder {
 
 	private void EnglishLanguage() {
 		// TODO Auto-generated method stub
-		RESOURCES_LOCATION="resources/languages/English";
+		RESOURCES_LOCATION= "resources/languages/English";
 		myResources=ResourceBundle.getBundle("resources/languages/English");
 		Menu settings=initSettingsMenu();
 		Menu reset=initResetMenu();
 		Menu help= intHelpMenu();
 		menu=new MenuBar(settings, reset, help);
-		//updateMenu(myroot);
+		updateMenu(myroot);
 		buildMenu(myroot);
 	}
 	private void BackgroundColor() {
