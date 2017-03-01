@@ -61,6 +61,8 @@ public class TurtleViewer extends Observable implements Observer, Iterable<Turtl
 		myTurtleImage=new ImageView(image2);
 		myTurtleImage.setX(myTurtle.getX());
 		myTurtleImage.setY(myTurtle.getY());
+		myTurtleImage.setFitWidth(50);
+		myTurtleImage.setFitHeight(50);
 		myRoot.getChildren().add(myTurtleImage);
 	}
 
