@@ -5,12 +5,14 @@ import java.util.HashMap;
 
 public class CommandEngine {
 
-	private ArrayList<Command> commandQueue;
+	public ArrayList<Command> commandQueue;
 	private HashMap<String, Double> variables;
+	private HashMap<String, Command> methods;
 	
 	public CommandEngine() {
 		commandQueue = new ArrayList<Command>();
 		variables = new HashMap<String, Double>();
+		methods = new HashMap<String, Command>();
 	}
 	
 	
@@ -87,17 +89,29 @@ public class CommandEngine {
 	public void addCommand(Command toAdd) {
 		int commandIndex = -1;
 		for (int i=0;i<commandQueue.size();i++) {
-			if (commandQueue.get(i).getParameters().size()!=commandQueue.get(i).getNumParameters()) {
+			if (commandQueue.get(i).needsCommand()) {
 				commandIndex = i;
 			}
 		}
 		if (commandIndex!=-1) {
-			if (commandQueue.get(commandIndex) instanceof LongCommand) {
-				commandQueue.get(commandIndex).addCommand(toAdd);
+			if (commandQueue.get(commandIndex) instanceof ListContainingCommand) {
+				ListContainingCommand lcc = (ListContainingCommand) commandQueue.get(commandIndex);
+				if (lcc.addCommandWithin()) {
+					lcc.addCommand(toAdd);
+				} else {
+					toAdd.setDependent(lcc);
+					commandQueue.add(commandIndex, toAdd);
+					lcc.incrementNumCommAsParam();
+				}
 			} else {
-				toAdd.setDependent(commandQueue.get(commandIndex));
-				commandQueue.add(commandIndex, toAdd);
+				if (commandQueue.get(commandIndex) instanceof LongCommand) {
+					commandQueue.get(commandIndex).addCommand(toAdd);
+				} else {
+					toAdd.setDependent(commandQueue.get(commandIndex));
+					commandQueue.add(commandIndex, toAdd);
+				}
 			}
+			
 		} else {
 			commandQueue.add(toAdd);
 		}
@@ -119,6 +133,7 @@ public class CommandEngine {
 		}
 	}
 	
+	
 	public Command getMostRecentOfType(String type) throws ClassNotFoundException {
 		Class<?> clazz = Class.forName(type);
 		Command mostRecent = null;
@@ -130,6 +145,10 @@ public class CommandEngine {
 		return mostRecent; //error check in receiving method
 	}
 	
+	public void reset() {
+		commandQueue = new ArrayList<Command>();
+		variables = new HashMap<String, Double>();
+	}
 	
 	
 }

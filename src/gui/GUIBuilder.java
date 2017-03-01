@@ -11,6 +11,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import gui.MenuBuilder;
+import turtles.TurtleViewer;
 
 public class GUIBuilder {
 
@@ -35,6 +36,9 @@ public class GUIBuilder {
 		
 		GridBuilder g = new GridBuilder();
 		g.buildGrid(myRoot);
+		TurtleViewer one=new TurtleViewer(0);
+		one.buildTurtle(myRoot);
+		
 	}
 
 	public GridPane buildGridPane(){

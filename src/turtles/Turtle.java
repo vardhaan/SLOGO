@@ -9,7 +9,6 @@ public class Turtle extends Observable implements Cloneable{
 	private double xPos;
 	private double yPos;
 	private double heading;
-	private boolean penDown;
 	private boolean showing;
 	private double xChange;
 	private double yChange;
@@ -17,28 +16,50 @@ public class Turtle extends Observable implements Cloneable{
 	private double commandCounter;
 	private double updateSpeed;
 	private double turtleSpeed;
+	private boolean penDown;
+	private int myImageIndex;
+	private int myPenColorIndex;
+	private int myID;
 	
 	
 	public static final double DEFAULT_TURTLE_SPEED = 100; //pixels or degrees per second
 	public static final double DEFAULT_X_POS = 0;
 	public static final double DEFAULT_Y_POS = 0;
 	public static final double DEFAULT_ANGLE = 90;
-	
-	public Turtle() {
+	public static final double size=700;
+	public Turtle(int id) {
 		setX(DEFAULT_X_POS);
 		setY(DEFAULT_Y_POS);
 		setHeading(DEFAULT_ANGLE);
 		showing = true;
+		penDown=true;
+		myImageIndex=0;
+		myPenColorIndex=0;
+		turtleSpeed=DEFAULT_TURTLE_SPEED;
+		myID=id;
+	
 	}
 	
 	public void setX(double newX) {
 		double gridXDisplacement = getGridWidth()/2.0;
 		this.xPos = newX + gridXDisplacement;
+		if(xPos>getGridWidth()){
+			xPos=xPos % getGridWidth();
+		}
+			else if(xPos<0){
+				xPos=getGridWidth()-(xPos % getGridWidth());
+		}
 	}
 	
 	public void setY(double newY) {
 		double gridYDisplacement = getGridHeight()/2.0;
 		this.yPos = newY + gridYDisplacement;
+		if(yPos>getGridHeight()){
+			yPos=yPos % getGridHeight();
+		}
+		else if(yPos<0){
+			yPos=getGridHeight()-(yPos % getGridHeight());
+		}
 	}
 	
 	public double getX() {
@@ -55,17 +76,18 @@ public class Turtle extends Observable implements Cloneable{
 	
 	private double getGridHeight() {
 		//TODO: IMPLEMENT, GET FROM FRONTEND
-		return 0.0;
+		return size;
 	}
 	
 	private double getGridWidth() {
 		//TODO: IMPLEMENT, GET FROM FRONTEND
-		return 0.0;
+		return size;
 	}
-
+	
 	public void setHeading(double newHeading) {
 		this.heading = newHeading;
 	}
+	
 	public boolean showTurtle(){
 		//notifyChange();
 		return showing;
@@ -75,12 +97,14 @@ public class Turtle extends Observable implements Cloneable{
 		showing = b;
 		
 	}
-	public boolean getShow(){
-		return showing;
-	}
+	
 	//here the method is for the PENDOWN command
 	public void setPenDown(boolean b){
-		penDown = b;
+		penDown = b ;
+	}
+	
+	public boolean  isPenDown(){
+		return penDown;
 	}
 	public boolean getPen(){
 		return penDown;
@@ -102,13 +126,13 @@ public class Turtle extends Observable implements Cloneable{
 		double incrementalHeadingChange = getIncrementalChange(overallHeadingChange);
 		headingChange = incrementalHeadingChange;
 	}
-
+	
 	private double getIncrementalChange(double overallChange) {
 		double timeToComplete = overallChange/turtleSpeed;
 		double numUpdateIncrements = timeToComplete*updateSpeed;
 		commandCounter = numUpdateIncrements;
-		double incrementalXChange = overallChange/numUpdateIncrements;
-		return incrementalXChange;
+		double incrementalChange = overallChange/numUpdateIncrements;
+		return incrementalChange;
 	}
 	
 	public List<Double> getAllChange() {
@@ -116,18 +140,42 @@ public class Turtle extends Observable implements Cloneable{
 		changes.add(getXChange());
 		changes.add(getYChange());
 		changes.add(getHeadingChange());
+		
 		return changes;
 	}
+	public int setImageIndex(int index){
+		myImageIndex=index;			
+		return myImageIndex;
+	}
 	
+	public int getImageIndex(){
+		return myImageIndex;
+	}
+	public int getID(){
+		return myID;
+	}
+	public int setPenColorIndex(int index){
+		myPenColorIndex=index;
+		return myPenColorIndex;
+	}
+	public int getPenColorIndex(){
+		return myPenColorIndex;
+	}
 	private Double getXChange() {
 		if (commandCounter>1) {
-			return xChange;
+			//if the xChange is greater than 
+			return xChange ;
 		}
 		if (commandCounter>0) {
 			return xChange*commandCounter;
 		} else {
 			return 0.0;
 		}
+	}
+	
+	private double getWidth(){
+		//TODO: get the size of the grid
+		return 0;
 	}
 	
 	private Double getYChange() {
@@ -151,6 +199,5 @@ public class Turtle extends Observable implements Cloneable{
 			return 0.0;
 		}
 	}
-	
-	
+		
 }

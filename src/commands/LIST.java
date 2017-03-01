@@ -6,19 +6,21 @@ public class LIST extends LongCommand{
 	
 	public LIST() {
 		super();
-		
+	}
+	
+	@Override
+	public void addCommand(Command toAdd) {
+		if (toAdd instanceof LISTEND) {
+			expectedNumParameters = subCommands.size();
+		} else {
+			super.addCommand(toAdd);
+		}
 	}
 	
 	@Override
 	public void setReturnValue() {
-		ArrayList<Integer> toRemove = new ArrayList<Integer>();
-		for (int rem : toRemove) {
-			subCommands.remove(rem);
-		}
-		for (int i=0;i<subCommands.size();i++) {
-			subCommands.get(i).setReturnValue();
-			returnValue = subCommands.get(i).getReturnValue();
-		}
+		System.out.println(subCommands.size());
+		returnValue = subCommands.get(subCommands.size()-1).getReturnValue();
 	}
 	
 	@Override

@@ -21,6 +21,8 @@ public abstract class Command {
 		return parameters;
 	}
 	
+	
+	
 	public double getNumParameters() {
 		return expectedNumParameters;
 		
