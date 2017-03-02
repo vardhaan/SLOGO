@@ -8,6 +8,7 @@ package commands;
  *
  */
 import exceptions.ParameterNotEnoughException;
+import exceptions.PopUpException;
 import turtles.Turtle;
 
 public class RIGHT extends TurtleCommand {
@@ -19,14 +20,16 @@ public class RIGHT extends TurtleCommand {
 	
 	@Override
 	public double executeCommand() {
-	
+	try{
 		returnValue = parameters.get(0);
 		
-		try {
+		
 			setReturnValue();
 		} catch (ParameterNotEnoughException e) {
-			e.getMessage();
+			PopUpException p = new PopUpException(e.getMessage());
+			p.showMessage();
 		}
+		
 		Turtle target = getTurtle();
 		double degree = target.getHeading();
 		target.setOverallHeadingChange(-degree);

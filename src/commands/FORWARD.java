@@ -1,6 +1,7 @@
 package commands;
 
 import exceptions.ParameterNotEnoughException;
+import exceptions.PopUpException;
 import turtles.Turtle;
 
 public class FORWARD extends TurtleCommand {
@@ -17,7 +18,7 @@ public class FORWARD extends TurtleCommand {
 	@Override
 	public double executeCommand() {
 		
-		
+		try {
 		returnValue = parameters.get(0);
 		
 		double degree = target.getHeading();
@@ -27,6 +28,12 @@ public class FORWARD extends TurtleCommand {
 		
 		target.setX(target.getX() + x);
 		
+			setReturnValue();
+		} catch (ParameterNotEnoughException e) {
+			
+			PopUpException p = new PopUpException(e.getMessage());
+			p.showMessage();
+		}
 
 		
 		
