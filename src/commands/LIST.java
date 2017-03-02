@@ -2,6 +2,8 @@ package commands;
 
 import java.util.ArrayList;
 
+import exceptions.ParameterNotEnoughException;
+
 public class LIST extends LongCommand{
 	
 	public LIST() {
@@ -11,7 +13,7 @@ public class LIST extends LongCommand{
 	@Override
 	public void addCommand(Command toAdd) {
 		if (toAdd instanceof LISTEND) {
-			expectedNumParameters = subCommands.size();
+			expectedNumCommands =  subCommands.size() * 1.0;
 		} else {
 			super.addCommand(toAdd);
 		}
@@ -26,6 +28,17 @@ public class LIST extends LongCommand{
 	@Override
 	public double executeCommand() {
 		// TODO Auto-generated method stub
+		for (int i=0;i<subCommands.size();i++) {
+			try {
+				subCommands.get(i).setReturnValue();
+			} catch (ParameterNotEnoughException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		for (int i=0;i<subCommands.size();i++) {
+			Double d = subCommands.get(i).executeCommand();
+		}
 		return 0;
 	}
 
