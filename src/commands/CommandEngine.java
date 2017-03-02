@@ -56,6 +56,12 @@ public class CommandEngine {
 		}
 	}
 	
+	public void initializeForExecution() {
+		setAllReturnValues(); 
+		addVariablesToMap();
+		changeVariablesToValues();
+	}
+	
 	public boolean commandsReadyToExecute() {
 		for (Command c : commandQueue) {
 			if (c.getNumParameters() != c.getParameters().size() + c.numCommandAsParam) {

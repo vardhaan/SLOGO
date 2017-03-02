@@ -1,6 +1,9 @@
 package turtles;
 
 import java.util.Observable;
+
+import javafx.scene.image.ImageView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +23,7 @@ public class Turtle extends Observable implements Cloneable{
 	private int myImageIndex;
 	private int myPenColorIndex;
 	private int myID;
+	private ImageView turtleView;
 	
 	
 	public static final double DEFAULT_TURTLE_SPEED = 100; //pixels or degrees per second
@@ -28,9 +32,9 @@ public class Turtle extends Observable implements Cloneable{
 	public static final double DEFAULT_ANGLE = 90;
 	public static final double size=700;
 	public Turtle(int id) {
-		setX(DEFAULT_X_POS);
-		setY(DEFAULT_Y_POS);
-		setHeading(DEFAULT_ANGLE);
+		this.xPos =0;
+		this.yPos = 0;
+		this.heading = 90;
 		showing = true;
 		penDown=true;
 		myImageIndex=0;
@@ -40,7 +44,12 @@ public class Turtle extends Observable implements Cloneable{
 	
 	}
 	
+	public void setTurtleView(ImageView tv) {
+		turtleView = tv;
+	}
+	
 	public void setX(double newX) {
+		System.out.println(this.myID);
 		double gridXDisplacement = getGridWidth()/2.0;
 		this.xPos = newX + gridXDisplacement;
 		if(xPos>getGridWidth()){
@@ -49,6 +58,7 @@ public class Turtle extends Observable implements Cloneable{
 			else if(xPos<0){
 				xPos=getGridWidth()-(xPos % getGridWidth());
 		}
+		turtleView.setX(xPos);
 	}
 	
 	public void setY(double newY) {
