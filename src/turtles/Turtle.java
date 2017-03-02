@@ -151,6 +151,8 @@ public class Turtle extends Observable implements Cloneable{
 		return incrementalChange;
 	}
 	
+	
+	
 	public List<Double> getAllChange() {
 		List<Double> changes = new ArrayList<Double>();
 		changes.add(getXChange());

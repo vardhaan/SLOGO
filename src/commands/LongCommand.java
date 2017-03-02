@@ -28,6 +28,7 @@ public abstract class LongCommand extends Command {
 	
 	@Override
 	public void addParameter(Double d) {
+		System.out.println("param is being added to subcommand");
 		int index = 0;
 		for (int i=0;i<subCommands.size();i++) {
 			if (subCommands.get(i).needsParameter()) {
