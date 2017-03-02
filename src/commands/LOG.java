@@ -4,6 +4,7 @@
 package commands;
 
 import exceptions.ParameterNotEnoughException;
+import exceptions.PopUpException;
 
 /**
  * @author Zhiyong
@@ -17,12 +18,14 @@ public class LOG extends Command{
 
 	@Override
 	public double executeCommand() {
+		try{
 		double degree = parameters.get(0);
+		//here we will return log of 0 as 0
 		returnValue =(degree == 0)? 0 : Math.log(degree);
-		try {
 			setReturnValue();
 		} catch (ParameterNotEnoughException e) {
-			e.getMessage();
+			PopUpException p = new PopUpException(e.getMessage());
+			p.showMessage();
 		}
 		
 		return returnValue;

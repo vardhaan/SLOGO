@@ -6,6 +6,7 @@ import java.util.HashMap;
 import exceptions.MyException;
 import exceptions.ParameterNotEnoughException;
 import exceptions.ParameterTooManyException;
+import exceptions.PopUpException;
 import turtles.TurtleViewer;
 
 public class CommandEngine {
@@ -92,7 +93,8 @@ public class CommandEngine {
 		} else {
 			//TODO: THROW EXCEPTION
 			MyException e = new ParameterNotEnoughException();
-			e.getMessage();
+				PopUpException p = new PopUpException(e.getMessage());
+				p.showMessage();
 			
 		}
 	}
@@ -168,7 +170,10 @@ public class CommandEngine {
 		} else {
 			//TODO: THROW EXCEPTION: TOO MANY PARAMETERS
 			MyException e = new ParameterTooManyException ();
-			e.getMessage();
+			
+				PopUpException p = new PopUpException(e.getMessage());
+				p.showMessage();
+			
 		}
 	}
 	

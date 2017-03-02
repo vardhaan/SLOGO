@@ -4,6 +4,7 @@
 package commands;
 
 import exceptions.ParameterNotEnoughException;
+import exceptions.PopUpException;
 
 /**
  * @author Zhiyong
@@ -17,13 +18,15 @@ public class COS extends Command{
 
 	@Override
 	public double executeCommand() {
+		try {
 		double degree = parameters.get(0);
 		returnValue = Math.cos(degree);
-		try {
+		
 			setReturnValue();
 		} catch (ParameterNotEnoughException e) {
-			
-			e.getMessage();
+				
+				PopUpException p = new PopUpException(e.getMessage());
+				p.showMessage();
 		}
 		
 		return returnValue;
