@@ -34,7 +34,7 @@ public class Turtle extends Observable implements Cloneable{
 	public Turtle(int id) {
 		this.xPos =0;
 		this.yPos = 0;
-		this.heading = 90;
+		this.heading = 45;
 		showing = true;
 		penDown=true;
 		myImageIndex=0;
@@ -49,35 +49,40 @@ public class Turtle extends Observable implements Cloneable{
 	}
 	
 	public void setX(double newX) {
-		System.out.println(this.myID);
+		System.out.println("This is currentTurt x: " + this.xPos);
+
 		double gridXDisplacement = getGridWidth()/2.0;
-		this.xPos = newX + gridXDisplacement;
-		if(xPos>getGridWidth()){
+		this.xPos = newX;
+		if(xPos>=getGridWidth()){
 			xPos=xPos % getGridWidth();
 		}
 			else if(xPos<0){
-				xPos=getGridWidth()-(xPos % getGridWidth());
+				xPos=getGridWidth()-Math.abs(xPos % getGridWidth());
+
 		}
 		turtleView.setX(xPos);
 	}
 	
 	public void setY(double newY) {
 		double gridYDisplacement = getGridHeight()/2.0;
-		this.yPos = newY + gridYDisplacement;
-		if(yPos>getGridHeight()){
+		this.yPos = newY;
+		if(yPos>=getGridHeight()){
 			yPos=yPos % getGridHeight();
 		}
 		else if(yPos<0){
-			yPos=getGridHeight()-(yPos % getGridHeight());
+			yPos=getGridHeight()-Math.abs(yPos % getGridHeight());
+
 		}
+		turtleView.setY(yPos);
+
 	}
 	
 	public double getX() {
-		return this.xPos - (getGridWidth()/2.0);
+		return this.xPos;
 	}
 	
 	public double getY() {
-		return this.yPos - (getGridHeight()/2.0);
+		return this.yPos;
 	}
 	
 	public double getHeading() {
@@ -96,6 +101,7 @@ public class Turtle extends Observable implements Cloneable{
 	
 	public void setHeading(double newHeading) {
 		this.heading = newHeading;
+
 	}
 	
 	public boolean showTurtle(){
