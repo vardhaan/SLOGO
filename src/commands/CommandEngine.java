@@ -3,7 +3,9 @@ package commands;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import exceptions.MyException;
 import exceptions.ParameterNotEnoughException;
+import exceptions.ParameterTooManyException;
 import turtles.TurtleViewer;
 
 public class CommandEngine {
@@ -89,6 +91,9 @@ public class CommandEngine {
 			}
 		} else {
 			//TODO: THROW EXCEPTION
+			MyException e = new ParameterNotEnoughException();
+			e.getMessage();
+			
 		}
 	}
 	
@@ -162,6 +167,8 @@ public class CommandEngine {
 			System.out.println("Adding param to command at: " + commandIndex);
 		} else {
 			//TODO: THROW EXCEPTION: TOO MANY PARAMETERS
+			MyException e = new ParameterTooManyException ();
+			e.getMessage();
 		}
 	}
 	

@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.io.File;
 import java.lang.reflect.Constructor;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
+import exceptions.EmptyParserException;
+import exceptions.ParameterNotEnoughException;
 import turtles.TurtleViewer;
 
 
@@ -105,49 +106,49 @@ public class Parser {
 	    /*public void parse(File f) {
 	    	
 	    }*/
-	    
-	    public void changeLanguage(String newLanguage) {
-	    	mySymbols.clear();
-	    	addPatterns(RESOURCE_BUNDLE_URL + newLanguage);
-	    	addPatterns(RESOURCE_BUNDLE_URL + DEFAULT_SYNTAX_BUNDLE);
-	    }
-	    
-	    // adds the given resource file to this language's recognized types
-	    public void addPatterns (String syntax) {
-	        ResourceBundle resources = ResourceBundle.getBundle(syntax);
-	        Enumeration<String> iter = resources.getKeys();
-	        while (iter.hasMoreElements()) {
-	            String key = iter.nextElement();
-	            String regex = resources.getString(key);
-	            mySymbols.add(new SimpleEntry<>(key,
-	                           // THIS IS THE IMPORTANT LINE
-	                           Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
-	        }
-	    }
 
-	    // returns the language's type associated with the given text if one exists 
-	    public String getSymbol (String text) {
-	        final String ERROR = "NO MATCH";
-	        for (Entry<String, Pattern> e : mySymbols) {
-	            if (match(text, e.getValue())) {
-	                return e.getKey();
-	            }
-	        }
-	        return ERROR;
-	    }
+	public void changeLanguage(String newLanguage) {
+		mySymbols.clear();
+		addPatterns(RESOURCE_BUNDLE_URL + newLanguage);
+		addPatterns(RESOURCE_BUNDLE_URL + DEFAULT_SYNTAX_BUNDLE);
+	}
 
-	    // returns true if the given text matches the given regular expression pattern
-	    private boolean match (String text, Pattern regex) {
-	        // THIS IS THE KEY LINE
-	        return regex.matcher(text).matches();
-	    }
-	    
-//	    public static void main(String[] args) throws ClassNotFoundException {
-//	    	Parser p = new Parser();
-//	    	String s = " MAKE :maki 50  DOTIMES [ :maki 10 ] [ fd10 ]";
-//	    	p.parse(s);
-//	    	System.out.println(p.engine.commandQueue.size());
-//	    	
-//	    	
-//	    }
+	// adds the given resource file to this language's recognized types
+	public void addPatterns (String syntax) {
+		ResourceBundle resources = ResourceBundle.getBundle(syntax);
+		Enumeration<String> iter = resources.getKeys();
+		while (iter.hasMoreElements()) {
+			String key = iter.nextElement();
+			String regex = resources.getString(key);
+			mySymbols.add(new SimpleEntry<>(key,
+					// THIS IS THE IMPORTANT LINE
+					Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
+		}
+	}
+
+	// returns the language's type associated with the given text if one exists 
+	public String getSymbol (String text) {
+		final String ERROR = "NO MATCH";
+		for (Entry<String, Pattern> e : mySymbols) {
+			if (match(text, e.getValue())) {
+				return e.getKey();
+			}
+		}
+		return ERROR;
+	}
+
+	// returns true if the given text matches the given regular expression pattern
+	private boolean match (String text, Pattern regex) {
+		// THIS IS THE KEY LINE
+		return regex.matcher(text).matches();
+	}
+
+	//	    public static void main(String[] args) throws ClassNotFoundException {
+	//	    	Parser p = new Parser();
+	//	    	String s = " MAKE :maki 50  DOTIMES [ :maki 10 ] [ fd10 ]";
+	//	    	p.parse(s);
+	//	    	System.out.println(p.engine.commandQueue.size());
+	//	    	
+	//	    	
+	//	    }
 }
