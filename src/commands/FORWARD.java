@@ -20,13 +20,14 @@ public class FORWARD extends TurtleCommand {
 		
 		returnValue = parameters.get(0);
 		
-		/*double degree = target.getHeading();
-		double y = Math.sin(degree) * returnValue;
-		double x = Math.cos(degree) * returnValue;
-		target.setOverallXChange(x);
-		target.setOverallYChange(-y);*/
-		target.setX(target.getX() + returnValue);
-		System.out.println("This is new x: " + target.getX());
+		double degree = target.getHeading();
+		double y = Math.sin(degree*Math.PI/180) * returnValue;
+		double x = Math.cos(degree*Math.PI/180) * returnValue;
+		target.setY(target.getY() + y);
+		
+		target.setX(target.getX() + x);
+		
+
 		
 		
 		return returnValue;
