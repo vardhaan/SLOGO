@@ -70,6 +70,7 @@ public class Parser {
 	    			}
 	    		}
 	    	}
+	    	engine.initializeForExecution();
 	    	engine.executeCommands();
 	    	
 	    	

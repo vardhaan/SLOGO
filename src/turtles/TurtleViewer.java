@@ -53,9 +53,18 @@ public class TurtleViewer extends Observable implements Observer{
 	public static final double DEFAULT_ANGLE = 90;
 	private ImageView myTurtleImage;
 
-	public TurtleViewer(int myID){
+	public TurtleViewer(int myID, Pane myRoot){
 		myTurtle=new Turtle(myID);
-		addTurtle(myID);
+		turtles.put(myID, myTurtle);
+		Image image2 = new Image("images/slogo1.jpg");
+		myTurtleImage=new ImageView(image2);
+		//myTurtleImage.setX(20);
+		//myTurtleImage.setY(50);
+		myTurtleImage.setFitWidth(50);
+		myTurtleImage.setFitHeight(50);
+		myRoot.getChildren().add(myTurtleImage);
+		System.out.println(myTurtleImage.toString());
+		myTurtle.setTurtleView(myTurtleImage);
 	}
 
 	public void buildTurtle(Pane myRoot){

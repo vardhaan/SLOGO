@@ -29,8 +29,7 @@ public class GUIBuilder {
 	public void buildGUI(GridPane myRoot){
 		
 		Pane myRoot2 = new Pane();
-		TurtleViewer tv = new TurtleViewer(0);
-		tv.buildTurtle(myRoot2);
+		TurtleViewer tv = new TurtleViewer(0, myRoot2);
 		myRoot.getChildren().add(myRoot2);
 		GridPane.setConstraints(myRoot2, 0, 1);
 		
