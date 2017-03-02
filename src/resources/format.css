@@ -10,6 +10,9 @@
 
 .vbox .content{
     -fx-background-color: magenta;
+}
+
+.vbox {
     -fx-padding: 15;
     -fx-spacing: 10;
 }
