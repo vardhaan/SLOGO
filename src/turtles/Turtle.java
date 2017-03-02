@@ -30,7 +30,7 @@ public class Turtle extends Observable implements Cloneable{
 	public static final double DEFAULT_X_POS = 0;
 	public static final double DEFAULT_Y_POS = 0;
 	public static final double DEFAULT_ANGLE = 90;
-	public static final double size=700;
+	public static final double size=1150;
 	public Turtle(int id) {
 		this.xPos =0;
 		this.yPos = 0;
