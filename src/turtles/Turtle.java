@@ -2,9 +2,20 @@ package turtles;
 
 import java.util.Observable;
 
+import javafx.animation.Animation;
+import javafx.animation.PathTransition;
+import javafx.animation.RotateTransition;
+import javafx.animation.SequentialTransition;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.HLineTo;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.VLineTo;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +42,7 @@ public class Turtle extends Observable implements Cloneable{
 	private ImageView turtleView;
 	private ArrayList<Line> myLines = new ArrayList<Line>();
 	private Pane myRoot;
+	private Animation myAnimation;
 	
 	public static final double DEFAULT_TURTLE_SPEED = 100; //pixels or degrees per second
 	public static final double DEFAULT_X_POS = 0;
@@ -70,8 +82,10 @@ public class Turtle extends Observable implements Cloneable{
 				xPos=getGridWidth()-Math.abs(xPos % getGridWidth());
 
 		}
-		turtleView.setX(xPos);
+	//	turtleView.setX(xPos);
 		updatePen();
+		myAnimation = makeAnimation();
+		myAnimation.play();
 	}
 	
 	public void setY(double newY) {
@@ -85,8 +99,10 @@ public class Turtle extends Observable implements Cloneable{
 			yPos=getGridHeight()-Math.abs(yPos % getGridHeight());
 
 		}
-		turtleView.setY(yPos);
+	//	turtleView.setY(yPos);
 		updatePen();
+		myAnimation = makeAnimation();
+		myAnimation.play();
 	}
 	
 	private void updatePen(){
@@ -97,6 +113,18 @@ public class Turtle extends Observable implements Cloneable{
 			myRoot.getChildren().add(current);
 		}
 	}
+	
+	private Animation makeAnimation () {
+		System.out.println("Animation called");
+        Path path = new Path();
+        path.getElements().addAll(new MoveTo(xPos, yPos), new HLineTo(100), new VLineTo(yPos));
+        System.out.println(xPos);
+        System.out.println(yPos);
+        PathTransition pt = new PathTransition(Duration.millis(4000), path, turtleView);
+        RotateTransition rt = new RotateTransition(Duration.seconds(3));
+        rt.setByAngle(heading);
+        return new SequentialTransition(turtleView, pt, rt);
+    }
 	
 	public void clearLines(){
 		for(Line current: myLines){
