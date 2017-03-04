@@ -29,6 +29,7 @@ public class TurtleViewer extends Observable implements Observer{
 
 	private Turtle myTurtle;
 	private HashMap<Integer,Turtle> turtles=new HashMap<Integer,Turtle>();
+	private ArrayList<Line> myLines = new ArrayList<Line>();
 	private double xPos;
 	private double yPos;
 	private double heading;
@@ -44,6 +45,8 @@ public class TurtleViewer extends Observable implements Observer{
 	public static final double DEFAULT_SIZE = 700;
 	public static final String TURTLE_IMAGE="";
 	private Line line;
+	
+	private Pane myRoot;
 	//private Workspace myWorkspace;
 	public static String turtleimage1="slogo1.jpg";
 
@@ -53,7 +56,8 @@ public class TurtleViewer extends Observable implements Observer{
 	public static final double DEFAULT_ANGLE = 90;
 	private ImageView myTurtleImage;
 
-	public TurtleViewer(int myID, Pane myRoot){
+	public TurtleViewer(int myID, Pane myRootIn){
+		myRoot = myRootIn;
 		myTurtle=new Turtle(myID);
 		turtles.put(myID, myTurtle);
 		Image image2 = new Image("images/slogo1.jpg");
@@ -63,7 +67,6 @@ public class TurtleViewer extends Observable implements Observer{
 		myTurtleImage.setFitWidth(50);
 		myTurtleImage.setFitHeight(50);
 		myRoot.getChildren().add(myTurtleImage);
-		System.out.println(myTurtleImage.toString());
 		myTurtle.setTurtleView(myTurtleImage);
 	}
 
@@ -106,15 +109,25 @@ public class TurtleViewer extends Observable implements Observer{
 	}
 	public void setX(ImageView turtleImage, int myID) throws Exception {
 		turtleImage.setX(getTurtle(myID).getX());
+		updatePen();
 	}
 	public void setY(ImageView turtleImage, int myID) throws Exception {
 		turtleImage.setY(getTurtle(myID).getY());
+		updatePen();
+	}
+	
+	private void updatePen(){
+		System.out.println("Update pen is called");
+		if (myTurtle.getPen()){
+			Line current = new Line(myTurtle.getPreviousX(), myTurtle.getPreviousY(), myTurtle.getX(), myTurtle.getY());
+			myLines.add(current);
+			myRoot.getChildren().add(current);
+		}
 	}
 	
 
 	@Override
 	public void update(Observable turtle, Object arg1) {
-		
 		setChanged();
 		notifyObservers();
 	}
