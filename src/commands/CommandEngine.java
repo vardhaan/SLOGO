@@ -6,6 +6,7 @@ import java.util.HashMap;
 import exceptions.MyException;
 import exceptions.ParameterNotEnoughException;
 import exceptions.ParameterTooManyException;
+import exceptions.PopUpException;
 import turtles.TurtleViewer;
 
 public class CommandEngine {
@@ -63,9 +64,10 @@ public class CommandEngine {
 	}
 	
 	public boolean commandsReadyToExecute() {
+		System.out.println(commandQueue.size() + " this is cq size");
 		for (Command c : commandQueue) {
 			if (c.getNumParameters() != c.getParameters().size() + c.numCommandAsParam) {
-				System.out.println("thic is cNumPar: " + c.getNumParameters() + " " + (c.getParameters().size()+c.numCommandAsParam));
+				System.out.println("thic is cNumPar: " + c.getNumParameters() + " " + (c.getParameters().size()+c.numCommandAsParam) + " " + c.getParameters().size());
 
 				return false;
 			}
@@ -92,7 +94,8 @@ public class CommandEngine {
 		} else {
 			//TODO: THROW EXCEPTION
 			MyException e = new ParameterNotEnoughException();
-			e.getMessage();
+				PopUpException p = new PopUpException(e.getMessage());
+				p.showMessage();
 			
 		}
 	}
@@ -163,12 +166,16 @@ public class CommandEngine {
 			
 		}
 		if (commandIndex!=-1) {
+			System.out.println("Adding param " + d + " to command at: " + commandIndex);
+
 			commandQueue.get(commandIndex).addParameter(d);
-			System.out.println("Adding param to command at: " + commandIndex);
 		} else {
 			//TODO: THROW EXCEPTION: TOO MANY PARAMETERS
 			MyException e = new ParameterTooManyException ();
-			e.getMessage();
+			
+				PopUpException p = new PopUpException(e.getMessage());
+				p.showMessage();
+			
 		}
 	}
 	

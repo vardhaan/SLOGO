@@ -3,7 +3,7 @@ package commands;
 public abstract class ListContainingCommand extends Command{
 	private LIST listOfCommands;
 	private LIST inputs;
-	private int numCommandAsParameters;
+	
 	//private ArrayList<Double> parameters;
 	
 	public ListContainingCommand(){
@@ -18,7 +18,7 @@ public abstract class ListContainingCommand extends Command{
 	}
 	
 	public void incrementNumCommAsParam() {
-		numCommandAsParameters++;
+		numCommandAsParam++;
 	}
 	
 	@Override
@@ -26,7 +26,7 @@ public abstract class ListContainingCommand extends Command{
 		if (inputs == null || listOfCommands == null) {
 			return true;
 		}
-		if (parameters.size()+numCommandAsParameters != expectedNumParameters) {
+		if (parameters.size()+numCommandAsParam != expectedNumParameters) {
 			return true;
 		}
 		return (inputs.needsCommand() || listOfCommands.needsCommand());
@@ -39,7 +39,7 @@ public abstract class ListContainingCommand extends Command{
 	
 	@Override 
 	public void addParameter(Double d) {
-		if (parameters.size() + numCommandAsParameters != expectedNumParameters) {
+		if (parameters.size() + numCommandAsParam != expectedNumParameters) {
 			parameters.add(d);
 		} else {
 			listOfCommands.addParameter(d);

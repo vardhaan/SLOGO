@@ -4,6 +4,7 @@
 package commands;
 
 import exceptions.ParameterNotEnoughException;
+import exceptions.PopUpException;
 
 /**
  * @author Zhiyong
@@ -17,12 +18,14 @@ public class MINUS extends Command{
 
 	@Override
 	public double executeCommand() {
+		try{
 		double x = parameters.get(0);
 		returnValue = -x ;
-		try {
+		
 			setReturnValue();
 		} catch (ParameterNotEnoughException e) {
-			e.getMessage();
+			PopUpException p = new PopUpException(e.getMessage());
+			p.showMessage();
 		}
 		
 		return returnValue;
