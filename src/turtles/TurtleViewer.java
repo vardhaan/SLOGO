@@ -58,7 +58,7 @@ public class TurtleViewer extends Observable implements Observer{
 
 	public TurtleViewer(int myID, Pane myRootIn){
 		myRoot = myRootIn;
-		myTurtle=new Turtle(myID);
+		myTurtle=new Turtle(myID, myRoot);
 		turtles.put(myID, myTurtle);
 		Image image2 = new Image("images/slogo1.jpg");
 		myTurtleImage=new ImageView(image2);
@@ -83,7 +83,7 @@ public class TurtleViewer extends Observable implements Observer{
 
 
 	public void addTurtle(int ID){
-		turtles.put(ID,new Turtle(ID));
+		turtles.put(ID,new Turtle(ID, myRoot));
 
 	}
 	public Turtle getTurtle(int ID) throws Exception{

@@ -3,6 +3,8 @@ package turtles;
 import java.util.Observable;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,8 @@ public class Turtle extends Observable implements Cloneable{
 	private int myPenColorIndex;
 	private int myID;
 	private ImageView turtleView;
-	
+	private ArrayList<Line> myLines = new ArrayList<Line>();
+	private Pane myRoot;
 	
 	public static final double DEFAULT_TURTLE_SPEED = 100; //pixels or degrees per second
 	public static final double DEFAULT_X_POS = 0;
@@ -35,7 +38,8 @@ public class Turtle extends Observable implements Cloneable{
 	public static final double DEFAULT_ANGLE = 90;
 	private double width=1150;
 	private double height=625;
-	public Turtle(int id) {
+	public Turtle(int id, Pane myRootIn) {
+		myRoot = myRootIn;
 		this.xPos =0;
 		this.yPos = 0;
 		this.previousxPos = 0;
@@ -67,6 +71,7 @@ public class Turtle extends Observable implements Cloneable{
 
 		}
 		turtleView.setX(xPos);
+		updatePen();
 	}
 	
 	public void setY(double newY) {
@@ -81,6 +86,16 @@ public class Turtle extends Observable implements Cloneable{
 
 		}
 		turtleView.setY(yPos);
+		updatePen();
+	}
+	
+	private void updatePen(){
+		System.out.println("Update pen is called");
+		if (penDown){
+			Line current = new Line(previousxPos, previousyPos + 25, xPos, yPos + 25);
+			myLines.add(current);
+			myRoot.getChildren().add(current);
+		}
 	}
 	
 	public double getX() {
