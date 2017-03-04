@@ -37,6 +37,8 @@ public class ConsoleBuilder {
 		plist.setItems(pcommands);
 		plist.setOrientation(Orientation.VERTICAL);
 		plist.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		plist.setMaxHeight(500);
+		plist.setMinHeight(500);
 		
 	}
 	
@@ -61,6 +63,7 @@ public class ConsoleBuilder {
 					e1.printStackTrace();
 				}
 				console.clear();
+				
 			}
 		};
 		EventHandler<ActionEvent> clear = new EventHandler<ActionEvent>() {
