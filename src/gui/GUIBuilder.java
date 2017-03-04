@@ -40,7 +40,7 @@ public class GUIBuilder {
 		ConsoleBuilder b = new ConsoleBuilder(myResources, myParser);
 		b.buildConsole(myRoot);
 
-		MenuBuilder m=new MenuBuilder();
+		MenuBuilder m=new MenuBuilder(tv);
 		m.buildMenu(myRoot);
 
 		VariableBoxBuilder v = new VariableBoxBuilder(myResources);

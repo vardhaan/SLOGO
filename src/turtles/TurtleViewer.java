@@ -80,6 +80,12 @@ public class TurtleViewer extends Observable implements Observer{
 		myRoot.getChildren().add(myTurtleImage);
 		
 	}
+	
+	public void clear(){
+		myTurtle.clearLines();
+		myTurtle.setX(0);
+		myTurtle.setY(0);
+	}
 
 
 	public void addTurtle(int ID){
