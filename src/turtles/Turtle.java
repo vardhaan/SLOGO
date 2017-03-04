@@ -98,6 +98,14 @@ public class Turtle extends Observable implements Cloneable{
 		}
 	}
 	
+	public void clearLines(){
+		for(Line current: myLines){
+			myRoot.getChildren().remove(current);
+		}
+		System.out.println("clearsLine");
+		myLines.clear();
+	}
+	
 	public double getX() {
 		return this.xPos;
 	}
