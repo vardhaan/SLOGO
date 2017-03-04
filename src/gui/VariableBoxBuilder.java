@@ -14,6 +14,7 @@ public class VariableBoxBuilder {
 		variables.setPrefColumnCount(10);
 		variables.setPrefRowCount(5);
 		variables.setMinHeight(100);
+		variables.setMaxHeight(100);
 		double xloc = 10;
 		double yloc = 11;
 		double angle = 12.1;
