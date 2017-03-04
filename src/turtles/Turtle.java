@@ -11,6 +11,9 @@ public class Turtle extends Observable implements Cloneable{
 
 	private double xPos;
 	private double yPos;
+	private double previousxPos;
+	private double previousyPos;
+	
 	private double heading;
 	private boolean showing;
 	private double xChange;
@@ -35,7 +38,9 @@ public class Turtle extends Observable implements Cloneable{
 	public Turtle(int id) {
 		this.xPos =0;
 		this.yPos = 0;
-		this.heading = 45;
+		this.previousxPos = 0;
+		this.previousyPos = 0;
+		this.heading = 0;
 		showing = true;
 		penDown=true;
 		myImageIndex=0;
@@ -51,7 +56,7 @@ public class Turtle extends Observable implements Cloneable{
 	
 	public void setX(double newX) {
 		System.out.println("This is currentTurt x: " + this.xPos);
-
+		previousxPos = xPos;
 		double gridXDisplacement = getGridWidth()/2.0;
 		this.xPos = newX;
 		if(xPos>=getGridWidth()){
@@ -65,6 +70,7 @@ public class Turtle extends Observable implements Cloneable{
 	}
 	
 	public void setY(double newY) {
+		previousyPos = yPos;
 		double gridYDisplacement = getGridHeight()/2.0;
 		this.yPos = newY;
 		if(yPos>=getGridHeight()){
@@ -75,7 +81,6 @@ public class Turtle extends Observable implements Cloneable{
 
 		}
 		turtleView.setY(yPos);
-
 	}
 	
 	public double getX() {
@@ -85,6 +90,15 @@ public class Turtle extends Observable implements Cloneable{
 	public double getY() {
 		return this.yPos;
 	}
+	
+	public double getPreviousX() {
+		return this.previousxPos;
+	}
+	
+	public double getPreviousY() {
+		return this.previousyPos;
+	}
+	
 	
 	public double getHeading() {
 		return this.heading;

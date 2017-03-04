@@ -22,7 +22,7 @@ public class GridBuilder {
 		myGrid = new GridPane();
 		myGrid.setPrefHeight(700);
 		myGrid.setPrefWidth(1200);
-		myGrid.setGridLinesVisible(true);
+		myGrid.setGridLinesVisible(false);
 	}
 
 	public void buildGrid(GridPane myRoot) {
