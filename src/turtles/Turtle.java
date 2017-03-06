@@ -48,7 +48,7 @@ public class Turtle extends Observable implements Cloneable{
 	public static final double DEFAULT_X_POS = 0;
 	public static final double DEFAULT_Y_POS = 0;
 	public static final double DEFAULT_ANGLE = 90;
-	private double width=1150;
+	private double width=1050;
 	private double height=625;
 	public Turtle(int id, Pane myRootIn) {
 		myRoot = myRootIn;
