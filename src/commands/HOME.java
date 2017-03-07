@@ -19,6 +19,11 @@ public class HOME extends TurtleCommand{
 	}
 	
 	@Override
+	public void setReturnValue() throws ParameterNotEnoughException {
+		//DO NOTHING
+	}
+	
+	@Override
 	public double executeCommand() {
 		try {
 

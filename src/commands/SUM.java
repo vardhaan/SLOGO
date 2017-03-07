@@ -17,24 +17,29 @@ public class SUM extends Command{
 		super();
 		expectedNumParameters = 2;
 	}
-
 	
-	public void setReturnValue(){
-		try{
+	@Override
+	public void setReturnValue() throws ParameterNotEnoughException {
+		if (parameters.size() == expectedNumParameters) {
+				returnValue = (parameters.get(0) + parameters.get(1));
+				
+				sendReturnToDependent();
+		} else {
+			ParameterNotEnoughException p =  new ParameterNotEnoughException();
+			//TODO: the frontend get the message of the exception
+			p.getMessage();
+		}
+		
+	}
+
+	@Override
+	public double executeCommand() {
 		double x = parameters.get(0);
 		double y = parameters.get(1);
 		//parameters.add(1, x + y);
 		returnValue = x + y;
-		}catch(Exception e){
-			PopUpException pop = new PopUpException(e.getMessage());
-			pop.showMessage();
-		}
-	}
-	
-	@Override
-	public double executeCommand() {
-		setReturnValue();
-		System.out.println("The value is " + returnValue);
+		System.out.println(returnValue);
+		
 		return returnValue;
 	}
 

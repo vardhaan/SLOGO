@@ -101,8 +101,8 @@ public class Turtle extends Observable implements Cloneable{
 		}
 		turtleView.setY(yPos);
 		updatePen();
-	//	myAnimation = makeAnimation();
-	//	myAnimation.play();
+		//myAnimation = makeAnimation();
+		//myAnimation.play();
 	}
 	
 	private void updatePen(){
