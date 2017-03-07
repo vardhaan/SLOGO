@@ -4,6 +4,7 @@
 package commands;
 
 import exceptions.ParameterNotEnoughException;
+import exceptions.PopUpException;
 import turtles.Turtle;
 
 /**
@@ -19,15 +20,18 @@ public class PENUP extends TurtleCommand {
 
 	@Override
 	public double executeCommand() {
+		try{
 		penDown = false;
 		returnValue = 0;
 		Turtle turtle = getTurtle();
 		turtle.setPenDown(false);
-		try {
+		
 			setReturnValue();
 		} catch (ParameterNotEnoughException e) {
-			e.getMessage();
+			PopUpException p = new PopUpException(e.getMessage());
+			p.showMessage();
 		}
+		
 		
 		return 0;
 	}

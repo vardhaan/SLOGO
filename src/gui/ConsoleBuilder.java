@@ -13,41 +13,79 @@ import javafx.geometry.Orientation;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 
 public class ConsoleBuilder {
+	private TabPane myTab;
 	private TextArea console;
 	private ObservableList<Button> pcommands;
+	private ObservableList<TextArea> turtleList;
 	private ListView<Button> plist;
+	private ListView<TextArea> turtleVariables;
 	private ResourceBundle myResources;
 	private Parser myParser;
-    
+	private TextArea variables;
+
 	public ConsoleBuilder(ResourceBundle myResourcesIn, Parser parserIn){
 		myResources = myResourcesIn;
 		myParser = parserIn;
-		
+
 		console = new TextArea();
-		console.setPrefColumnCount(80);
+		console.setPrefColumnCount(50);
 		console.setPrefRowCount(5);
 		console.setMinHeight(150);
-		
+
 		pcommands = FXCollections.observableArrayList();
 		plist = new ListView<Button>();
 		plist.setItems(pcommands);
 		plist.setOrientation(Orientation.VERTICAL);
 		plist.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+		myTab = new TabPane();
+		myTab.setMinWidth(300);
+		Tab pcTab = new Tab();
+		pcTab.setText("Previous Commands");
+		pcTab.setContent(plist);
+		myTab.getTabs().add(pcTab);
 		
+		variables = new TextArea();
+		variables.setEditable(false);
+		variables.setMaxWidth(280);
+		String name = "Turtle1";
+		double xloc = 0;
+		double yloc = 0;
+		double angle = 0;
+		variables.setText(String.format(name + "\nX: %f \nY: %f \nAngle: %f", xloc, yloc, angle));
+		
+		turtleList = FXCollections.observableArrayList();
+		turtleVariables = new ListView<TextArea>();
+		turtleVariables.setItems(turtleList);
+		turtleVariables.setOrientation(Orientation.VERTICAL);
+		turtleVariables.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
+		turtleList.add(variables);
+		
+		Tab turtleTab2 = new Tab();
+		turtleTab2.setText("Turtles");
+		turtleTab2.setContent(turtleVariables);
+		myTab.getTabs().add(turtleTab2);
+
 	}
-	
+
 	public void buildConsole(GridPane myRoot){
 		GridPane.setConstraints(console, 0, 3);
-		GridPane.setConstraints(plist, 1, 2);
-		GridPane.setColumnSpan(plist, 2);
-		myRoot.getChildren().addAll(console, plist);
+		GridPane.setConstraints(myTab, 1, 1);
+		GridPane.setRowSpan(myTab, 2);
+		GridPane.setColumnSpan(myTab, 2);
+		myRoot.getChildren().addAll(console, myTab);
 		createButtons(myRoot, 3);
 	}
-	
+
 	private void createButtons(GridPane myRoot, int row) {
 		String[] buttonLabels = { "ExecuteButtonLabel", "ClearButtonLabel"};
 		EventHandler<ActionEvent> execute = new EventHandler<ActionEvent>() {
@@ -61,6 +99,7 @@ public class ConsoleBuilder {
 					e1.printStackTrace();
 				}
 				console.clear();
+
 			}
 		};
 		EventHandler<ActionEvent> clear = new EventHandler<ActionEvent>() {
@@ -79,7 +118,7 @@ public class ConsoleBuilder {
 		}
 		ButtonBuilder.addButtonsTo(buttons, myRoot);
 	}
-	
+
 	public void addPreviousCommand(String previousText){
 		Button pcommandButton = new Button(previousText);
 		pcommandButton.setOnAction(e -> {
@@ -91,7 +130,7 @@ public class ConsoleBuilder {
 			}
 		});
 		pcommands.add(pcommandButton);
-		
+
 	}
-	
+
 }

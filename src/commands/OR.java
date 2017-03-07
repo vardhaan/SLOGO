@@ -4,6 +4,7 @@
 package commands;
 
 import exceptions.ParameterNotEnoughException;
+import exceptions.PopUpException;
 
 /**
  * @author Zhiyong
@@ -17,14 +18,17 @@ public class  OR extends Command{
 
 	@Override
 	public double executeCommand() {
+		try{
 		double x = parameters.get(0);
 		double y = parameters.get(1);
 		returnValue = (x != 0 || y != 0)? 1 : 0;
-		try {
+		
 			setReturnValue();
 		} catch (ParameterNotEnoughException e) {
-			e.getMessage();
+			PopUpException p = new PopUpException(e.getMessage());
+			p.showMessage();
 		}
+		
 		
 		return returnValue;
 	}

@@ -1,15 +1,10 @@
 package gui;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.function.Consumer;
 
 import commands.Parser;
 import javafx.geometry.Insets;
 import javafx.scene.control.MenuBar;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import gui.MenuBuilder;
@@ -40,11 +35,8 @@ public class GUIBuilder {
 		ConsoleBuilder b = new ConsoleBuilder(myResources, myParser);
 		b.buildConsole(myRoot);
 
-		MenuBuilder m=new MenuBuilder();
+		MenuBuilder m=new MenuBuilder(tv);
 		m.buildMenu(myRoot);
-
-		VariableBoxBuilder v = new VariableBoxBuilder(myResources);
-		v.buildVariableBox(myRoot);
 		
 		GridBuilder g = new GridBuilder();
 		g.buildGrid(myRoot);

@@ -4,6 +4,7 @@
 package commands;
 
 import exceptions.ParameterNotEnoughException;
+import exceptions.PopUpException;
 
 /**
  * @author Zhiyong
@@ -17,13 +18,14 @@ public class TAN extends Command{
 
 	@Override
 	public double executeCommand() {
+		try{
 		double degree = parameters.get(0);
 		returnValue = (degree %  (Math.PI/2) == 0) ? 0 :Math.tan(degree);
-		try {
+		
 			setReturnValue();
 		} catch (ParameterNotEnoughException e) {
-			
-			e.getMessage();
+			PopUpException p = new PopUpException(e.getMessage());
+			p.showMessage();
 		}
 		
 		return returnValue;

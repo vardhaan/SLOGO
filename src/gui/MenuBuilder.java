@@ -20,15 +20,18 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
+import turtles.TurtleViewer;
 
 public class MenuBuilder {
 	private MenuBar menu;
 	public  String RESOURCES_LOCATION = "resources/gui";
 	private  ResourceBundle myResources = ResourceBundle.getBundle(RESOURCES_LOCATION);
 	private GridPane myroot;
+	private TurtleViewer tv;
 	//resources
 
-	public MenuBuilder() {
+	public MenuBuilder(TurtleViewer tvIn) {
+		tv = tvIn;
 		Menu settings=initSettingsMenu();
 		Menu reset=initResetMenu();
 		Menu help= intHelpMenu();
@@ -83,7 +86,8 @@ public class MenuBuilder {
          }
 	}
 	private void reset(){
-		
+		tv.clear();
+		tv.clear();
 	}
 
 	private Menu initResetMenu() {

@@ -6,6 +6,7 @@ package commands;
 import java.util.Random;
 
 import exceptions.ParameterNotEnoughException;
+import exceptions.PopUpException;
 
 /**
  * @author Zhiyong
@@ -19,15 +20,15 @@ public class SIN extends Command{
 
 	@Override
 	public double executeCommand() {
+		try{
 		double degree = parameters.get(0);
 		returnValue = Math.sin(degree);
-		try {
+		
 			setReturnValue();
 		} catch (ParameterNotEnoughException e) {
-			
-			e.getMessage();
+			PopUpException p = new PopUpException(e.getMessage());
+			p.showMessage();
 		}
-		
 		return returnValue;
 	}
 

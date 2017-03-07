@@ -2,7 +2,20 @@ package turtles;
 
 import java.util.Observable;
 
+import javafx.animation.Animation;
+import javafx.animation.PathTransition;
+import javafx.animation.RotateTransition;
+import javafx.animation.SequentialTransition;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.HLineTo;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.VLineTo;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +24,9 @@ public class Turtle extends Observable implements Cloneable{
 
 	private double xPos;
 	private double yPos;
+	private double previousxPos;
+	private double previousyPos;
+	
 	private double heading;
 	private boolean showing;
 	private double xChange;
@@ -24,17 +40,23 @@ public class Turtle extends Observable implements Cloneable{
 	private int myPenColorIndex;
 	private int myID;
 	private ImageView turtleView;
-	
+	private ArrayList<Line> myLines = new ArrayList<Line>();
+	private Pane myRoot;
+	private Animation myAnimation;
 	
 	public static final double DEFAULT_TURTLE_SPEED = 100; //pixels or degrees per second
 	public static final double DEFAULT_X_POS = 0;
 	public static final double DEFAULT_Y_POS = 0;
 	public static final double DEFAULT_ANGLE = 90;
-	public static final double size=1150;
-	public Turtle(int id) {
+	private double width=1050;
+	private double height=625;
+	public Turtle(int id, Pane myRootIn) {
+		myRoot = myRootIn;
 		this.xPos =0;
 		this.yPos = 0;
-		this.heading = 45;
+		this.previousxPos = 0;
+		this.previousyPos = 0;
+		this.heading = 0;
 		showing = true;
 		penDown=true;
 		myImageIndex=0;
@@ -49,8 +71,8 @@ public class Turtle extends Observable implements Cloneable{
 	}
 	
 	public void setX(double newX) {
-		//System.out.println("This is currentTurt x: " + this.xPos);
-
+		System.out.println("This is currentTurt x: " + this.xPos);
+		previousxPos = xPos;
 		double gridXDisplacement = getGridWidth()/2.0;
 		this.xPos = newX;
 		if(xPos>=getGridWidth()){
@@ -60,10 +82,14 @@ public class Turtle extends Observable implements Cloneable{
 				xPos=getGridWidth()-Math.abs(xPos % getGridWidth());
 
 		}
-		turtleView.setX(xPos);
+	//	turtleView.setX(xPos);
+		updatePen();
+		myAnimation = makeAnimation();
+		myAnimation.play();
 	}
 	
 	public void setY(double newY) {
+		previousyPos = yPos;
 		double gridYDisplacement = getGridHeight()/2.0;
 		this.yPos = newY;
 		if(yPos>=getGridHeight()){
@@ -73,8 +99,39 @@ public class Turtle extends Observable implements Cloneable{
 			yPos=getGridHeight()-Math.abs(yPos % getGridHeight());
 
 		}
-		turtleView.setY(yPos);
-
+	//	turtleView.setY(yPos);
+		updatePen();
+		myAnimation = makeAnimation();
+		myAnimation.play();
+	}
+	
+	private void updatePen(){
+		System.out.println("Update pen is called");
+		if (penDown){
+			Line current = new Line(previousxPos, previousyPos + 25, xPos, yPos + 25);
+			myLines.add(current);
+			myRoot.getChildren().add(current);
+		}
+	}
+	
+	private Animation makeAnimation () {
+		System.out.println("Animation called");
+        Path path = new Path();
+        path.getElements().addAll(new MoveTo(xPos, yPos), new HLineTo(100), new VLineTo(yPos));
+        System.out.println(xPos);
+        System.out.println(yPos);
+        PathTransition pt = new PathTransition(Duration.millis(4000), path, turtleView);
+        RotateTransition rt = new RotateTransition(Duration.seconds(3));
+        rt.setByAngle(heading);
+        return new SequentialTransition(turtleView, pt, rt);
+    }
+	
+	public void clearLines(){
+		for(Line current: myLines){
+			myRoot.getChildren().remove(current);
+		}
+		System.out.println("clearsLine");
+		myLines.clear();
 	}
 	
 	public double getX() {
@@ -85,18 +142,27 @@ public class Turtle extends Observable implements Cloneable{
 		return this.yPos;
 	}
 	
+	public double getPreviousX() {
+		return this.previousxPos;
+	}
+	
+	public double getPreviousY() {
+		return this.previousyPos;
+	}
+	
+	
 	public double getHeading() {
 		return this.heading;
 	}
 	
 	private double getGridHeight() {
 		//TODO: IMPLEMENT, GET FROM FRONTEND
-		return size;
+		return height;
 	}
 	
 	private double getGridWidth() {
 		//TODO: IMPLEMENT, GET FROM FRONTEND
-		return size;
+		return width;
 	}
 	
 	public void setHeading(double newHeading) {
