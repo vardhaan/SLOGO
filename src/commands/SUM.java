@@ -5,6 +5,8 @@ package commands;
 
 import exceptions.ParameterNotEnoughException;
 import exceptions.PopUpException;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  * @author Zhiyong
@@ -34,6 +36,7 @@ public class SUM extends Command{
 	public double executeCommand() {
 		double x = parameters.get(0);
 		double y = parameters.get(1);
+		//parameters.add(1, x + y);
 		returnValue = x + y;
 		System.out.println(returnValue);
 		

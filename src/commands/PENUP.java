@@ -5,7 +5,6 @@ package commands;
 
 import exceptions.ParameterNotEnoughException;
 import exceptions.PopUpException;
-import turtles.Turtle;
 
 /**
  * @author Zhiyong

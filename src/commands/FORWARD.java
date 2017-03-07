@@ -6,15 +6,14 @@ import turtles.Turtle;
 
 public class FORWARD extends TurtleCommand {
 
-	
-	
+
+
 	public FORWARD() {
 		super();
 		expectedNumParameters = 1;
 	}
 	
 
-	
 	@Override
 	public double executeCommand() {
 		
@@ -31,6 +30,6 @@ public class FORWARD extends TurtleCommand {
 		
 		return returnValue;
 	}
-	
-	
+
+
 }

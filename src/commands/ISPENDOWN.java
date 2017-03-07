@@ -9,7 +9,6 @@ package commands;
  */
 import exceptions.ParameterNotEnoughException;
 import exceptions.PopUpException;
-import turtles.Turtle;
 
 public class ISPENDOWN extends TurtleCommand {
 	

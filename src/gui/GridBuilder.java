@@ -20,9 +20,14 @@ public class GridBuilder {
 	
 	public GridBuilder(){
 		myGrid = new GridPane();
-		myGrid.setPrefHeight(700);
+		myGrid.setPrefHeight(500);
 		myGrid.setPrefWidth(1050);
 		myGrid.setGridLinesVisible(false);
+	}
+	
+	//TODO: need to implement the set background
+	public void setBackgroundColor(double x){
+		
 	}
 
 	public void buildGrid(GridPane myRoot) {
