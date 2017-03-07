@@ -80,7 +80,7 @@ public class CommandEngine {
 		setAllReturnValues(); 
 		addVariablesToMap();
 		changeVariablesToValues();
-		////System.out.println("reaches here");
+		//System.out.println("reaches here");
 		if(commandsReadyToExecute()) {
 			for (int i=0;i<commandQueue.size();i++) {
 				////System.out.println("this is i: " + i);
@@ -105,7 +105,8 @@ public class CommandEngine {
 				c.setReturnValue();
 			} catch (ParameterNotEnoughException e) {
 				
-				e.getMessage();
+				PopUpException p = new PopUpException(e.getMessage());
+				p.showMessage();
 			}
 		}
 	}

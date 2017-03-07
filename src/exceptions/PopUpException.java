@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class PopUpException{
 	public static final double SIZE =100;
@@ -35,5 +36,9 @@ public class PopUpException{
 		splash.setFont(Font.font(25));
 		splash.setFill(Color.DARKVIOLET);
 		root.getChildren().addAll(splash);
+		Stage s = new Stage();
+		s.setScene(scene);
+		s.setTitle("Errors");
+		s.show();
 	}
 }

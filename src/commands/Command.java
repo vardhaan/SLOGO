@@ -3,8 +3,13 @@ package commands;
 import java.util.ArrayList;
 import java.util.List;
 
+import exceptions.PopUpException;
 import exceptions.ParameterNotEnoughException;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import turtles.Turtle;
+import javafx.scene.image.Image;
 
 public abstract class Command {
 	protected List<Double> parameters;
@@ -13,11 +18,40 @@ public abstract class Command {
 	protected Command dependent;
 	protected int numCommandAsParam;
 	protected Turtle target;
+	//the background index
+	protected List<Color> backgroundColor;
+	//the pencolor index
+	protected List<Color> penColor;
+	//the pen size
+	protected List<Double> penSize;
+	//the shape (image) of the turtle
+	protected List<Image> shape;
+	//the index of RGB
+	protected List<List<Integer>> RGBList;
+	
 
 	
 	public Command() {
 		parameters = new ArrayList<Double>();
 		returnValue = 0;
+		backgroundColor = new ArrayList<>();
+		//the default backroundcolor
+		backgroundColor.add(Color.WHITE);
+		penColor = new ArrayList<>();
+		//the default pen color
+		penColor.add(Color.BLACK);
+		penSize = new ArrayList<>();
+		//the default pen size or thickness
+		penSize.add(1.0);
+		
+		shape = new ArrayList<>();
+		Image image = new Image("images/slogo1.jpg");
+		//default image
+		shape.add(image);
+		
+		
+		
+		
 	}
 	
 	public List<Double> getParameters() {
@@ -74,13 +108,14 @@ public abstract class Command {
 	
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
-				//returnValue = (parameters.get(parameters.size()-1));
+				returnValue = parameters.get(parameters.size() -1);
 				
 				sendReturnToDependent();
 		} else {
 			ParameterNotEnoughException p =  new ParameterNotEnoughException();
 			//TODO: the frontend get the message of the exception
-			p.getMessage();
+			PopUpException pop = new PopUpException(p.getMessage());
+			pop.showMessage();
 		}
 		
 	}

@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 	
 	public static final int SCENE_WIDTH = 1400;
-	public static final int SCENE_HEIGHT = 800;
+	public static final int SCENE_HEIGHT = 600;
 	public static final String STAGE_TITLE = "SLOGO Team 1";
 	public static final String LOGO = "Logo.gif";
 	

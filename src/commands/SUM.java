@@ -5,6 +5,8 @@ package commands;
 
 import exceptions.ParameterNotEnoughException;
 import exceptions.PopUpException;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  * @author Zhiyong
@@ -16,19 +18,23 @@ public class SUM extends Command{
 		expectedNumParameters = 2;
 	}
 
-	@Override
-	public double executeCommand() {
+	
+	public void setReturnValue(){
 		try{
 		double x = parameters.get(0);
 		double y = parameters.get(1);
+		//parameters.add(1, x + y);
 		returnValue = x + y;
-		
-			setReturnValue();
-		} catch (ParameterNotEnoughException e) {
-			PopUpException p = new PopUpException(e.getMessage());
-			p.showMessage();
+		}catch(Exception e){
+			PopUpException pop = new PopUpException(e.getMessage());
+			pop.showMessage();
 		}
-		
+	}
+	
+	@Override
+	public double executeCommand() {
+		setReturnValue();
+		System.out.println("The value is " + returnValue);
 		return returnValue;
 	}
 

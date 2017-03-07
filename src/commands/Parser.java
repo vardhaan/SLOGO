@@ -62,7 +62,7 @@ public class Parser {
 	    					}
 	    					String className = "commands." + symbol.toUpperCase();
 	    					Class<?> clazz = Class.forName(className);
-	    					//System.out.println(className);
+	    					System.out.println(className);
 	    					Object o = makeClass(clazz);
 	    					Command toAdd = (Command) o;
 	    					
