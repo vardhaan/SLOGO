@@ -19,7 +19,6 @@ public class YCOR extends TurtleCommand {
 
 	@Override
 	public double executeCommand() {
-		Turtle target = getTurtle();
 		returnValue = target.getY();
 		try {
 			setReturnValue();

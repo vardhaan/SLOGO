@@ -21,7 +21,6 @@ public class ISSHOWING extends TurtleCommand {
 	@Override
 	public double executeCommand() {
 		try {
-		Turtle target = getTurtle();
 		returnValue = (target.showTurtle() == true)? 1 : 0;
 		
 			setReturnValue();

@@ -21,8 +21,7 @@ public class PENDOWN extends TurtleCommand {
 		penDown = true;
 		returnValue = 1;
 		
-		Turtle turtle = getTurtle();
-		turtle.setPenDown(true);
+		target.setPenDown(true);
 		
 			setReturnValue();
 		} catch (ParameterNotEnoughException e) {

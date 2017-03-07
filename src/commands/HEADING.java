@@ -21,7 +21,7 @@ public class HEADING extends TurtleCommand {
 	@Override
 	public double executeCommand() {
 		try {
-		Turtle target = getTurtle();
+		target = getTurtle();
 		returnValue = target.getHeading();
 		
 			setReturnValue();

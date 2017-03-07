@@ -21,15 +21,15 @@ public class HOME extends TurtleCommand{
 	@Override
 	public double executeCommand() {
 		try {
-		Turtle turtle = getTurtle();
-		double x = turtle.getX();
-		double y = turtle.getY();
+
+		double x = target.getX();
+		double y = target.getY();
 		//return the distance that the turtle needs to move
 		returnValue = Math.sqrt(x*x + y*y);
 		
-		turtle.setX(0);
-		turtle.setY(0);
-		turtle.setHeading(0);
+		target.setX(0);
+		target.setY(0);
+		target.setHeading(0);
 		
 			setReturnValue();
 		} catch (ParameterNotEnoughException e) {

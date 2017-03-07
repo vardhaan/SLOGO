@@ -47,7 +47,7 @@ public abstract class Command {
 	}
 	
 	public void addParameter(Double param) {
-		System.out.println("param ALSO ADDED HERE");
+		//System.out.println("param ALSO ADDED HERE");
 		this.parameters.add(param);
 	}
 	
@@ -62,12 +62,12 @@ public abstract class Command {
 	public void setDependent(Command dependent) {
 		this.dependent = dependent;
 		dependent.numCommandAsParam++;
-		System.out.println("dependent now has: " + (dependent.numCommandAsParam+dependent.parameters.size()));
+		//System.out.println("dependent now has: " + (dependent.numCommandAsParam+dependent.parameters.size()));
 	}
 	
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
-				returnValue = (parameters.get(parameters.size()-1));
+				//returnValue = (parameters.get(parameters.size()-1));
 				
 				sendReturnToDependent();
 		} else {

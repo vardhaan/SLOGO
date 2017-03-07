@@ -12,28 +12,26 @@ import exceptions.PopUpException;
 import turtles.Turtle;
 
 public class RIGHT extends TurtleCommand {
-	
+
 	public RIGHT() {
 		super();
 		expectedNumParameters = 1;
 	}
-	
+
 	@Override
 	public double executeCommand() {
-	try{
-		returnValue = parameters.get(0);
-		
-		
+		try{
+			returnValue = parameters.get(0);
 			setReturnValue();
+			target.setHeading(target.getHeading() + returnValue);
+			System.out.println(target.getHeading());
 		} catch (ParameterNotEnoughException e) {
 			PopUpException p = new PopUpException(e.getMessage());
 			p.showMessage();
 		}
-		
-		Turtle target = getTurtle();
-		double degree = target.getHeading();
-		target.setOverallHeadingChange(-degree);
+
+
 		return returnValue;
 	}
-	
+
 }
