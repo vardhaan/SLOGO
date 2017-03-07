@@ -17,11 +17,26 @@ public class  NOT extends Command{
 	}
 	
 	@Override
+	public void setReturnValue() throws ParameterNotEnoughException {
+		if (parameters.size() == expectedNumParameters) {
+				returnValue = 1-(parameters.get(parameters.size()-1));
+				System.out.println(returnValue);
+				sendReturnToDependent();
+		} else {
+			ParameterNotEnoughException p =  new ParameterNotEnoughException();
+			//TODO: the frontend get the message of the exception
+			p.getMessage();
+		}
+		
+	}
+	
+	@Override
 	public double executeCommand() {
 		try{
 			
 		double x = parameters.get(0);
-		returnValue = (x == 0)? 1 : 0;
+		returnValue = (x == 0)? 0 : 1;
+		
 		setReturnValue();
 		
 		}catch (ParameterNotEnoughException e) {

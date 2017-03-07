@@ -13,7 +13,20 @@ public class LIST extends LongCommand{
 	@Override
 	public void addCommand(Command toAdd) {
 		if (toAdd instanceof LISTEND) {
-			expectedNumCommands =  subCommands.size() * 1.0;
+			
+			boolean addWithin = false;
+			for (Command c : subCommands) {
+				if (c instanceof LIST) {
+					LIST l = (LIST) c;
+					if (l.needsCommand()) {
+						addWithin = true;
+						l.addCommand(toAdd);
+					}
+				}
+			}
+			if (!addWithin) {
+				expectedNumCommands =  subCommands.size() * 1.0;
+			}
 		} else {
 			super.addCommand(toAdd);
 		}
@@ -31,6 +44,7 @@ public class LIST extends LongCommand{
 	@Override
 	public double executeCommand() {
 		// TODO Auto-generated method stub
+		System.out.println(subCommands.size());
 		for (int i=0;i<subCommands.size();i++) {
 			try {
 				subCommands.get(i).setReturnValue();

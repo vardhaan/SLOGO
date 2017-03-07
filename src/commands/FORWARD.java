@@ -18,7 +18,6 @@ public class FORWARD extends TurtleCommand {
 	@Override
 	public double executeCommand() {
 		
-		try {
 		returnValue = parameters.get(0);
 		
 		double degree = target.getHeading();
@@ -27,13 +26,6 @@ public class FORWARD extends TurtleCommand {
 		target.setY(target.getY() + y);
 		
 		target.setX(target.getX() + x);
-		
-			setReturnValue();
-		} catch (ParameterNotEnoughException e) {
-			
-			PopUpException p = new PopUpException(e.getMessage());
-			p.showMessage();
-		}
 
 		
 		

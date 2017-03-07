@@ -1,9 +1,8 @@
 package commands;
 
-public class REPEAT extends ListContainingCommand {
+public class IF extends ListContainingCommand {
 
-	
-	public REPEAT() {
+	public IF() {
 		super();
 		expectedNumParameters = 1;
 		inputs = new LIST();
@@ -22,20 +21,13 @@ public class REPEAT extends ListContainingCommand {
 	}
 	
 	
-	
-	
 	@Override
 	public double executeCommand() {
-		// TODO Auto-generated method stub
-		Double d = 0.0;
-		for (int i=0;i<parameters.get(0);i++) {
-			d = listOfCommands.executeCommand();
+		returnValue = 0;
+		if (parameters.get(parameters.size()-1) >= 1) {
+			returnValue = listOfCommands.executeCommand();
 		}
-		return d;
+		return returnValue;
 	}
-
-	
-	
-	
 
 }
