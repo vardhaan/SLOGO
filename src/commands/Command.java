@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import exceptions.ParameterNotEnoughException;
+import turtles.Turtle;
 
 public abstract class Command {
 	protected List<Double> parameters;
@@ -11,6 +12,7 @@ public abstract class Command {
 	protected double expectedNumParameters = 0;
 	protected Command dependent;
 	protected int numCommandAsParam;
+	protected Turtle target;
 
 	
 	public Command() {
@@ -22,10 +24,15 @@ public abstract class Command {
 		return parameters;
 	}
 	
+	public void setTurtle(Turtle turtle) {
+		// TODO Auto-generated method stub
+		target = turtle;
+		
+	}
 	
 	
 	public double getNumParameters() {
-		System.out.println("goes here");
+		//System.out.println("goes here");
 		return expectedNumParameters;
 		
 	}
@@ -47,7 +54,7 @@ public abstract class Command {
 	}
 	
 	public void addParameter(Double param) {
-		System.out.println("param ALSO ADDED HERE");
+		//System.out.println("param ALSO ADDED HERE");
 		this.parameters.add(param);
 	}
 	
@@ -62,7 +69,7 @@ public abstract class Command {
 	public void setDependent(Command dependent) {
 		this.dependent = dependent;
 		dependent.numCommandAsParam++;
-		System.out.println("dependent now has: " + (dependent.numCommandAsParam+dependent.parameters.size()));
+		//System.out.println("dependent now has: " + (dependent.numCommandAsParam+dependent.parameters.size()));
 	}
 	
 	public void setReturnValue() throws ParameterNotEnoughException {

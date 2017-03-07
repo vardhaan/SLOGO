@@ -10,7 +10,7 @@ public abstract class TurtleCommand extends Command {
 	protected String turtleTarget;
 	protected boolean penDown;
 	protected boolean showTurtle;
-	protected Turtle target;
+	
 	
 	public TurtleCommand() {
 		turtleTarget = TurtleHandler.DEFAULT_TURTLE;
@@ -19,8 +19,9 @@ public abstract class TurtleCommand extends Command {
 		showTurtle = true;
 	}
 	
-	public void setTurtle(Turtle t) {
-		target = t;
+	@Override
+	public void setTurtle(Turtle turtle) {
+		target = turtle;
 	}
 	
 	public Turtle getTurtle() {

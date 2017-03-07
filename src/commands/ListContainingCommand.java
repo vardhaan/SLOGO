@@ -1,8 +1,10 @@
 package commands;
 
+import turtles.Turtle;
+
 public abstract class ListContainingCommand extends Command{
-	private LIST listOfCommands;
-	private LIST inputs;
+	protected LIST listOfCommands;
+	protected LIST inputs;
 	
 	//private ArrayList<Double> parameters;
 	
@@ -10,6 +12,13 @@ public abstract class ListContainingCommand extends Command{
 		super();
 		listOfCommands = null;
 		inputs = null;
+	}
+	
+	@Override
+	public void setTurtle(Turtle turtle) {
+		inputs.setTurtle(turtle);
+		
+		listOfCommands.setTurtle(turtle);
 	}
 	
 	public boolean addCommandWithin() {
@@ -26,7 +35,7 @@ public abstract class ListContainingCommand extends Command{
 		if (inputs == null || listOfCommands == null) {
 			return true;
 		}
-		if (parameters.size()+numCommandAsParam != expectedNumParameters) {
+		if (parameters.size()+numCommandAsParam != expectedNumParameters || listOfCommands.needsCommand() || inputs.needsCommand()) {
 			return true;
 		}
 		return (inputs.needsCommand() || listOfCommands.needsCommand());
@@ -34,7 +43,11 @@ public abstract class ListContainingCommand extends Command{
 	
 	@Override
 	public boolean needsParameter() {
-		return (parameters.size()!= expectedNumParameters || listOfCommands.needsParameter());
+		if (parameters != null && listOfCommands != null && inputs!=null) {
+			return (parameters.size() +numCommandAsParam != expectedNumParameters || listOfCommands.needsParameter() || inputs.needsParameter());
+
+		}
+		return true;
 	}
 	
 	@Override 
@@ -42,30 +55,45 @@ public abstract class ListContainingCommand extends Command{
 		if (parameters.size() + numCommandAsParam != expectedNumParameters) {
 			parameters.add(d);
 		} else {
-			listOfCommands.addParameter(d);
+			if (inputs.needsParameter()) {
+				inputs.addParameter(d);
+			} else {
+				listOfCommands.addParameter(d);
+			}
+			
 		}
 	}
 	
 	@Override
 	public void addCommand(Command toAdd) {
-		if (toAdd instanceof LIST) {
-			if (inputs == null) {
-				inputs = (LIST) toAdd;
+		if (inputs == null) {
+			//System.out.println("should not be null");
+			if (toAdd instanceof LIST) {
+				inputs  = (LIST) toAdd;
+				
 			} else {
-				if (listOfCommands == null) {
-					listOfCommands = (LIST) toAdd;
-				} else {
-					listOfCommands.addCommand(toAdd);
-				}
+				//TODO: throw new exception
+				
 			}
+			return;
+		} 
+		if (inputs.needsCommand()) {
+			//System.out.println("should not be funny");
+			inputs.addCommand(toAdd);
+			return;
 		}
-		if (toAdd instanceof LISTEND) {
-			if (inputs.needsCommand()) {
-				inputs.addCommand(toAdd);
+		if (listOfCommands == null) {
+			//System.out.println("this was done");
+			if (toAdd instanceof LIST) {
+				//System.out.println("triggered");
+				listOfCommands = (LIST) toAdd;
 			} else {
-				listOfCommands.addCommand(toAdd);
+				//TODO: Throw new exception
 			}
+			return;
 		}
+		listOfCommands.addCommand(toAdd);
+		
 	}
 	
 }

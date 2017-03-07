@@ -49,7 +49,7 @@ public class Turtle extends Observable implements Cloneable{
 	}
 	
 	public void setX(double newX) {
-		System.out.println("This is currentTurt x: " + this.xPos);
+		//System.out.println("This is currentTurt x: " + this.xPos);
 
 		double gridXDisplacement = getGridWidth()/2.0;
 		this.xPos = newX;

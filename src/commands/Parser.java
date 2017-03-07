@@ -62,7 +62,7 @@ public class Parser {
 	    					}
 	    					String className = "commands." + symbol.toUpperCase();
 	    					Class<?> clazz = Class.forName(className);
-	    					System.out.println(className);
+	    					//System.out.println(className);
 	    					Object o = makeClass(clazz);
 	    					Command toAdd = (Command) o;
 	    					
@@ -147,7 +147,7 @@ public class Parser {
 	//	    	Parser p = new Parser();
 	//	    	String s = " MAKE :maki 50  DOTIMES [ :maki 10 ] [ fd10 ]";
 	//	    	p.parse(s);
-	//	    	System.out.println(p.engine.commandQueue.size());
+	//	    	//System.out.println(p.engine.commandQueue.size());
 	//	    	
 	//	    	
 	//	    }
