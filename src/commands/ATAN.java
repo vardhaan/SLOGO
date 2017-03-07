@@ -4,7 +4,6 @@
 package commands;
 
 import exceptions.ParameterNotEnoughException;
-import exceptions.PopUpException;
 
 /**
  * @author Zhiyong
@@ -17,18 +16,19 @@ public class ATAN extends Command{
 	}
 
 	@Override
-	public double executeCommand() {
-		
-		try {
-			double degree = parameters.remove(0);
+	public void setReturnValue() throws ParameterNotEnoughException {
+		if (parameters.size() == expectedNumParameters) {
+			double degree = parameters.get(0);
 			returnValue = Math.atan(degree);
-			setReturnValue();
-		} catch (ParameterNotEnoughException e) {
-			
-			PopUpException p = new PopUpException(e.getMessage());
-			p.showMessage();
+			sendReturnToDependent();
 		}
-		
+	}
+
+	@Override
+	public double executeCommand() {
+
+		double degree = parameters.get(0);
+		returnValue = Math.atan(degree);
 		return returnValue;
 	}
 

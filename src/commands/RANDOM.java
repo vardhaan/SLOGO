@@ -18,17 +18,21 @@ public class RANDOM extends Command{
 	}
 
 	@Override
+	public void setReturnValue() throws ParameterNotEnoughException {
+		if (parameters.size() == expectedNumParameters) {
+
+			Random random = new Random((long)((double)parameters.get(0)));
+			returnValue = random.nextDouble() ;
+
+			sendReturnToDependent();
+		}
+	}
+
+	@Override
 	public double executeCommand() {
 		double max = parameters.get(0);
 		Random random = new Random((long) max);
-		returnValue = random.nextDouble() ;
-		try {
-			setReturnValue();
-		} catch (ParameterNotEnoughException e) {
-			
-			e.getMessage();
-		}
-		
+		returnValue = random.nextDouble() ;	
 		return returnValue;
 	}
 

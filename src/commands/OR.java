@@ -4,7 +4,6 @@
 package commands;
 
 import exceptions.ParameterNotEnoughException;
-import exceptions.PopUpException;
 
 /**
  * @author Zhiyong
@@ -17,19 +16,20 @@ public class  OR extends Command{
 	}
 
 	@Override
+	public void setReturnValue() throws ParameterNotEnoughException {
+		if (parameters.size() == expectedNumParameters) {
+			returnValue = (parameters.get(0) != 0 || parameters.get(1) != 0) ? 1 : 0;
+
+			sendReturnToDependent();
+		}
+	}
+
+	@Override
 	public double executeCommand() {
-		try{
 		double x = parameters.get(0);
 		double y = parameters.get(1);
 		returnValue = (x != 0 || y != 0)? 1 : 0;
-		
-			setReturnValue();
-		} catch (ParameterNotEnoughException e) {
-			PopUpException p = new PopUpException(e.getMessage());
-			p.showMessage();
-		}
-		
-		
+
 		return returnValue;
 	}
 

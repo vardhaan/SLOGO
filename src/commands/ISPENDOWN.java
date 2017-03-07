@@ -8,7 +8,6 @@ package commands;
  *
  */
 import exceptions.ParameterNotEnoughException;
-import exceptions.PopUpException;
 
 public class ISPENDOWN extends TurtleCommand {
 	
@@ -18,16 +17,14 @@ public class ISPENDOWN extends TurtleCommand {
 	}
 
 	@Override
+	public void setReturnValue() throws ParameterNotEnoughException {
+		//DO NOTHING
+	}
+	
+	@Override
 	public double executeCommand() {
-		try {
 		returnValue = (target.isPenDown() == true)? 1 : 0;
-		
-			setReturnValue();
-		} catch (ParameterNotEnoughException e) {
-			PopUpException p = new PopUpException(e.getMessage());
-			p.showMessage();
-		}
-		
+
 		return returnValue;
 	}
 	

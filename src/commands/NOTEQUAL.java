@@ -4,7 +4,6 @@
 package commands;
 
 import exceptions.ParameterNotEnoughException;
-import exceptions.PopUpException;
 
 /**
  * @author Zhiyong
@@ -17,20 +16,20 @@ public class NOTEQUAL extends Command{
 	}
 
 	@Override
-	public double executeCommand() {
-		try{
-		double x = parameters.get(0);
-		double y = parameters.get(1);
-		returnValue = (x != y)? 1 : 0;
-		
-			setReturnValue();
-		} catch (ParameterNotEnoughException e) {
-			PopUpException p = new PopUpException(e.getMessage());
-			p.showMessage();
+	public void setReturnValue() throws ParameterNotEnoughException {
+		if (parameters.size() == expectedNumParameters) {
+			returnValue = (parameters.get(0) != parameters.get(1)) ? 1: 0;
+
+			sendReturnToDependent();
 		}
-		
-		
-		return returnValue;
 	}
 
+	@Override
+	public double executeCommand() {
+		double x = parameters.get(0);
+		double y = parameters.get(1);
+		returnValue = (x != y)? 1 : 0;	
+
+		return returnValue;
+	}
 }

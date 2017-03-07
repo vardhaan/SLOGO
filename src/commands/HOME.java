@@ -4,8 +4,6 @@
 package commands;
 
 import exceptions.ParameterNotEnoughException;
-import exceptions.PopUpException;
-import turtles.Turtle;
 
 /**
  * @author Zhiyong
@@ -25,7 +23,6 @@ public class HOME extends TurtleCommand{
 	
 	@Override
 	public double executeCommand() {
-		try {
 
 		double x = target.getX();
 		double y = target.getY();
@@ -36,13 +33,8 @@ public class HOME extends TurtleCommand{
 		target.setY(0);
 		target.setHeading(0);
 		
-			setReturnValue();
-		} catch (ParameterNotEnoughException e) {
-			PopUpException p = new PopUpException(e.getMessage());
-			p.showMessage();
-		}
 		
-		return 1;
+		return returnValue;
 	}
 
 }

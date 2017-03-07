@@ -123,6 +123,7 @@ public abstract class Command {
 			ParameterNotEnoughException p =  new ParameterNotEnoughException();
 			//TODO: the frontend get the message of the exception
 			PopUpException pop = new PopUpException(p.getMessage());
+			System.out.println("good");
 			pop.showMessage();
 		}
 		
