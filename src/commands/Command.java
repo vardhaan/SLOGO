@@ -77,7 +77,7 @@ public abstract class Command {
 	
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
-				returnValue = (parameters.get(parameters.size()-1));
+				//returnValue = (parameters.get(parameters.size()-1));
 				
 				sendReturnToDependent();
 		} else {

@@ -21,7 +21,6 @@ public class ISPENDOWN extends TurtleCommand {
 	@Override
 	public double executeCommand() {
 		try {
-		Turtle target = getTurtle();
 		returnValue = (target.isPenDown() == true)? 1 : 0;
 		
 			setReturnValue();

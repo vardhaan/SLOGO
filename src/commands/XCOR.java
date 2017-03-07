@@ -19,7 +19,6 @@ public class XCOR extends TurtleCommand {
 
 	@Override
 	public double executeCommand() {
-		Turtle target = getTurtle();
 		returnValue = target.getX();
 		try {
 			setReturnValue();

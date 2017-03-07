@@ -23,8 +23,7 @@ public class PENUP extends TurtleCommand {
 		try{
 		penDown = false;
 		returnValue = 0;
-		Turtle turtle = getTurtle();
-		turtle.setPenDown(false);
+		target.setPenDown(false);
 		
 			setReturnValue();
 		} catch (ParameterNotEnoughException e) {

@@ -27,12 +27,12 @@ public class LEFT extends TurtleCommand {
 		try {
 			returnValue = parameters.get(0);
 			setReturnValue();
-			target.setHeading(returnValue);
+			target.setHeading(target.getHeading() - returnValue);
+			System.out.println(target.getHeading());
 		} catch (ParameterNotEnoughException e) {
 			PopUpException p = new PopUpException(e.getMessage());
 			p.showMessage();
 		}
-		//Turtle target = getTurtle();
 
 		return returnValue;
 	}

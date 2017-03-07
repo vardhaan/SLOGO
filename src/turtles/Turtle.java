@@ -71,7 +71,7 @@ public class Turtle extends Observable implements Cloneable{
 	}
 	
 	public void setX(double newX) {
-		System.out.println("This is currentTurt x: " + this.xPos);
+		//System.out.println("This is currentTurt x: " + this.xPos);
 		previousxPos = xPos;
 		double gridXDisplacement = getGridWidth()/2.0;
 		this.xPos = newX;
@@ -106,7 +106,7 @@ public class Turtle extends Observable implements Cloneable{
 	}
 	
 	private void updatePen(){
-		System.out.println("Update pen is called");
+		//System.out.println("Update pen is called");
 		if (penDown){
 			Line current = new Line(previousxPos, previousyPos + 25, xPos, yPos + 25);
 			myLines.add(current);
@@ -115,11 +115,11 @@ public class Turtle extends Observable implements Cloneable{
 	}
 	
 	private Animation makeAnimation () {
-		System.out.println("Animation called");
+		//System.out.println("Animation called");
         Path path = new Path();
         path.getElements().addAll(new MoveTo(xPos, yPos), new HLineTo(100), new VLineTo(yPos));
-        System.out.println(xPos);
-        System.out.println(yPos);
+        //System.out.println(xPos);
+        //System.out.println(yPos);
         PathTransition pt = new PathTransition(Duration.millis(4000), path, turtleView);
         RotateTransition rt = new RotateTransition(Duration.seconds(3));
         rt.setByAngle(heading);

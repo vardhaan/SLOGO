@@ -25,18 +25,19 @@ public class SETHEADING extends TurtleCommand {
 	public double executeCommand() {
 	try{
 		returnValue = parameters.get(0);
+		double degree = target.getHeading();
+		target.setHeading(degree);
+		setReturnValue();
+		return returnValue;
 		
-		
-			setReturnValue();
+			
 		} catch (ParameterNotEnoughException e) {
 			PopUpException p = new PopUpException(e.getMessage());
 			p.showMessage();
 		}
+	return 0;
 		
-		Turtle target = getTurtle();
-		double degree = target.getHeading();
-		target.setOverallHeadingChange(degree);
-		return returnValue;
+
 	}
 	
 }
