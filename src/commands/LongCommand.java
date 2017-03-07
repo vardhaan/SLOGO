@@ -2,9 +2,12 @@ package commands;
 
 import java.util.ArrayList;
 
+import turtles.Turtle;
+
 public abstract class LongCommand extends Command {
 	 protected ArrayList<Command> subCommands;
 	 protected Double expectedNumCommands;
+	
 
 	public LongCommand() {
 		super();
@@ -28,7 +31,7 @@ public abstract class LongCommand extends Command {
 	
 	@Override
 	public void addParameter(Double d) {
-		System.out.println("param is being added to subcommand");
+		//System.out.println("param is being added to subcommand");
 		int index = 0;
 		for (int i=0;i<subCommands.size();i++) {
 			if (subCommands.get(i).needsParameter()) {
@@ -60,6 +63,18 @@ public abstract class LongCommand extends Command {
 		} else {
 			subCommands.add(toAdd);
 		}
+	}
+
+
+
+
+	public void setTurtle(Turtle turtle) {
+		// TODO Auto-generated method stub
+		for (int i=0;i<subCommands.size();i++) {
+			Command c = subCommands.get(i);
+			c.setTurtle(turtle);
+		}
+		
 	}
 	
 	

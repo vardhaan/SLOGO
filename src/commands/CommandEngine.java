@@ -64,10 +64,10 @@ public class CommandEngine {
 	}
 	
 	public boolean commandsReadyToExecute() {
-		System.out.println(commandQueue.size() + " this is cq size");
+		////System.out.println(commandQueue.size() + " this is cq size");
 		for (Command c : commandQueue) {
 			if (c.getNumParameters() != c.getParameters().size() + c.numCommandAsParam) {
-				System.out.println("thic is cNumPar: " + c.getNumParameters() + " " + (c.getParameters().size()+c.numCommandAsParam) + " " + c.getParameters().size());
+				////System.out.println("thic is cNumPar: " + c.getNumParameters() + " " + (c.getParameters().size()+c.numCommandAsParam) + " " + c.getParameters().size());
 
 				return false;
 			}
@@ -80,15 +80,13 @@ public class CommandEngine {
 		setAllReturnValues(); 
 		addVariablesToMap();
 		changeVariablesToValues();
-		System.out.println("reaches here");
+		////System.out.println("reaches here");
 		if(commandsReadyToExecute()) {
 			for (int i=0;i<commandQueue.size();i++) {
-				System.out.println("this is i: " + i);
+				////System.out.println("this is i: " + i);
 				Command c = commandQueue.get(i);
-				if (c instanceof TurtleCommand) {
-					TurtleCommand tc = (TurtleCommand) c;
-					tc.setTurtle(tViewer.getTurtle(0));
-				}
+				c.setTurtle(tViewer.getTurtle(0));
+				
 				Double ret = c.executeCommand(); //what to do with return value
 			}
 		} else {
@@ -132,12 +130,14 @@ public class CommandEngine {
 			}
 		}
 		if (commandIndex!=-1) {
-			System.out.println("Adding to command at " + commandIndex);
+			////System.out.println("Adding to command at " + commandIndex);
 			if (commandQueue.get(commandIndex) instanceof ListContainingCommand) {
 				ListContainingCommand lcc = (ListContainingCommand) commandQueue.get(commandIndex);
 				if (lcc.addCommandWithin()) {
+					System.out.println("Should only occur once as well");
 					lcc.addCommand(toAdd);
 				} else {
+					System.out.println("Should occur twice");
 					toAdd.setDependent(lcc);
 					commandQueue.add(commandIndex, toAdd);
 					lcc.incrementNumCommAsParam();
@@ -166,7 +166,7 @@ public class CommandEngine {
 			
 		}
 		if (commandIndex!=-1) {
-			System.out.println("Adding param " + d + " to command at: " + commandIndex);
+			////System.out.println("Adding param " + d + " to command at: " + commandIndex);
 
 			commandQueue.get(commandIndex).addParameter(d);
 		} else {

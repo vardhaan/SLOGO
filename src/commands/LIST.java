@@ -19,9 +19,12 @@ public class LIST extends LongCommand{
 		}
 	}
 	
+	
 	@Override
-	public void setReturnValue() {
-		System.out.println(subCommands.size());
+	public void setReturnValue() throws ParameterNotEnoughException {
+		for (int i=0;i<subCommands.size();i++) {
+			subCommands.get(i).setReturnValue();
+		}
 		returnValue = subCommands.get(subCommands.size()-1).getReturnValue();
 	}
 	
