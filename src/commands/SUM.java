@@ -32,17 +32,10 @@ public class SUM extends Command{
 
 	@Override
 	public double executeCommand() {
-		try{
 		double x = parameters.get(0);
 		double y = parameters.get(1);
 		returnValue = x + y;
 		System.out.println(returnValue);
-		
-			setReturnValue();
-		} catch (ParameterNotEnoughException e) {
-			PopUpException p = new PopUpException(e.getMessage());
-			p.showMessage();
-		}
 		
 		return returnValue;
 	}
