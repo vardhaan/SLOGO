@@ -82,10 +82,10 @@ public class Turtle extends Observable implements Cloneable{
 				xPos=getGridWidth()-Math.abs(xPos % getGridWidth());
 
 		}
-	//	turtleView.setX(xPos);
+		turtleView.setX(xPos);
 		updatePen();
-		myAnimation = makeAnimation();
-		myAnimation.play();
+		//myAnimation = makeAnimation();
+		//myAnimation.play();
 	}
 	
 	public void setY(double newY) {
@@ -99,10 +99,10 @@ public class Turtle extends Observable implements Cloneable{
 			yPos=getGridHeight()-Math.abs(yPos % getGridHeight());
 
 		}
-	//	turtleView.setY(yPos);
+		turtleView.setY(yPos);
 		updatePen();
-		myAnimation = makeAnimation();
-		myAnimation.play();
+		//myAnimation = makeAnimation();
+		//myAnimation.play();
 	}
 	
 	private void updatePen(){

@@ -157,6 +157,10 @@ public class CommandEngine {
 		
 	}
 	
+	public void addVariable() {
+		
+	}
+	
 	public void addParameter(Double d) {
 		int commandIndex = -1;
 		for (int i=commandQueue.size()-1;i>-1;i--) {

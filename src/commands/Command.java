@@ -30,6 +30,9 @@ public abstract class Command {
 		
 	}
 	
+	public boolean needsVariable() {
+		return false;
+	}
 	
 	public double getNumParameters() {
 		//System.out.println("goes here");
