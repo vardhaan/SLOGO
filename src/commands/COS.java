@@ -15,20 +15,21 @@ public class COS extends Command{
 		super();
 		expectedNumParameters = 1;
 	}
+	
+	@Override
+	public void setReturnValue() throws ParameterNotEnoughException {
+		if (parameters.size() == expectedNumParameters) {
+			double degree = parameters.get(0);
+			returnValue = Math.cos(degree);
+			sendReturnToDependent();
+		}
+	}
 
 	@Override
 	public double executeCommand() {
-		try {
 		double degree = parameters.get(0);
 		returnValue = Math.cos(degree);
-		
-			setReturnValue();
-		} catch (ParameterNotEnoughException e) {
-				
-				PopUpException p = new PopUpException(e.getMessage());
-				p.showMessage();
-		}
-		
+
 		return returnValue;
 	}
 

@@ -17,19 +17,18 @@ public class HIDETURTLE extends TurtleCommand{
 		super();
 		expectedNumParameters = 0;
 	}
+	@Override
+	public void setReturnValue() throws ParameterNotEnoughException {
+		//DO NOTHING
+	}
+	
 
 	@Override
 	public double executeCommand() {
-		try {
+
 		showTurtle = false;
 		returnValue = 0;
 		target.setShow(false);
-		
-			setReturnValue();
-		} catch (ParameterNotEnoughException e) {
-			PopUpException p = new PopUpException(e.getMessage());
-			p.showMessage();
-		}
 		
 		return 0;
 	}

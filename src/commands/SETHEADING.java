@@ -8,36 +8,31 @@ package commands;
  *
  */
 import exceptions.ParameterNotEnoughException;
-import exceptions.PopUpException;
-import turtles.Turtle;
 
 public class SETHEADING extends TurtleCommand {
-	
+
 	public SETHEADING() {
 		super();
 		expectedNumParameters = 1;
 	}
-	
-	
-	
+
+	@Override
+	public void setReturnValue() throws ParameterNotEnoughException {
+		if (parameters.size() == expectedNumParameters) {
+			returnValue = parameters.get(0) ;
+
+			sendReturnToDependent();
+		}
+	}
+
 
 	@Override
 	public double executeCommand() {
-	try{
 		returnValue = parameters.get(0);
-		double degree = target.getHeading();
-		target.setHeading(degree);
-		setReturnValue();
+		target.setHeading(returnValue);
 		return returnValue;
-		
-			
-		} catch (ParameterNotEnoughException e) {
-			PopUpException p = new PopUpException(e.getMessage());
-			p.showMessage();
-		}
-	return 0;
-		
+
 
 	}
-	
+
 }

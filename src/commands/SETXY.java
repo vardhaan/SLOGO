@@ -8,7 +8,6 @@ package commands;
  *
  */
 import exceptions.ParameterNotEnoughException;
-import exceptions.PopUpException;
 
 public class SETXY extends TurtleCommand {
 
@@ -18,21 +17,23 @@ public class SETXY extends TurtleCommand {
 	}
 
 	@Override
-	public double executeCommand() {
-		try{
-			double x = parameters.get(0);
-			double y = parameters.get(1);
-			//the degree  that turtle turned
-			returnValue = Math.sqrt(x *x + y * y);
-			target.setX(x);
-			target.setY(y);
-			setReturnValue();
-			return returnValue;			
-		} catch (ParameterNotEnoughException e) {
-			PopUpException p = new PopUpException(e.getMessage());
-			p.showMessage();
+	public void setReturnValue() throws ParameterNotEnoughException {
+		if (parameters.size() == expectedNumParameters) {
+			returnValue = Math.sqrt(parameters.get(0) * parameters.get(0) +  parameters.get(1) * parameters.get(1));
+
+			sendReturnToDependent();
 		}
-		return 0;
+	}
+
+	@Override
+	public double executeCommand() {
+		double x = parameters.get(0);
+		double y = parameters.get(1);
+		//the distance  that turtle turned
+		returnValue = Math.sqrt(x *x + y * y);
+		target.setX(x);
+		target.setY(y);
+		return returnValue;			
 	}
 
 }
