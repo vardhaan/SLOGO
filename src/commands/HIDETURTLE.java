@@ -23,8 +23,7 @@ public class HIDETURTLE extends TurtleCommand{
 		try {
 		showTurtle = false;
 		returnValue = 0;
-		Turtle turtle = getTurtle();
-		turtle.setShow(false);
+		target.setShow(false);
 		
 			setReturnValue();
 		} catch (ParameterNotEnoughException e) {

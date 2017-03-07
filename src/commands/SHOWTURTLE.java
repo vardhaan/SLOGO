@@ -21,8 +21,7 @@ public class SHOWTURTLE extends TurtleCommand{
 	public double executeCommand() {
 		showTurtle = true;
 		returnValue = 1;
-		Turtle turtle = getTurtle();
-		turtle.setShow(true);
+		target.setShow(true);
 		try {
 			setReturnValue();
 		} catch (ParameterNotEnoughException e) {
