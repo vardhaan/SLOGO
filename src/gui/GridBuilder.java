@@ -1,6 +1,8 @@
 package gui;
 
 
+import java.util.ResourceBundle;
+
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.layout.Background;
@@ -15,6 +17,7 @@ public class GridBuilder {
 	
 	//the default opacity of the background
 	public static final double OPACITY = 0.5;
+	public static final String RESOURCE_BUNDLE = "index/backgroundcolor";
 
 	private GridPane myGrid;
 	private int rowBounds = 20;
@@ -27,14 +30,28 @@ public class GridBuilder {
 		myGrid.setGridLinesVisible(false);
 		
 	}
+	//TODO: add by Zhiyong
+	public GridBuilder(String index){
+		this();
+		ResourceBundle resources = ResourceBundle.getBundle(RESOURCE_BUNDLE);
+		Background b = new Background(new BackgroundFill((Paint)(Color.web(resources.getString(index))), null, null));
+		myGrid.setBackground(b);
+		myGrid.setOpacity(OPACITY);
+		
+	}
 	
 	//the color is the one in the backgroundcolor.properties
 	//TODO: Zhiyong ,need to set background color
 	public void setBackgroundColor(String index){
-		Background b = new Background(new BackgroundFill((Paint)(Color.web(index)), null, null));
+		ResourceBundle resources = ResourceBundle.getBundle(RESOURCE_BUNDLE);
+		Background b = new Background(new BackgroundFill((Paint)(Color.web(resources.getString(index))), null, null));
 		myGrid.setBackground(b);
 		myGrid.setOpacity(OPACITY);
-		
+	
+	}
+	
+	public GridPane getGrid(){
+		return myGrid;
 	}
 
 	public void buildGrid(GridPane myRoot) {
