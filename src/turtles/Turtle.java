@@ -28,6 +28,7 @@ public class Turtle extends Observable implements Cloneable{
 	private double previousyPos;
 	
 	private double heading;
+	private double previousHeading;
 	private boolean showing;
 	private double xChange;
 	private double yChange;
@@ -82,10 +83,13 @@ public class Turtle extends Observable implements Cloneable{
 				xPos=getGridWidth()-Math.abs(xPos % getGridWidth());
 
 		}
-		turtleView.setX(xPos);
 		updatePen();
-		//myAnimation = makeAnimation();
-		//myAnimation.play();
+		//turtleView.setX(xPos);
+		if(xPos!=previousxPos){
+		myAnimation = makeAnimation();
+		myAnimation.play();
+		}
+		
 	}
 	
 	public void setY(double newY) {
@@ -99,11 +103,13 @@ public class Turtle extends Observable implements Cloneable{
 			yPos=getGridHeight()-Math.abs(yPos % getGridHeight());
 
 		}
-		turtleView.setY(yPos);
-		updatePen();
-		//myAnimation = makeAnimation();
-		//myAnimation.play();
-	}
+		//turtleView.setY(yPos);
+		if(xPos!=previousxPos){
+			myAnimation = makeAnimation();
+			myAnimation.play();
+			}
+		
+		}
 	
 	private void updatePen(){
 		//System.out.println("Update pen is called");
@@ -116,15 +122,21 @@ public class Turtle extends Observable implements Cloneable{
 	
 	private Animation makeAnimation () {
 		//System.out.println("Animation called");
+		double xTrans=xPos+25;
+		double yTrans=yPos+25;
+		//if(previousxPos!=xPos && previousyPos!=yPos){
         Path path = new Path();
-        path.getElements().addAll(new MoveTo(xPos, yPos), new HLineTo(100), new VLineTo(yPos));
+        path.getElements().addAll(new MoveTo(xPos, yPos), new HLineTo(xTrans), new VLineTo(yTrans));
         //System.out.println(xPos);
         //System.out.println(yPos);
         PathTransition pt = new PathTransition(Duration.millis(4000), path, turtleView);
         RotateTransition rt = new RotateTransition(Duration.seconds(3));
-        rt.setByAngle(heading);
+        if(heading!=previousHeading){
+        rt.setToAngle(heading);
+        }
         return new SequentialTransition(turtleView, pt, rt);
-    }
+		}
+		
 	
 	public void clearLines(){
 		for(Line current: myLines){
@@ -166,6 +178,7 @@ public class Turtle extends Observable implements Cloneable{
 	}
 	
 	public void setHeading(double newHeading) {
+		previousHeading=heading;
 		this.heading = newHeading;
 
 	}
