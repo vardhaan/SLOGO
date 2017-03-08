@@ -24,7 +24,7 @@ public class IF extends ListContainingCommand {
 	@Override
 	public double executeCommand() {
 		returnValue = 0;
-		if (parameters.get(parameters.size()-1) >= 1) {
+		if (parameters.get(parameters.size()-1) != 1) {
 			returnValue = listOfCommands.executeCommand();
 		}
 		return returnValue;

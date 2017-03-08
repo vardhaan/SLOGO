@@ -88,7 +88,6 @@ public class CommandEngine {
 				////System.out.println("this is i: " + i);
 				Command c = commandQueue.get(i);
 				c.setTurtle(tViewer.getTurtle(0));
-				
 				Double ret = c.executeCommand(); //what to do with return value
 			}
 		} else {
@@ -133,6 +132,7 @@ public class CommandEngine {
 				commandIndex = i;
 			}
 		}
+		System.out.println("This is command to be added: " + toAdd.getClass().getSimpleName());
 		if (commandIndex!=-1) {
 			if (commandQueue.get(commandIndex) instanceof ListContainingCommand) {
 				ListContainingCommand lcc = (ListContainingCommand) commandQueue.get(commandIndex);
