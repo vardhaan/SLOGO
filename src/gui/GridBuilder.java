@@ -1,18 +1,20 @@
 package gui;
 
-import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 import javafx.geometry.HPos;
-import javafx.geometry.Insets;
 import javafx.geometry.VPos;
-import javafx.scene.Scene;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.shape.Shape;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 public class GridBuilder {
+	
+	//the default opacity of the background
+	public static final double OPACITY = 0.5;
 
 	private GridPane myGrid;
 	private int rowBounds = 20;
@@ -23,10 +25,15 @@ public class GridBuilder {
 		myGrid.setPrefHeight(500);
 		myGrid.setPrefWidth(1050);
 		myGrid.setGridLinesVisible(false);
+		
 	}
 	
-	//TODO: need to implement the set background
-	public void setBackgroundColor(double x){
+	//the color is the one in the backgroundcolor.properties
+	//TODO: Zhiyong ,need to set background color
+	public void setBackgroundColor(String index){
+		Background b = new Background(new BackgroundFill((Paint)(Color.web(index)), null, null));
+		myGrid.setBackground(b);
+		myGrid.setOpacity(OPACITY);
 		
 	}
 
