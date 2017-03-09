@@ -19,11 +19,9 @@ public class GUIBuilder {
 	public GUIBuilder(String languageIn){
 		myLanguage = languageIn;
 		myResources = ResourceBundle.getBundle(RESOURCE_LOCATION);
-		
 	}
 
 	public void buildGUI(GridPane myRoot){
-		
 		Pane myRoot2 = new Pane();
 		TurtleViewer tv = new TurtleViewer(0, myRoot2);
 		myRoot.getChildren().add(myRoot2);
@@ -40,7 +38,6 @@ public class GUIBuilder {
 		
 		GridBuilder g = new GridBuilder();
 		g.buildGrid(myRoot);
-		
 	}
 
 	public GridPane buildGridPane(){
