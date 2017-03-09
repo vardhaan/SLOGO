@@ -13,12 +13,12 @@ import javafx.scene.paint.Paint;
  * @author Zhiyong
  *
  */
-public class SETBACKGROUND extends Command{
+public class PENCOLOR extends Command{
 	
 	public static final String RESOURCE_BUNDLE = "index/backgroundcolor";
 	public static final double OPACITY = 0.5;
 	
-	public SETBACKGROUND(){
+	public PENCOLOR(){
 		super();
 		expectedNumParameters = 1;
 		

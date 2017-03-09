@@ -7,9 +7,9 @@ package commands;
  * @author Zhiyong
  *
  */
-public class SETPENCOLOR extends Command {
+public class SETPENSIZE extends Command {
 	
-	public SETPENCOLOR(){
+	public SETPENSIZE(){
 		super();
 		expectedNumParameters = 1;
 	}
@@ -18,7 +18,7 @@ public class SETPENCOLOR extends Command {
 	public double executeCommand() {
 			//ResourceBundle resources = ResourceBundle.getBundle(RESOURCE_BUNDLE);
 			
-			//TODO:add a method to set the pencolor
+			//TODO:add a method to set the pensize
 			returnValue = parameters.get(0);
 			
 		return returnValue;
