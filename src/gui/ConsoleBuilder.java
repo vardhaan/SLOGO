@@ -154,7 +154,7 @@ public class ConsoleBuilder {
 		Turtle temp = tv.getTurtle(0);
 		double xloc = temp.getX();
 		double yloc = temp.getY();
-		double angle = temp.getHeading();
+		double angle = temp.getHeading() % 360;
 		variables.setText(String.format("%s\nX: %f \nY: %f \nAngle: %f",name, xloc, yloc, angle));
 	}
 

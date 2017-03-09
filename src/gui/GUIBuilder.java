@@ -13,12 +13,11 @@ import turtles.TurtleViewer;
 public class GUIBuilder {
 
 	public static final String RESOURCE_LOCATION =  "resources/gui";
-	private ResourceBundle myResources;
+	private ResourceBundle myResources = ResourceBundle.getBundle(RESOURCE_LOCATION);
 	private String myLanguage;
 	
 	public GUIBuilder(String languageIn){
 		myLanguage = languageIn;
-		myResources = ResourceBundle.getBundle(RESOURCE_LOCATION);
 	}
 
 	public void buildGUI(GridPane myRoot){
