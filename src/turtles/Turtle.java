@@ -245,6 +245,18 @@ public class Turtle extends Observable implements Cloneable{
 		double incrementalChange = overallChange/numUpdateIncrements;
 		return incrementalChange;
 	}
+	public void setprev(){
+		previousxPos=xPos;
+		previousyPos=yPos;
+		previousHeading=heading;
+		setX(previousxPos);
+		setY(previousyPos);
+		setHeading(previousHeading);
+	}
+	public void clearprevlines(){
+		myLines.remove(myLines.size()-1);
+		myLines.remove(myLines.size()-1);
+	}
 
 
 
