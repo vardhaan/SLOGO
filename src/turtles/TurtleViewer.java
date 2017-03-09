@@ -74,7 +74,6 @@ public class TurtleViewer extends Observable implements Observer{
 		myTurtleImage.setFitWidth(50);
 		myTurtleImage.setFitHeight(50);
 		myRoot.getChildren().add(myTurtleImage);
-		
 	}
 	
 	public void clear(){

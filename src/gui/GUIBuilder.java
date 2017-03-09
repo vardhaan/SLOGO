@@ -30,7 +30,7 @@ public class GUIBuilder {
 		Parser myParser = new Parser(tv);
 		myParser.changeLanguage(myLanguage);
 		
-		ConsoleBuilder b = new ConsoleBuilder(myResources, myParser);
+		ConsoleBuilder b = new ConsoleBuilder(myResources, myParser, tv);
 		b.buildConsole(myRoot);
 
 		MenuBuilder m=new MenuBuilder(tv);
