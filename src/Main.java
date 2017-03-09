@@ -1,17 +1,15 @@
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import gui.GUIBuilder;
 import gui.SplashScreen;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
 public class Main extends Application {
 	
 	public static final String RESOURCE_LOCATION = "resources/gui";
@@ -32,7 +30,7 @@ public class Main extends Application {
 	}
 	private void runGame(Stage s, String language){
 		GUIBuilder builder = new GUIBuilder(language);
-		GridPane myRoot = builder.buildGridPane();
+		GridPane myRoot = buildGridPane();
 		builder.buildGUI(myRoot);
 		
 		Scene scene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT);
@@ -44,6 +42,14 @@ public class Main extends Application {
 		s.setTitle(myResources.getString("StageTitle"));
         s.setScene(scene);
         s.show();
+	}
+	
+	public GridPane buildGridPane(){
+		GridPane myRoot = new GridPane();
+		myRoot.setPadding(new Insets(10,10,10,10));
+		myRoot.setHgap(20);
+		myRoot.setVgap(5);
+		return myRoot;
 	}
 	
 	private Scene setupSplash (Stage s) {
