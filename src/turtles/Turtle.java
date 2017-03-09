@@ -1,6 +1,7 @@
 package turtles;
 
 import java.util.Observable;
+import java.util.ResourceBundle;
 
 import javafx.animation.Animation;
 import javafx.animation.PathTransition;
@@ -9,6 +10,7 @@ import javafx.animation.SequentialTransition;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.HLineTo;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.LineTo;
@@ -16,11 +18,14 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.VLineTo;
 import javafx.util.Duration;
+import lines.Lines;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Turtle extends Observable implements Cloneable{
+	
+
 
 	private double xPos;
 	private double yPos;
@@ -43,7 +48,7 @@ public class Turtle extends Observable implements Cloneable{
 	private int myPenColorIndex;
 	private int myID;
 	private ImageView turtleView;
-	private ArrayList<Line> myLines = new ArrayList<Line>();
+	private ArrayList<Lines> myLines = new ArrayList<Lines>();
 	private Pane myRoot;
 	private Animation myAnimation;
 
@@ -67,6 +72,7 @@ public class Turtle extends Observable implements Cloneable{
 		myPenColorIndex=0;
 		turtleSpeed=DEFAULT_TURTLE_SPEED;
 		myID=id;
+		myPenColorIndex = 0;
 
 	}
 
@@ -82,10 +88,23 @@ public class Turtle extends Observable implements Cloneable{
 			myAnimation = moveAnimation();
 			myAnimation.play();
 		}
-		updatePen();
+		updatePen(myPenColorIndex);
 
 	}
 
+	public void setY(double newY) {
+		prevprevyPos=previousyPos;
+		previousyPos = yPos;
+		yPos = move(previousyPos,newY,getGridHeight());
+
+		if(yPos!=previousyPos){
+			myAnimation = moveAnimation();
+			myAnimation.play();
+		}
+		//updatePen();
+
+	}
+	
 	private double move(double previous, double current, double parameter) {
 		if(current>=parameter){
 			current=current % parameter;
@@ -98,29 +117,21 @@ public class Turtle extends Observable implements Cloneable{
 		return current;
 	}
 
-	public void setY(double newY) {
-		prevprevyPos=previousyPos;
-		previousyPos = yPos;
-		yPos = move(previousyPos,newY,getGridHeight());
 
-		if(yPos!=previousyPos){
-			myAnimation = moveAnimation();
-			myAnimation.play();
-		}
 
-	}
-
-	private void updatePen(){
+	private void updatePen(int index){
 		if (penDown){
-			Line current = new Line(previousxPos, previousyPos + 25, xPos, yPos + 25);
+			Lines current = new Lines(previousxPos, previousyPos + 25, xPos, yPos + 25);
+			current.setColorIndex(index);
+			System.out.println("Color is here");
 			myLines.add(current);
-			myRoot.getChildren().add(current);
+			myRoot.getChildren().add(current.getLine());
 		}
 	}
 
 	private Animation moveAnimation(){
 		Path path = new Path();
-		path.getElements().addAll(new MoveTo(previousxPos + 25, previousyPos + 25), new LineTo(xPos+25, yPos+25));
+		path.getElements().addAll(new MoveTo(previousxPos + 25 , previousyPos + 25), new LineTo(xPos+25, yPos+25));
 		PathTransition pt = new PathTransition(Duration.seconds(2), path, turtleView);
 		return new SequentialTransition(turtleView, pt);
 	}
@@ -157,8 +168,8 @@ public class Turtle extends Observable implements Cloneable{
 
 
 	public void clearLines(){
-		for(Line current: myLines){
-			myRoot.getChildren().remove(current);
+		for(Lines current: myLines){
+			myRoot.getChildren().remove(current.getLine());
 		}
 		System.out.println("clearsLine");
 		myLines.clear();
@@ -287,6 +298,7 @@ public class Turtle extends Observable implements Cloneable{
 		return myID;
 	}
 	public int setPenColorIndex(int index){
+
 		myPenColorIndex=index;
 		return myPenColorIndex;
 	}
