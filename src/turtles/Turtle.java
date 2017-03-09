@@ -48,7 +48,7 @@ public class Turtle extends Observable implements Cloneable{
 	private int myPenColorIndex;
 	private int myID;
 	private ImageView turtleView;
-	private ArrayList<Lines> myLines = new ArrayList<Lines>();
+	private List<Lines> myLines = new ArrayList<Lines>();
 	private Pane myRoot;
 	private Animation myAnimation;
 
@@ -59,6 +59,7 @@ public class Turtle extends Observable implements Cloneable{
 	private static final double FULL_CIRCLE = 360;
 	private double width=1050;
 	private double height=625;
+	private int myPenSize;
 	public Turtle(int id, Pane myRootIn) {
 		myRoot = myRootIn;
 		this.xPos =0;
@@ -73,6 +74,7 @@ public class Turtle extends Observable implements Cloneable{
 		turtleSpeed=DEFAULT_TURTLE_SPEED;
 		myID=id;
 		myPenColorIndex = 0;
+		myPenSize = 10;
 
 	}
 
@@ -88,7 +90,7 @@ public class Turtle extends Observable implements Cloneable{
 			myAnimation = moveAnimation();
 			myAnimation.play();
 		}
-		updatePen(myPenColorIndex);
+		updatePen(myPenColorIndex, myPenSize);
 
 	}
 
@@ -119,11 +121,11 @@ public class Turtle extends Observable implements Cloneable{
 
 
 
-	private void updatePen(int index){
+	private void updatePen(int colorIndex, int penSize){
 		if (penDown){
 			Lines current = new Lines(previousxPos, previousyPos + 25, xPos, yPos + 25);
-			current.setColorIndex(index);
-			System.out.println("Color is here");
+			current.setColorIndex(colorIndex);
+			current.setThickness(penSize);
 			myLines.add(current);
 			myRoot.getChildren().add(current.getLine());
 		}
@@ -305,6 +307,12 @@ public class Turtle extends Observable implements Cloneable{
 	public int getPenColorIndex(){
 		return myPenColorIndex;
 	}
+	
+	public int setPenSize(int pixel){
+		myPenSize = pixel;
+		return myPenSize;
+	}
+	
 	private Double getXChange() {
 		if (commandCounter>1) {
 			//if the xChange is greater than 

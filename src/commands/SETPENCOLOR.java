@@ -1,13 +1,9 @@
-/**
- * 
- */
 package commands;
-
-import java.util.ResourceBundle;
 
 import exceptions.ParameterNotEnoughException;
 
 /**
+ * set the color of the pen
  * @author Zhiyong
  *
  */
