@@ -3,17 +3,15 @@ package commands;
 import java.util.ArrayList;
 
 import turtles.Turtle;
-import turtles.TurtleHandler;
 
 public abstract class TurtleCommand extends Command {
 
-	protected String turtleTarget;
+	protected int turtleTarget;
 	protected boolean penDown;
 	protected boolean showTurtle;
 	
-	
 	public TurtleCommand() {
-		turtleTarget = TurtleHandler.DEFAULT_TURTLE;
+		turtleTarget = 0;
 		parameters = new ArrayList<Double>();
 		penDown = true;
 		showTurtle = true;
@@ -24,10 +22,11 @@ public abstract class TurtleCommand extends Command {
 		target = turtle;
 	}
 	
-	public Turtle getTurtle() {
-		Turtle ret = TurtleHandler.getTurtle(turtleTarget);
+/*	public Turtle getTurtle() {
+		Turtle ret = new Turtle();
+		TurtleViewer.getTurtle(turtleTarget);
 		return ret;
-	}
+	} */
 	
 	
 	public abstract double executeCommand();
@@ -48,6 +47,5 @@ public abstract class TurtleCommand extends Command {
 	public double getNumParameters(){
 		return expectedNumParameters;
 	}
-	
 	
 }
