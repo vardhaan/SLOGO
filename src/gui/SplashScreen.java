@@ -21,10 +21,10 @@ public class SplashScreen {
 	public static final String RESOURCE_LOCATION =  "resources/gui";
 	private ResourceBundle myResources;
 	ArrayList<EventHandler<ActionEvent>> events;
-	private int width;
-	private int height;
+	private double width;
+	private double height;
 
-	public SplashScreen(ArrayList<EventHandler<ActionEvent>> eventsIn, int widthIn, int heightIn){
+	public SplashScreen(ArrayList<EventHandler<ActionEvent>> eventsIn, double widthIn, double heightIn){
 		events = eventsIn;
 		width = widthIn;
 		height = heightIn;

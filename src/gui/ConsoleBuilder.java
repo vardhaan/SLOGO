@@ -42,6 +42,7 @@ public class ConsoleBuilder {
 		console.setPrefColumnCount(50);
 		console.setPrefRowCount(5);
 		console.setMinHeight(150);
+		console.setMaxHeight(150);
 
 		pcommands = FXCollections.observableArrayList();
 		plist = new ListView<Button>();
