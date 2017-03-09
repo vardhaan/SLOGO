@@ -52,6 +52,7 @@ public class Lines {
 	 */
 	public void setThickness(int thickness) {
 		myThickness = thickness;
+		line.setStrokeWidth(myThickness);
 	}
 	//TODO:Zhiyong, add the Line
 	public Line getLine(){
