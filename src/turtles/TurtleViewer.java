@@ -60,7 +60,7 @@ public class TurtleViewer extends Observable implements Observer{
 		myRoot = myRootIn;
 		myTurtle=new Turtle(myID, myRoot);
 		turtles.put(myID, myTurtle);
-		Image image2 = new Image("images/slogo1.jpg");
+		Image image2 = new Image(TURTLE_IMAGE);
 		myTurtleImage=new ImageView(image2);
 		myTurtleImage.setFitWidth(50);
 		myTurtleImage.setFitHeight(50);

@@ -6,8 +6,9 @@ import exceptions.ParameterNotEnoughException;
  * @author Zhiyong
  *
  */
-public class PENCOLOR extends Command{
-	public PENCOLOR(){
+public class SHAPE extends Command{
+
+	public SHAPE(){
 		super();
 		expectedNumParameters = 0;
 
@@ -20,8 +21,8 @@ public class PENCOLOR extends Command{
 
 	@Override
 	public double executeCommand() {
-		returnValue = target.getPenColorIndex();
-
+		returnValue = target.getID();
+		System.out.println("The current shape is: " + returnValue);
 		return returnValue;
 	}
 
