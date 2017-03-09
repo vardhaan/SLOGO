@@ -73,36 +73,36 @@ public class Turtle extends Observable implements Cloneable{
 	}
 
 	public void setX(double newX) {
-		//System.out.println("This is currentTurt x: " + this.xPos);
-		previousxPos=xPos;
-		xPos=newX;		
-
-		move(previousxPos,xPos,width);
-
+		previousxPos=xPos;	
+		xPos = move(previousxPos,newX,width);
+		if(xPos!=previousxPos){
+			myAnimation = moveAnimation();
+			myAnimation.play();
+		}
 		updatePen();
 
 	}
 
-	public void move(double previous, double current, double parameter) {
+	private double move(double previous, double current, double parameter) {
 		if(current>=parameter){
 			current=current % parameter;
+			return current;
 		}
 		else if(current<0){
 			current=parameter-Math.abs(current % parameter);
-
+			return current;
 		}
-		//turtleView.setX(xPos);
-		if(current!=previous){
-			myAnimation = makeAnimation();
-			myAnimation.play();
-		}
+		return current;
 	}
 
 	public void setY(double newY) {
 		previousyPos = yPos;
-		yPos = newY;
-		move(previousyPos,yPos,getGridHeight());
-		//turtleView.setY(yPos);
+		yPos = move(previousyPos,newY,getGridHeight());
+		
+		if(yPos!=previousyPos){
+			myAnimation = moveAnimation();
+			myAnimation.play();
+		}
 
 	}
 
@@ -114,15 +114,27 @@ public class Turtle extends Observable implements Cloneable{
 		}
 	}
 
+	private Animation moveAnimation(){
+		Path path = new Path();
+		path.getElements().addAll(new MoveTo(previousxPos + 25, previousyPos + 25), new LineTo(xPos+25, yPos+25));
+		PathTransition pt = new PathTransition(Duration.seconds(2), path, turtleView);
+		return new SequentialTransition(turtleView, pt);
+	}
+	private Animation rotateAnimation(){
+		RotateTransition rt = new RotateTransition(Duration.seconds(1));
+		rt.setToAngle(heading);
+		return new SequentialTransition(turtleView, rt);
+	}
 	private Animation makeAnimation () {
 		//System.out.println("Animation called");
 		double xTrans=xPos+25;
 		double yTrans=yPos+25;
 		//if(previousxPos!=xPos && previousyPos!=yPos){
-
+		boolean rotate = false; 
 		RotateTransition rt = new RotateTransition(Duration.seconds(2));
 		if(heading!=previousHeading){
 			rt.setToAngle(heading);
+			rotate = true;
 		}
 		System.out.println("The angle is:" + rt.getByAngle());
 
@@ -132,7 +144,11 @@ public class Turtle extends Observable implements Cloneable{
 		//System.out.println(xPos);
 		//System.out.println(yPos);
 		PathTransition pt = new PathTransition(Duration.seconds(2), path, turtleView);
-		return new SequentialTransition(turtleView, rt, pt);
+		if(rotate){
+			return new SequentialTransition(turtleView, rt, pt);
+		}else{
+			return new SequentialTransition(turtleView, pt);
+		}
 	}
 
 
@@ -176,10 +192,11 @@ public class Turtle extends Observable implements Cloneable{
 	}
 
 	public void setHeading(double newHeading) {
-		
 		previousHeading = heading;
 		heading = newHeading;
-		move(previousHeading,heading,FULL_CIRCLE);
+		
+			myAnimation = rotateAnimation();
+			myAnimation.play();
 	}
 
 	public boolean showTurtle(){
