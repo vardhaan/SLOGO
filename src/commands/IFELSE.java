@@ -83,14 +83,14 @@ public class IFELSE extends ListContainingCommand{
 	
 	@Override 
 	public void addParameter(Double d) {
+		System.out.println("This is the parameter being added to IFELSE: " + d);
 		if (parameters.size() + numCommandAsParam != expectedNumParameters) {
-			System.out.println("Parameter is added in the right place " + d);
 			parameters.add(d);
 		} else {
 			if (inputs.needsParameter()) {
 				inputs.addParameter(d);
 			} else {
-				if (listOfCommands.needsParameter()) {
+				if (listOfCommands != null && listOfCommands.needsParameter()) {
 					listOfCommands.addParameter(d);
 				} else {
 					elseListOfCommands.addParameter(d);
@@ -100,8 +100,10 @@ public class IFELSE extends ListContainingCommand{
 		}
 	}
 	
+	
 	@Override
 	public void addCommand(Command toAdd) {
+		System.out.println("this is the command being added to IFELSE: " + toAdd.getClass().getSimpleName());
 		if (inputs == null) {
 			//System.out.println("should not be null");
 			if (toAdd instanceof LIST) {
@@ -134,6 +136,7 @@ public class IFELSE extends ListContainingCommand{
 		}
 		if (elseListOfCommands == null) {
 			if (toAdd instanceof LIST) {
+				System.out.println("should make list here");
 				elseListOfCommands = (LIST) toAdd;
 			} else {
 				//TODO: Throw exception

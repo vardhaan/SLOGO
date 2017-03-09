@@ -97,6 +97,7 @@ public abstract class Command {
 	
 	public void addParameter(Double param) {
 		//System.out.println("param ALSO ADDED HERE");
+		System.out.println(param + " was added to " + this.getClass().getSimpleName());
 		this.parameters.add(param);
 	}
 	

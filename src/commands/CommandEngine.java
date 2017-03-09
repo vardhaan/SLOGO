@@ -164,6 +164,7 @@ public class CommandEngine {
 	}
 	
 	public void addParameter(Double d) {
+		
 		int commandIndex = -1;
 		for (int i=commandQueue.size()-1;i>-1;i--) {
 			if (commandQueue.get(i).needsParameter()) {
@@ -172,7 +173,7 @@ public class CommandEngine {
 			
 		}
 		if (commandIndex!=-1) {
-			////System.out.println("Adding param " + d + " to command at: " + commandIndex);
+			System.out.println("Adding param " + d + " to command " + commandQueue.get(commandIndex).getClass().getSimpleName());
 
 			commandQueue.get(commandIndex).addParameter(d);
 		} else {

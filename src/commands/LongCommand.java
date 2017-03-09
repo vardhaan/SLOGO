@@ -54,7 +54,9 @@ public abstract class LongCommand extends Command {
 				index = i;
 			}
 		}
+		System.out.println(toAdd.getClass().getSimpleName() + " was added to position " + index + " within LIST");
 		if (index != -1) {
+			System.out.println("Command at index " + index  +" was " + subCommands.get(index).getClass().getSimpleName());
 			Command dep = subCommands.get(index);
 			if (!(dep instanceof LongCommand)) {
 				subCommands.add(index, toAdd);
