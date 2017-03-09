@@ -13,7 +13,7 @@ public class LEFT extends TurtleCommand {
 	@Override
 	public double executeCommand() {
 		returnValue = parameters.get(0);
-		target.setHeading(target.getHeading() + returnValue);
+		target.setHeading(target.getHeading() - returnValue);
 		target.setX(target.getX());
 		target.setY(target.getY());
 		
