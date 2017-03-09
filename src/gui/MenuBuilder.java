@@ -87,7 +87,6 @@ public class MenuBuilder {
 	}
 	private void reset(){
 		tv.clear();
-		tv.clear();
 	}
 
 	private Menu initResetMenu() {

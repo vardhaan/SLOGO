@@ -53,7 +53,7 @@ public class TurtleViewer extends Observable implements Observer{
 	public static final double DEFAULT_TURTLE_SPEED = 100; //pixels or degrees per second
 	public static final double DEFAULT_X_POS = 0;
 	public static final double DEFAULT_Y_POS = 0;
-	public static final double DEFAULT_ANGLE = 90;
+	public static final double DEFAULT_ANGLE = 0;
 	private ImageView myTurtleImage;
 
 	public TurtleViewer(int myID, Pane myRootIn){
@@ -82,11 +82,11 @@ public class TurtleViewer extends Observable implements Observer{
 	}
 	
 	public void clear(){
+		myTurtle.setX(DEFAULT_X_POS);
+		myTurtle.setY(DEFAULT_Y_POS);
+		myTurtle.setHeading(DEFAULT_ANGLE);
 		myTurtle.clearLines();
-		myTurtle.setX(0);
-		myTurtle.setY(0);
 	}
-
 
 	public void addTurtle(int ID){
 		turtles.put(ID,new Turtle(ID, myRoot));
@@ -104,8 +104,6 @@ public class TurtleViewer extends Observable implements Observer{
 	public void PaintingView (Turtle turtle, String ImagePath, GridPane myRoot){
 		Line lines=line;
 
-
-		
 		/*
 		if (turtle.getPen()){
 			lines.setFill(javafx.scene.paint.Color.AQUA);
