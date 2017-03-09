@@ -40,7 +40,6 @@ public class Turtle extends Observable implements Cloneable{
 	private int myImageIndex;
 	private int myPenColorIndex;
 	private int myID;
-	private ImageView turtleImage;
 	private List<Lines> myLines = new ArrayList<Lines>();
 	private Pane myRoot;
 	private Animation myAnimation;

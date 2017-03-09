@@ -1,9 +1,5 @@
 package commands;
 
-import exceptions.ParameterNotEnoughException;
-import exceptions.PopUpException;
-import turtles.Turtle;
-
 public class BACK extends TurtleCommand {
 	
 	public BACK() {
@@ -14,11 +10,10 @@ public class BACK extends TurtleCommand {
 	@Override
 	public double executeCommand() {
 	
-		FORWARD fd = new FORWARD();
-		
-		returnValue = parameters.remove(0);
-		parameters.add(-returnValue);
-		fd.executeCommand();
+		returnValue = parameters.get(0);
+		ForwardBackHelper f = new ForwardBackHelper();
+		f.getHelp(target, returnValue);
+	
 		return returnValue;
 	}
 	
