@@ -48,7 +48,7 @@ public class TurtleViewer extends Observable implements Observer{
 	
 	private Pane myRoot;
 	//private Workspace myWorkspace;
-	public static String turtleimage1="slogo1.jpg";
+	public static String turtleimage1="images/slogo1.jpg";
 
 	public static final double DEFAULT_TURTLE_SPEED = 100; //pixels or degrees per second
 	public static final double DEFAULT_X_POS = 0;
@@ -60,7 +60,7 @@ public class TurtleViewer extends Observable implements Observer{
 		myRoot = myRootIn;
 		myTurtle=new Turtle(myID, myRoot);
 		turtles.put(myID, myTurtle);
-		Image image2 = new Image(TURTLE_IMAGE);
+		Image image2 = new Image(turtleimage1);
 		myTurtleImage=new ImageView(image2);
 		myTurtleImage.setFitWidth(50);
 		myTurtleImage.setFitHeight(50);
