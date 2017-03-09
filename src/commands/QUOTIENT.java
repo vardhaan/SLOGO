@@ -4,7 +4,6 @@
 package commands;
 
 import exceptions.ParameterNotEnoughException;
-import exceptions.PopUpException;
 
 /**
  * @author Zhiyong
@@ -17,19 +16,19 @@ public class QUOTIENT extends Command{
 	}
 
 	@Override
+	public void setReturnValue() throws ParameterNotEnoughException {
+		if (parameters.size() == expectedNumParameters) {
+			returnValue = (parameters.get(1) ==0 ) ? 0 : parameters.get(0)/parameters.get(1) ;
+
+			sendReturnToDependent();
+		}
+	}
+
+	@Override
 	public double executeCommand() {
-		try{
 		double x = parameters.get(0);
 		double y = parameters.get(1);
-		returnValue = (y==0)? 0 : x / y;
-		
-			setReturnValue();
-		} catch (ParameterNotEnoughException e) {
-			PopUpException p = new PopUpException(e.getMessage());
-			p.showMessage();
-		}
-		
-		
+		returnValue = (y==0)? 0 : x / y;		
 		return returnValue;
 	}
 

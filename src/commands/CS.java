@@ -4,7 +4,6 @@
 package commands;
 
 import exceptions.ParameterNotEnoughException;
-import turtles.Turtle;
 /**
  * @author Zhiyong
  *
@@ -17,22 +16,24 @@ public class CS extends TurtleCommand{
 	}
 	
 	@Override
+	public void setReturnValue() throws ParameterNotEnoughException {
+		if (parameters.size() == expectedNumParameters) {
+			returnValue = 0;
+			sendReturnToDependent();
+		}
+	}
+	
+	@Override
 	public double executeCommand() {
-		Turtle turtle = getTurtle();
-		double x = turtle.getX();
-		double y = turtle.getY();
+		double x = target.getX();
+		double y = target.getY();
 		//return the distance that the turtle needs to move
 		returnValue = Math.sqrt(x*x + y*y);
 		
-		turtle.setX(0);
-		turtle.setY(0);
-		turtle.setHeading(0);
-
-		try {
-			setReturnValue();
-		} catch (ParameterNotEnoughException e) {
-			e.getMessage();
-		}
+		target.setX(0);
+		target.setY(0);
+		target.setHeading(0);
+		target.clearLines();
 		return returnValue;
 	}
 

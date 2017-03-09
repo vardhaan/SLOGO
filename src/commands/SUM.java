@@ -4,7 +4,6 @@
 package commands;
 
 import exceptions.ParameterNotEnoughException;
-import exceptions.PopUpException;
 
 /**
  * @author Zhiyong
@@ -22,21 +21,16 @@ public class SUM extends Command{
 				returnValue = (parameters.get(0) + parameters.get(1));
 				
 				sendReturnToDependent();
-		} else {
-			ParameterNotEnoughException p =  new ParameterNotEnoughException();
-			//TODO: the frontend get the message of the exception
-			p.getMessage();
 		}
-		
 	}
 
 	@Override
 	public double executeCommand() {
 		double x = parameters.get(0);
 		double y = parameters.get(1);
+		//parameters.add(1, x + y);
 		returnValue = x + y;
-		System.out.println(returnValue);
-		
+
 		return returnValue;
 	}
 

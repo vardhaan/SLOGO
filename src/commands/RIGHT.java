@@ -3,14 +3,6 @@
  */
 package commands;
 
-/**
- * @author Zhiyong
- *
- */
-import exceptions.ParameterNotEnoughException;
-import exceptions.PopUpException;
-import turtles.Turtle;
-
 public class RIGHT extends TurtleCommand {
 
 	public RIGHT() {
@@ -20,16 +12,8 @@ public class RIGHT extends TurtleCommand {
 
 	@Override
 	public double executeCommand() {
-		try{
-			returnValue = parameters.get(0);
-			setReturnValue();
-			target.setHeading(target.getHeading() + returnValue);
-			System.out.println(target.getHeading());
-		} catch (ParameterNotEnoughException e) {
-			PopUpException p = new PopUpException(e.getMessage());
-			p.showMessage();
-		}
-
+		returnValue = parameters.get(0);
+		target.setHeading(target.getHeading() + returnValue);
 
 		return returnValue;
 	}

@@ -1,30 +1,27 @@
-/**
- * 
- */
 package commands;
+
+import exceptions.ParameterNotEnoughException;
 
 /**
  * @author Zhiyong
  *
  */
-import exceptions.ParameterNotEnoughException;
-
-public class YCOR extends TurtleCommand {
-
-	public YCOR() {
+public class PENCOLOR extends Command{
+	public PENCOLOR(){
 		super();
 		expectedNumParameters = 0;
-	}
 
+	}
 
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
-		//DO NOTHING
+		//do nothing
 	}
 
 	@Override
 	public double executeCommand() {
-		returnValue = target.getY();
+		returnValue = target.getPenColorIndex();
+
 		return returnValue;
 	}
 

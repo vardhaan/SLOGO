@@ -8,25 +8,24 @@ package commands;
  *
  */
 import exceptions.ParameterNotEnoughException;
-import turtles.Turtle;
 
 public class XCOR extends TurtleCommand {
-	
+
 	public XCOR() {
 		super();
 		expectedNumParameters = 0;
 	}
 
 	@Override
+	public void setReturnValue() throws ParameterNotEnoughException {
+		//DO NOTHING
+	}
+
+	@Override
 	public double executeCommand() {
 		returnValue = target.getX();
-		try {
-			setReturnValue();
-		} catch (ParameterNotEnoughException e) {
-			e.getMessage();
-		}
-		
+
 		return returnValue;
 	}
-	
+
 }

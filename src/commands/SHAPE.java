@@ -1,30 +1,28 @@
-/**
- * 
- */
 package commands;
+
+import exceptions.ParameterNotEnoughException;
 
 /**
  * @author Zhiyong
  *
  */
-import exceptions.ParameterNotEnoughException;
+public class SHAPE extends Command{
 
-public class YCOR extends TurtleCommand {
-
-	public YCOR() {
+	public SHAPE(){
 		super();
 		expectedNumParameters = 0;
-	}
 
+	}
 
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
-		//DO NOTHING
+		//do nothing
 	}
 
 	@Override
 	public double executeCommand() {
-		returnValue = target.getY();
+		returnValue = target.getID();
+		System.out.println("The current shape is: " + returnValue);
 		return returnValue;
 	}
 

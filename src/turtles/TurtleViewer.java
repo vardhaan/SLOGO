@@ -43,50 +43,45 @@ public class TurtleViewer extends Observable implements Observer{
 	private double turtleSpeed;
 	private Dimension panelSize;
 	public static final double DEFAULT_SIZE = 700;
-	public static final String TURTLE_IMAGE="";
+	private String currentImage = "images/slogo1.jpg";
 	private Line line;
 	
 	private Pane myRoot;
 	//private Workspace myWorkspace;
-	public static String turtleimage1="slogo1.jpg";
+	public static String turtleimage1="images/slogo1.jpg";
 
 	public static final double DEFAULT_TURTLE_SPEED = 100; //pixels or degrees per second
 	public static final double DEFAULT_X_POS = 0;
 	public static final double DEFAULT_Y_POS = 0;
-	public static final double DEFAULT_ANGLE = 90;
+	public static final double DEFAULT_ANGLE = 0;
 	private ImageView myTurtleImage;
 
 	public TurtleViewer(int myID, Pane myRootIn){
 		myRoot = myRootIn;
 		myTurtle=new Turtle(myID, myRoot);
 		turtles.put(myID, myTurtle);
-		Image image2 = new Image("images/slogo1.jpg");
+		Image image2 = new Image(turtleimage1);
 		myTurtleImage=new ImageView(image2);
-		//myTurtleImage.setX(20);
-		//myTurtleImage.setY(50);
 		myTurtleImage.setFitWidth(50);
 		myTurtleImage.setFitHeight(50);
 		myRoot.getChildren().add(myTurtleImage);
-		myTurtle.setTurtleView(myTurtleImage);
+		myTurtle.setTurtleImage(myTurtleImage);
 	}
 
 	public void buildTurtle(Pane myRoot){
 		Image image2 = new Image("images/slogo1.jpg");
 		myTurtleImage=new ImageView(image2);
-		//myTurtleImage.setX(20);
-		//myTurtleImage.setY(50);
 		myTurtleImage.setFitWidth(50);
 		myTurtleImage.setFitHeight(50);
 		myRoot.getChildren().add(myTurtleImage);
-		
 	}
 	
 	public void clear(){
+		myTurtle.setX(DEFAULT_X_POS);
+		myTurtle.setY(DEFAULT_Y_POS);
+		myTurtle.setHeading(DEFAULT_ANGLE);
 		myTurtle.clearLines();
-		myTurtle.setX(0);
-		myTurtle.setY(0);
 	}
-
 
 	public void addTurtle(int ID){
 		turtles.put(ID,new Turtle(ID, myRoot));
@@ -104,8 +99,6 @@ public class TurtleViewer extends Observable implements Observer{
 	public void PaintingView (Turtle turtle, String ImagePath, GridPane myRoot){
 		Line lines=line;
 
-
-		
 		/*
 		if (turtle.getPen()){
 			lines.setFill(javafx.scene.paint.Color.AQUA);
@@ -120,6 +113,10 @@ public class TurtleViewer extends Observable implements Observer{
 	public void setY(ImageView turtleImage, int myID) throws Exception {
 		turtleImage.setY(getTurtle(myID).getY());
 		updatePen();
+	}
+	public void setImage(String imageIn){
+		currentImage = imageIn;
+		turtles.get(0).setImage(new Image(currentImage));
 	}
 	
 	private void updatePen(){

@@ -3,10 +3,7 @@
  */
 package commands;
 
-import java.util.Random;
-
 import exceptions.ParameterNotEnoughException;
-import exceptions.PopUpException;
 
 /**
  * @author Zhiyong
@@ -19,16 +16,19 @@ public class SIN extends Command{
 	}
 
 	@Override
+	public void setReturnValue() throws ParameterNotEnoughException {
+		if (parameters.size() == expectedNumParameters) {
+			returnValue = Math.sin(parameters.get(0));
+
+			sendReturnToDependent();
+		}
+	}
+
+	@Override
 	public double executeCommand() {
-		try{
+
 		double degree = parameters.get(0);
 		returnValue = Math.sin(degree);
-		
-			setReturnValue();
-		} catch (ParameterNotEnoughException e) {
-			PopUpException p = new PopUpException(e.getMessage());
-			p.showMessage();
-		}
 		return returnValue;
 	}
 

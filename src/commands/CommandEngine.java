@@ -108,7 +108,8 @@ public class CommandEngine {
 				c.setReturnValue();
 			} catch (ParameterNotEnoughException e) {
 				
-				e.getMessage();
+				PopUpException p = new PopUpException(e.getMessage());
+				p.showMessage();
 			}
 		}
 	}
@@ -204,4 +205,3 @@ public class CommandEngine {
 	
 	
 }
-

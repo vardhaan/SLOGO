@@ -13,17 +13,14 @@ import turtles.TurtleViewer;
 public class GUIBuilder {
 
 	public static final String RESOURCE_LOCATION =  "resources/gui";
-	private ResourceBundle myResources;
+	private ResourceBundle myResources = ResourceBundle.getBundle(RESOURCE_LOCATION);
 	private String myLanguage;
 	
 	public GUIBuilder(String languageIn){
 		myLanguage = languageIn;
-		myResources = ResourceBundle.getBundle(RESOURCE_LOCATION);
-		
 	}
 
 	public void buildGUI(GridPane myRoot){
-		
 		Pane myRoot2 = new Pane();
 		TurtleViewer tv = new TurtleViewer(0, myRoot2);
 		myRoot.getChildren().add(myRoot2);
@@ -32,7 +29,7 @@ public class GUIBuilder {
 		Parser myParser = new Parser(tv);
 		myParser.changeLanguage(myLanguage);
 		
-		ConsoleBuilder b = new ConsoleBuilder(myResources, myParser);
+		ConsoleBuilder b = new ConsoleBuilder(myResources, myParser, tv);
 		b.buildConsole(myRoot);
 
 		MenuBuilder m=new MenuBuilder(tv);
@@ -40,8 +37,6 @@ public class GUIBuilder {
 		
 		GridBuilder g = new GridBuilder();
 		g.buildGrid(myRoot);
-		
-		
 	}
 
 	public GridPane buildGridPane(){

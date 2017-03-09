@@ -9,27 +9,26 @@ import exceptions.ParameterNotEnoughException;
  * @author Zhiyong
  *
  */
-public class  OR extends Command{
-	public OR(){
+public class SETPENSIZE extends Command {
+	
+	public SETPENSIZE(){
 		super();
-		expectedNumParameters = 2;
+		expectedNumParameters = 1;
 	}
-
+	
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
-			returnValue = (parameters.get(0) != 0 || parameters.get(1) != 0) ? 1 : 0;
-
+			returnValue = parameters.get(0);
 			sendReturnToDependent();
 		}
 	}
-
+	
 	@Override
 	public double executeCommand() {
-		double x = parameters.get(0);
-		double y = parameters.get(1);
-		returnValue = (x != 0 || y != 0)? 1 : 0;
-
+		returnValue = parameters.get(0);
+		target.setPenSize((int)Math.round(returnValue));
+			
 		return returnValue;
 	}
 

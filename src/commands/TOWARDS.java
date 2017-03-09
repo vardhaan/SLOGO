@@ -8,8 +8,6 @@ package commands;
  *
  */
 import exceptions.ParameterNotEnoughException;
-import exceptions.PopUpException;
-import turtles.Turtle;
 
 public class TOWARDS extends TurtleCommand {
 
@@ -21,22 +19,28 @@ public class TOWARDS extends TurtleCommand {
 	}
 
 	@Override
-	public double executeCommand() {
-		try{
+	public void setReturnValue() throws ParameterNotEnoughException {
+		if (parameters.size() == expectedNumParameters) {
 			double x = parameters.get(0);
 			double y = parameters.get(1);
 			double sinValue = (y == 0 && x == 0)? 0 : x / Math.sqrt(x * x + y * y);
 			//the degree  that turtle turned
 			returnValue = Math.asin(sinValue) * DEGREEOFPI / Math.PI;		
-			setReturnValue();
-			target.setX( x);
-			target.setY(y);
-			return returnValue;
-		} catch (ParameterNotEnoughException e) {
-			PopUpException p = new PopUpException(e.getMessage());
-			p.showMessage();
+
+			sendReturnToDependent();
 		}
-		return 0;
+	}
+
+	@Override
+	public double executeCommand() {
+		double x = parameters.get(0);
+		double y = parameters.get(1);
+		double sinValue = (y == 0 && x == 0)? 0 : x / Math.sqrt(x * x + y * y);
+		//the degree  that turtle turned
+		returnValue = Math.asin(sinValue) * DEGREEOFPI / Math.PI;		
+		target.setX( x);
+		target.setY(y);
+		return returnValue;
 	}
 
 }

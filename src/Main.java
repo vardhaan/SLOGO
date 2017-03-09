@@ -1,6 +1,7 @@
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import gui.GUIBuilder;
 import gui.SplashScreen;
@@ -13,9 +14,10 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 	
+	public static final String RESOURCE_LOCATION = "resources/gui";
+	private ResourceBundle myResources = ResourceBundle.getBundle(RESOURCE_LOCATION);
 	public static final int SCENE_WIDTH = 1400;
-	public static final int SCENE_HEIGHT = 800;
-	public static final String STAGE_TITLE = "SLOGO Team 1";
+	public static final int SCENE_HEIGHT = 700;
 	public static final String LOGO = "Logo.gif";
 	
 	@Override
@@ -23,8 +25,8 @@ public class Main extends Application {
 		showGUI(s);
 	}
 	
-	public void showGUI(Stage s){
-		s.setTitle(STAGE_TITLE);
+	private void showGUI(Stage s){
+		s.setTitle(myResources.getString("StageTitle"));
 		s.setScene(setupSplash(s));
 		s.show();
 	}
@@ -39,7 +41,7 @@ public class Main extends Application {
 		scene.getStylesheets().clear();
 		scene.getStylesheets().add("file:///" + cssFile.getAbsolutePath().replace("\\", "/"));
 		
-		s.setTitle(STAGE_TITLE);
+		s.setTitle(myResources.getString("StageTitle"));
         s.setScene(scene);
         s.show();
 	}

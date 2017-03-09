@@ -1,10 +1,18 @@
 package commands;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import exceptions.PopUpException;
 import exceptions.ParameterNotEnoughException;
+import javafx.scene.Scene;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import turtles.Turtle;
+import javafx.scene.image.Image;
 
 public abstract class Command {
 	protected List<Double> parameters;
@@ -13,11 +21,42 @@ public abstract class Command {
 	protected Command dependent;
 	protected int numCommandAsParam;
 	protected Turtle target;
+	//the background index
+	protected Map<Integer, Color> backgroundColor;
+	//the pen color index
+	protected Map<Integer, Color> penColor;
+	//the pen size
+	protected Map<Integer, Double> penSize;
+	//the shape (image) of the turtle
+	protected Map<Integer, Image> shape;
+	//the index of RGB
+	protected Map<Integer, List<Integer>> RGBMap;
+	
 
 	
 	public Command() {
 		parameters = new ArrayList<Double>();
 		returnValue = 0;
+		backgroundColor = new HashMap<>();
+		//the default background color
+		backgroundColor.put(0, Color.WHITE);
+		penColor = new HashMap<>();
+		//the default pen color
+		penColor.put(0, Color.BLACK);
+		penSize = new HashMap<>();
+		//the default pen size or thickness
+		penSize.put(0, 1.0);
+		
+		shape = new HashMap<>();
+		Image image = new Image("images/slogo1.jpg");
+		//default image
+		shape.put(0, image);
+		
+		RGBMap = new HashMap<>();
+		List<Integer> initRGB = new ArrayList<>();
+		initRGB.addAll(Arrays.asList(0, 0 , 0));
+		RGBMap.put(0, initRGB);
+		
 	}
 	
 	public List<Double> getParameters() {
@@ -75,20 +114,20 @@ public abstract class Command {
 	public void setDependent(Command dependent) {
 		this.dependent = dependent;
 		dependent.numCommandAsParam++;
-		System.out.println("Dependent is set " + dependent.getClass().getName());
-		System.out.println(dependent.numCommandAsParam + " is numComAsParam");
+		//System.out.println("Dependent is set " + dependent.getClass().getName());
+		//System.out.println(dependent.numCommandAsParam + " is numComAsParam");
 		//System.out.println("dependent now has: " + (dependent.numCommandAsParam+dependent.parameters.size()));
 	}
 	
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
-				returnValue = (parameters.get(parameters.size()-1));
-				
+				returnValue = (parameters.get(parameters.size()-1));				
 				sendReturnToDependent();
 		} else {
 			ParameterNotEnoughException p =  new ParameterNotEnoughException();
-			//TODO: the frontend get the message of the exception
-			p.getMessage();
+			PopUpException pop = new PopUpException(p.getMessage());
+			System.out.println("good");
+			pop.showMessage();
 		}
 		
 	}

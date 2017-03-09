@@ -4,6 +4,7 @@ import java.awt.Desktop;
 import java.net.URI;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
@@ -11,8 +12,13 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Toggle;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.effect.Effect;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -87,7 +93,6 @@ public class MenuBuilder {
 	}
 	private void reset(){
 		tv.clear();
-		tv.clear();
 	}
 
 	private Menu initResetMenu() {
@@ -102,16 +107,25 @@ public class MenuBuilder {
 		colorShiftPen.setOnAction(e -> colorShiftPen());
 		MenuItem BackgroundColor= new MenuItem("Background_Color");
 		BackgroundColor.setOnAction(e-> BackgroundColor());
-		MenuItem TurtleImage= new MenuItem("Change_Image");
-		TurtleImage.setOnAction(e-> TurtleImageChange());
-		return new Menu("Settings", null,BackgroundColor,colorShiftPen, TurtleImage );
-
-
+		Menu turtleImageSelect = new Menu("TurtleImage");
+		addOptions(turtleImageSelect);
+		return new Menu("Settings", null,BackgroundColor,colorShiftPen, turtleImageSelect);
 	}
 	
-	private Object TurtleImageChange() {
-		// TODO Auto-generated method stub
-		return null;
+	private void addOptions(Menu menuIn){
+		MenuItem turtle1 = new MenuItem("Turtle1");
+		turtle1.setOnAction(e -> turtleImageChange("images/slogo1.jpg"));
+		MenuItem turtle2 = new MenuItem("Turtle2");
+		turtle2.setOnAction(e -> turtleImageChange("images/slogo2.jpg"));
+		MenuItem turtle3 = new MenuItem("RealTurtle");
+		turtle3.setOnAction(e -> turtleImageChange("images/slogo3.jpg"));
+		MenuItem turtle4 = new MenuItem("Duvall");
+		turtle4.setOnAction(e -> turtleImageChange("images/slogo4.jpg"));
+		menuIn.getItems().addAll(turtle1, turtle2, turtle3, turtle4);
+	}
+	
+	private void turtleImageChange(String image) {
+		tv.setImage(image);
 	}
 		
 	private void BackgroundColor() {
