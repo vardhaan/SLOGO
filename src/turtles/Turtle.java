@@ -26,9 +26,11 @@ public class Turtle extends Observable implements Cloneable{
 	private double yPos;
 	private double previousxPos;
 	private double previousyPos;
-
+	private double prevprevxPos;
+	private double prevprevyPos;
 	private double heading;
 	private double previousHeading;
+	private double prevprevHeading;
 	private boolean showing;
 	private double xChange;
 	private double yChange;
@@ -73,6 +75,7 @@ public class Turtle extends Observable implements Cloneable{
 	}
 
 	public void setX(double newX) {
+		prevprevxPos = previousxPos;
 		previousxPos=xPos;	
 		xPos = move(previousxPos,newX,width);
 		if(xPos!=previousxPos){
@@ -96,9 +99,10 @@ public class Turtle extends Observable implements Cloneable{
 	}
 
 	public void setY(double newY) {
+		prevprevyPos=previousyPos;
 		previousyPos = yPos;
 		yPos = move(previousyPos,newY,getGridHeight());
-		
+
 		if(yPos!=previousyPos){
 			myAnimation = moveAnimation();
 			myAnimation.play();
@@ -192,11 +196,12 @@ public class Turtle extends Observable implements Cloneable{
 	}
 
 	public void setHeading(double newHeading) {
+		prevprevHeading=previousHeading;
 		previousHeading = heading;
 		heading = newHeading;
-		
-			myAnimation = rotateAnimation();
-			myAnimation.play();
+
+		myAnimation = rotateAnimation();
+		myAnimation.play();
 	}
 
 	public boolean showTurtle(){
@@ -246,12 +251,14 @@ public class Turtle extends Observable implements Cloneable{
 		return incrementalChange;
 	}
 	public void setprev(){
-		previousxPos=xPos;
-		previousyPos=yPos;
-		previousHeading=heading;
+		/*Pos=previousxPos;
+		yPos=previousyPos;
+		heading=	previousHeading;
+		*/
 		setX(previousxPos);
 		setY(previousyPos);
 		setHeading(previousHeading);
+		clearprevlines();
 	}
 	public void clearprevlines(){
 		myLines.remove(myLines.size()-1);
