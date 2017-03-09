@@ -18,7 +18,6 @@ public class PENUP extends TurtleCommand {
 	
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
-		//do nothing
 		if (parameters.size() == expectedNumParameters) {
 			returnValue = 0;
 			sendReturnToDependent();
