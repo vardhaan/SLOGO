@@ -2,8 +2,6 @@ package commands;
 
 public class FORWARD extends TurtleCommand {
 
-
-
 	public FORWARD() {
 		super();
 		expectedNumParameters = 1;
@@ -13,15 +11,10 @@ public class FORWARD extends TurtleCommand {
 	@Override
 	public double executeCommand() {
 		
-		returnValue = parameters.get(0);
+		returnValue = parameters.get(0);		
+		ForwardBackHelper f = new ForwardBackHelper();
+		f.getHelp(target, -returnValue);
 		
-		double degree = target.getHeading();
-		double y = Math.sin(degree*Math.PI/180) * returnValue;
-		double x = Math.cos(degree*Math.PI/180) * returnValue;
-		target.setY(target.getY() + y);		
-		target.setX(target.getX() + x);
-		//target.setHeading(target.getHeading());
-	
 		return returnValue;
 	}
 
