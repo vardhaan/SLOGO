@@ -43,7 +43,7 @@ public class TurtleViewer extends Observable implements Observer{
 	private double turtleSpeed;
 	private Dimension panelSize;
 	public static final double DEFAULT_SIZE = 700;
-	public static final String TURTLE_IMAGE="images/slogo1.jpg";
+	private String currentImage = "images/slogo1.jpg";
 	private Line line;
 	
 	private Pane myRoot;
@@ -65,7 +65,7 @@ public class TurtleViewer extends Observable implements Observer{
 		myTurtleImage.setFitWidth(50);
 		myTurtleImage.setFitHeight(50);
 		myRoot.getChildren().add(myTurtleImage);
-		myTurtle.setTurtleView(myTurtleImage);
+		myTurtle.setTurtleImage(myTurtleImage);
 	}
 
 	public void buildTurtle(Pane myRoot){
@@ -113,6 +113,10 @@ public class TurtleViewer extends Observable implements Observer{
 	public void setY(ImageView turtleImage, int myID) throws Exception {
 		turtleImage.setY(getTurtle(myID).getY());
 		updatePen();
+	}
+	public void setImage(String imageIn){
+		currentImage = imageIn;
+		turtles.get(0).setImage(new Image(currentImage));
 	}
 	
 	private void updatePen(){
