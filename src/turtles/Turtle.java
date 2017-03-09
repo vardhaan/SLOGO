@@ -61,6 +61,7 @@ public class Turtle extends Observable implements Cloneable{
 	private double width=1050;
 	private double height=625;
 	private int myPenSize;
+	private ImageView turtleImage;
 	public Turtle(int id, Pane myRootIn) {
 		myRoot = myRootIn;
 		this.xPos =0;

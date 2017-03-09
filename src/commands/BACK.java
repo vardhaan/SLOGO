@@ -11,27 +11,14 @@ public class BACK extends TurtleCommand {
 		expectedNumParameters = 1;
 	}
 	
-	
-	
-
 	@Override
 	public double executeCommand() {
 	
-		try{
-		returnValue = parameters.get(0);
-		double degree = target.getHeading();
-		double y = Math.sin(degree*Math.PI/180) * returnValue;
-		double x = Math.cos(degree*Math.PI/180) * returnValue;
-
-		target.setX(target.getX() - x);
-		target.setY(target.getY() - y);
+		FORWARD fd = new FORWARD();
 		
-			setReturnValue();
-		}catch (ParameterNotEnoughException e) {
-			
-			PopUpException p = new PopUpException(e.getMessage());
-			p.showMessage();
-		}
+		returnValue = parameters.remove(0);
+		parameters.add(-returnValue);
+		fd.executeCommand();
 		return returnValue;
 	}
 	
