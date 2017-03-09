@@ -25,7 +25,7 @@ public class Main extends Application {
 		showGUI(s);
 	}
 	
-	public void showGUI(Stage s){
+	private void showGUI(Stage s){
 		s.setTitle(myResources.getString("StageTitle"));
 		s.setScene(setupSplash(s));
 		s.show();
