@@ -40,7 +40,6 @@ public class Turtle extends Observable implements Cloneable{
 	private int myImageIndex;
 	private int myPenColorIndex;
 	private int myID;
-	private ImageView turtleImage;
 	private List<Lines> myLines = new ArrayList<Lines>();
 	private Pane myRoot;
 	private Animation myAnimation;
@@ -52,6 +51,7 @@ public class Turtle extends Observable implements Cloneable{
 	private double width=1050;
 	private double height=625;
 	private int myPenSize;
+	private ImageView turtleImage;
 	public Turtle(int id, Pane myRootIn) {
 		myRoot = myRootIn;
 		this.xPos =0;
