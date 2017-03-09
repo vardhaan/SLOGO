@@ -25,8 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Turtle extends Observable implements Cloneable{
-	
-
 
 	private double xPos;
 	private double yPos;
@@ -48,12 +46,11 @@ public class Turtle extends Observable implements Cloneable{
 	private int myImageIndex;
 	private int myPenColorIndex;
 	private int myID;
-	private ImageView turtleView;
+	private ImageView turtleImage;
 	private List<Lines> myLines = new ArrayList<Lines>();
 	private Pane myRoot;
 	private Animation myAnimation;
 
-	public static final double DEFAULT_TURTLE_SPEED = 100; //pixels or degrees per second
 	public static final double DEFAULT_X_POS = 0;
 	public static final double DEFAULT_Y_POS = 0;
 	public static final double DEFAULT_ANGLE = 90;
@@ -73,7 +70,6 @@ public class Turtle extends Observable implements Cloneable{
 		penDown=true;
 		myImageIndex=0;
 		myPenColorIndex=0;
-		turtleSpeed=DEFAULT_TURTLE_SPEED;
 		myID=id;
 		myPenColorIndex = 0;
 		myPenSize = 10;
