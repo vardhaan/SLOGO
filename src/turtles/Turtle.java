@@ -49,6 +49,7 @@ public class Turtle extends Observable implements Cloneable{
 	public static final double DEFAULT_X_POS = 0;
 	public static final double DEFAULT_Y_POS = 0;
 	public static final double DEFAULT_ANGLE = 90;
+	private static final double FULL_CIRCLE = 360;
 	private double width=1050;
 	private double height=625;
 	public Turtle(int id, Pane myRootIn) {
@@ -73,42 +74,35 @@ public class Turtle extends Observable implements Cloneable{
 
 	public void setX(double newX) {
 		//System.out.println("This is currentTurt x: " + this.xPos);
-		previousxPos = xPos;
-		double gridXDisplacement = getGridWidth()/2.0;
-		this.xPos = newX;
-		if(xPos>=getGridWidth()){
-			xPos=xPos % getGridWidth();
-		}
-		else if(xPos<0){
-			xPos=getGridWidth()-Math.abs(xPos % getGridWidth());
+		previousxPos=xPos;
+		xPos=newX;		
 
-		}
-		//turtleView.setX(xPos);
-		if(xPos!=previousxPos){
-			myAnimation = makeAnimation();
-			myAnimation.play();
-		}
+		move(previousxPos,xPos,width);
 
 		updatePen();
 
 	}
 
-	public void setY(double newY) {
-		previousyPos = yPos;
-		double gridYDisplacement = getGridHeight()/2.0;
-		this.yPos = newY;
-		if(yPos>=getGridHeight()){
-			yPos=yPos % getGridHeight();
+	public void move(double previous, double current, double parameter) {
+		if(current>=parameter){
+			current=current % parameter;
 		}
-		else if(yPos<0){
-			yPos=getGridHeight()-Math.abs(yPos % getGridHeight());
+		else if(current<0){
+			current=parameter-Math.abs(current % parameter);
 
 		}
-		//turtleView.setY(yPos);
-		if(yPos!=previousyPos){
+		//turtleView.setX(xPos);
+		if(current!=previous){
 			myAnimation = makeAnimation();
 			myAnimation.play();
 		}
+	}
+
+	public void setY(double newY) {
+		previousyPos = yPos;
+		yPos = newY;
+		move(previousyPos,yPos,getGridHeight());
+		//turtleView.setY(yPos);
 
 	}
 
@@ -182,10 +176,10 @@ public class Turtle extends Observable implements Cloneable{
 	}
 
 	public void setHeading(double newHeading) {
+		
 		previousHeading = heading;
 		heading = newHeading;
-		myAnimation = makeAnimation();
-		myAnimation.play();
+		move(previousHeading,heading,FULL_CIRCLE);
 	}
 
 	public boolean showTurtle(){
