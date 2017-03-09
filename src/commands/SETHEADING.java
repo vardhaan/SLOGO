@@ -19,7 +19,7 @@ public class SETHEADING extends TurtleCommand {
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
-			returnValue = parameters.get(0) ;
+			returnValue = parameters.get(0);
 
 			sendReturnToDependent();
 		}
