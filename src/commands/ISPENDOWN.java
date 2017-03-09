@@ -23,7 +23,7 @@ public class ISPENDOWN extends TurtleCommand {
 	
 	@Override
 	public double executeCommand() {
-		returnValue = (target.isPenDown() == true)? 1 : 0;
+		returnValue = (target.getPen() == true)? 1 : 0;
 
 		return returnValue;
 	}
