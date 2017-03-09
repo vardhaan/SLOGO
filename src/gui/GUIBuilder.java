@@ -41,7 +41,6 @@ public class GUIBuilder {
 		GridBuilder g = new GridBuilder();
 		g.buildGrid(myRoot);
 		
-		
 	}
 
 	public GridPane buildGridPane(){

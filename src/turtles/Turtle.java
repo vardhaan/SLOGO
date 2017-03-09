@@ -26,7 +26,7 @@ public class Turtle extends Observable implements Cloneable{
 	private double yPos;
 	private double previousxPos;
 	private double previousyPos;
-	
+
 	private double heading;
 	private double previousHeading;
 	private boolean showing;
@@ -44,7 +44,7 @@ public class Turtle extends Observable implements Cloneable{
 	private ArrayList<Line> myLines = new ArrayList<Line>();
 	private Pane myRoot;
 	private Animation myAnimation;
-	
+
 	public static final double DEFAULT_TURTLE_SPEED = 100; //pixels or degrees per second
 	public static final double DEFAULT_X_POS = 0;
 	public static final double DEFAULT_Y_POS = 0;
@@ -64,13 +64,13 @@ public class Turtle extends Observable implements Cloneable{
 		myPenColorIndex=0;
 		turtleSpeed=DEFAULT_TURTLE_SPEED;
 		myID=id;
-	
+
 	}
-	
+
 	public void setTurtleView(ImageView tv) {
 		turtleView = tv;
 	}
-	
+
 	public void setX(double newX) {
 		//System.out.println("This is currentTurt x: " + this.xPos);
 		previousxPos = xPos;
@@ -79,19 +79,20 @@ public class Turtle extends Observable implements Cloneable{
 		if(xPos>=getGridWidth()){
 			xPos=xPos % getGridWidth();
 		}
-			else if(xPos<0){
-				xPos=getGridWidth()-Math.abs(xPos % getGridWidth());
+		else if(xPos<0){
+			xPos=getGridWidth()-Math.abs(xPos % getGridWidth());
 
 		}
-		updatePen();
 		//turtleView.setX(xPos);
 		if(xPos!=previousxPos){
-		myAnimation = makeAnimation();
-		myAnimation.play();
+			myAnimation = makeAnimation();
+			myAnimation.play();
 		}
-		
+
+		updatePen();
+
 	}
-	
+
 	public void setY(double newY) {
 		previousyPos = yPos;
 		double gridYDisplacement = getGridHeight()/2.0;
@@ -104,40 +105,43 @@ public class Turtle extends Observable implements Cloneable{
 
 		}
 		//turtleView.setY(yPos);
-		if(xPos!=previousxPos){
+		if(yPos!=previousyPos){
 			myAnimation = makeAnimation();
 			myAnimation.play();
-			}
-		
 		}
-	
+
+	}
+
 	private void updatePen(){
-		//System.out.println("Update pen is called");
 		if (penDown){
 			Line current = new Line(previousxPos, previousyPos + 25, xPos, yPos + 25);
 			myLines.add(current);
 			myRoot.getChildren().add(current);
 		}
 	}
-	
+
 	private Animation makeAnimation () {
 		//System.out.println("Animation called");
 		double xTrans=xPos+25;
 		double yTrans=yPos+25;
 		//if(previousxPos!=xPos && previousyPos!=yPos){
-        Path path = new Path();
-        path.getElements().addAll(new MoveTo(xPos, yPos), new HLineTo(xTrans), new VLineTo(yTrans));
-        //System.out.println(xPos);
-        //System.out.println(yPos);
-        PathTransition pt = new PathTransition(Duration.millis(4000), path, turtleView);
-        RotateTransition rt = new RotateTransition(Duration.seconds(3));
-        if(heading!=previousHeading){
-        rt.setToAngle(heading);
-        }
-        return new SequentialTransition(turtleView, pt, rt);
+
+		RotateTransition rt = new RotateTransition(Duration.seconds(2));
+		if(heading!=previousHeading){
+			rt.setToAngle(heading);
 		}
-		
-	
+		System.out.println("The angle is:" + rt.getByAngle());
+
+		Path path = new Path();
+		path.getElements().addAll(new MoveTo(previousxPos + 25, previousyPos + 25), new LineTo(xTrans, yTrans));
+		//path.getElements().addAll(new MoveTo(xPos, yPos), new HLineTo(xTrans), new VLineTo(yTrans));
+		//System.out.println(xPos);
+		//System.out.println(yPos);
+		PathTransition pt = new PathTransition(Duration.seconds(2), path, turtleView);
+		return new SequentialTransition(turtleView, rt, pt);
+	}
+
+
 	public void clearLines(){
 		for(Line current: myLines){
 			myRoot.getChildren().remove(current);
@@ -145,83 +149,84 @@ public class Turtle extends Observable implements Cloneable{
 		System.out.println("clearsLine");
 		myLines.clear();
 	}
-	
+
 	public double getX() {
 		return this.xPos;
 	}
-	
+
 	public double getY() {
 		return this.yPos;
 	}
-	
+
 	public double getPreviousX() {
 		return this.previousxPos;
 	}
-	
+
 	public double getPreviousY() {
 		return this.previousyPos;
 	}
-	
-	
+
+
 	public double getHeading() {
 		return this.heading;
 	}
-	
+
 	private double getGridHeight() {
 		//TODO: IMPLEMENT, GET FROM FRONTEND
 		return height;
 	}
-	
+
 	private double getGridWidth() {
 		//TODO: IMPLEMENT, GET FROM FRONTEND
 		return width;
 	}
-	
-	public void setHeading(double newHeading) {
-		previousHeading=heading;
-		this.heading = newHeading;
 
+	public void setHeading(double newHeading) {
+		previousHeading = heading;
+		heading = newHeading;
+		myAnimation = makeAnimation();
+		myAnimation.play();
 	}
-	
+
 	public boolean showTurtle(){
 		//notifyChange();
 		return showing;
 	}
-	
+
 	public void setShow(boolean b){
 		showing = b;
-		
+
 	}
-	
+
 	//here the method is for the PENDOWN command
 	public void setPenDown(boolean b){
 		penDown = b ;
 	}
-	
+
 	public boolean  isPenDown(){
 		return penDown;
 	}
 	public boolean getPen(){
 		return penDown;
 	}
-	
+
 	public void setOverallXChange(double overallXChange) {
 		double incrementalXChange = getIncrementalChange(overallXChange);
 		xChange = incrementalXChange;
-		
+
 	}
-	
+
 	public void setOverallYChange(double overallYChange) {
 		double incrementalXChange = getIncrementalChange(overallYChange);
 		yChange = incrementalXChange;
-		
+
 	}
-	
+
 	public void setOverallHeadingChange(double overallHeadingChange) {
 		double incrementalHeadingChange = getIncrementalChange(overallHeadingChange);
 		headingChange = incrementalHeadingChange;
 	}
-	
+
 	private double getIncrementalChange(double overallChange) {
 		double timeToComplete = overallChange/turtleSpeed;
 		double numUpdateIncrements = timeToComplete*updateSpeed;
@@ -229,22 +234,22 @@ public class Turtle extends Observable implements Cloneable{
 		double incrementalChange = overallChange/numUpdateIncrements;
 		return incrementalChange;
 	}
-	
-	
-	
+
+
+
 	public List<Double> getAllChange() {
 		List<Double> changes = new ArrayList<Double>();
 		changes.add(getXChange());
 		changes.add(getYChange());
 		changes.add(getHeadingChange());
-		
+
 		return changes;
 	}
 	public int setImageIndex(int index){
 		myImageIndex=index;			
 		return myImageIndex;
 	}
-	
+
 	public int getImageIndex(){
 		return myImageIndex;
 	}
@@ -269,12 +274,12 @@ public class Turtle extends Observable implements Cloneable{
 			return 0.0;
 		}
 	}
-	
+
 	private double getWidth(){
 		//TODO: get the size of the grid
 		return 0;
 	}
-	
+
 	private Double getYChange() {
 		if (commandCounter>1) {
 			return yChange;
@@ -285,7 +290,7 @@ public class Turtle extends Observable implements Cloneable{
 			return 0.0;
 		}
 	}
-	
+
 	private Double getHeadingChange() {
 		if (commandCounter>1) {
 			return headingChange;
@@ -296,5 +301,5 @@ public class Turtle extends Observable implements Cloneable{
 			return 0.0;
 		}
 	}
-		
+
 }
