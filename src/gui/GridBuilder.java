@@ -19,12 +19,11 @@ public class GridBuilder {
 	public static final double OPACITY = 0.5;
 	public static final String RESOURCE_BUNDLE = "index/backgroundcolor";
 
-	private GridPane myGrid;
+	private GridPane myGrid = new GridPane();
 	private int rowBounds = 20;
 	private int colBounds = 20;
 	
 	public GridBuilder(){
-		myGrid = new GridPane();
 		myGrid.setPrefHeight(500);
 		myGrid.setPrefWidth(1050);
 		myGrid.setGridLinesVisible(false);

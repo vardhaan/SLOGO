@@ -8,6 +8,7 @@ import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -47,7 +48,7 @@ public class Turtle extends Observable implements Cloneable{
 	private int myImageIndex;
 	private int myPenColorIndex;
 	private int myID;
-	private ImageView turtleView;
+	private ImageView turtleImage;
 	private ArrayList<Lines> myLines = new ArrayList<Lines>();
 	private Pane myRoot;
 	private Animation myAnimation;
@@ -76,8 +77,8 @@ public class Turtle extends Observable implements Cloneable{
 
 	}
 
-	public void setTurtleView(ImageView tv) {
-		turtleView = tv;
+	public void setTurtleImage(ImageView imageIn) {
+		turtleImage = imageIn;
 	}
 
 	public void setX(double newX) {
@@ -131,14 +132,14 @@ public class Turtle extends Observable implements Cloneable{
 
 	private Animation moveAnimation(){
 		Path path = new Path();
-		path.getElements().addAll(new MoveTo(previousxPos + 25 , previousyPos + 25), new LineTo(xPos+25, yPos+25));
-		PathTransition pt = new PathTransition(Duration.seconds(2), path, turtleView);
-		return new SequentialTransition(turtleView, pt);
+		path.getElements().addAll(new MoveTo(previousxPos + 25, previousyPos + 25), new LineTo(xPos+25, yPos+25));
+		PathTransition pt = new PathTransition(Duration.seconds(2), path, turtleImage);
+		return new SequentialTransition(turtleImage, pt);
 	}
 	private Animation rotateAnimation(){
 		RotateTransition rt = new RotateTransition(Duration.seconds(1));
 		rt.setToAngle(heading);
-		return new SequentialTransition(turtleView, rt);
+		return new SequentialTransition(turtleImage, rt);
 	}
 	private Animation makeAnimation () {
 		//System.out.println("Animation called");
@@ -158,11 +159,11 @@ public class Turtle extends Observable implements Cloneable{
 		//path.getElements().addAll(new MoveTo(xPos, yPos), new HLineTo(xTrans), new VLineTo(yTrans));
 		//System.out.println(xPos);
 		//System.out.println(yPos);
-		PathTransition pt = new PathTransition(Duration.seconds(2), path, turtleView);
+		PathTransition pt = new PathTransition(Duration.seconds(2), path, turtleImage);
 		if(rotate){
-			return new SequentialTransition(turtleView, rt, pt);
+			return new SequentialTransition(turtleImage, rt, pt);
 		}else{
-			return new SequentialTransition(turtleView, pt);
+			return new SequentialTransition(turtleImage, pt);
 		}
 	}
 
@@ -276,21 +277,21 @@ public class Turtle extends Observable implements Cloneable{
 		myLines.remove(myLines.size()-1);
 	}
 
-
-
-	public List<Double> getAllChange() {
+/*	public List<Double> getAllChange() {
 		List<Double> changes = new ArrayList<Double>();
 		changes.add(getXChange());
 		changes.add(getYChange());
 		changes.add(getHeadingChange());
-
 		return changes;
-	}
+	} */
+	
 	public int setImageIndex(int index){
 		myImageIndex=index;			
 		return myImageIndex;
 	}
-
+	public void setImage(Image imageIn){
+		turtleImage.setImage(imageIn);
+	}
 	public int getImageIndex(){
 		return myImageIndex;
 	}
