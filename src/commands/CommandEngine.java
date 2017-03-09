@@ -88,7 +88,6 @@ public class CommandEngine {
 				////System.out.println("this is i: " + i);
 				Command c = commandQueue.get(i);
 				c.setTurtle(tViewer.getTurtle(0));
-				
 				Double ret = c.executeCommand(); //what to do with return value
 			}
 		} else {
@@ -134,6 +133,7 @@ public class CommandEngine {
 				commandIndex = i;
 			}
 		}
+		System.out.println("This is command to be added: " + toAdd.getClass().getSimpleName());
 		if (commandIndex!=-1) {
 			if (commandQueue.get(commandIndex) instanceof ListContainingCommand) {
 				ListContainingCommand lcc = (ListContainingCommand) commandQueue.get(commandIndex);
@@ -164,6 +164,7 @@ public class CommandEngine {
 	}
 	
 	public void addParameter(Double d) {
+		
 		int commandIndex = -1;
 		for (int i=commandQueue.size()-1;i>-1;i--) {
 			if (commandQueue.get(i).needsParameter()) {
@@ -172,7 +173,7 @@ public class CommandEngine {
 			
 		}
 		if (commandIndex!=-1) {
-			////System.out.println("Adding param " + d + " to command at: " + commandIndex);
+			System.out.println("Adding param " + d + " to command " + commandQueue.get(commandIndex).getClass().getSimpleName());
 
 			commandQueue.get(commandIndex).addParameter(d);
 		} else {
