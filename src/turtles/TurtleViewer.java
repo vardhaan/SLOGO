@@ -23,7 +23,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import turtles.Turtle;
-import turtles.TurtleHandler;
 
 public class TurtleViewer extends Observable implements Observer{
 
