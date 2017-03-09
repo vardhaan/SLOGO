@@ -3,24 +3,36 @@
  */
 package commands;
 
+import java.util.ResourceBundle;
+
+import exceptions.ParameterNotEnoughException;
+
 /**
  * @author Zhiyong
  *
  */
-public class SETPENCOLOR extends Command {
-	
+public class SETPENCOLOR extends TurtleCommand {
+
+
 	public SETPENCOLOR(){
 		super();
 		expectedNumParameters = 1;
 	}
-	
+
+	@Override
+	public void setReturnValue() throws ParameterNotEnoughException {
+		if (parameters.size() == expectedNumParameters) {
+			returnValue = parameters.get(0);
+			sendReturnToDependent();
+		}
+	}
+
 	@Override
 	public double executeCommand() {
-			//ResourceBundle resources = ResourceBundle.getBundle(RESOURCE_BUNDLE);
-			
-			//TODO:add a method in the grid to set the background
-			returnValue = parameters.get(0);
-			
+
+		target.setPenColorIndex((int)Math.round(parameters.get(0)));
+		returnValue = parameters.get(0);
+
 		return returnValue;
 	}
 

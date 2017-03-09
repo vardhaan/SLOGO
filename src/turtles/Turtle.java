@@ -1,6 +1,7 @@
 package turtles;
 
 import java.util.Observable;
+import java.util.ResourceBundle;
 
 import javafx.animation.Animation;
 import javafx.animation.PathTransition;
@@ -10,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.HLineTo;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.LineTo;
@@ -17,19 +19,24 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.VLineTo;
 import javafx.util.Duration;
+import lines.Lines;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Turtle extends Observable implements Cloneable{
+	
+
 
 	private double xPos;
 	private double yPos;
 	private double previousxPos;
 	private double previousyPos;
-
+	private double prevprevxPos;
+	private double prevprevyPos;
 	private double heading;
 	private double previousHeading;
+	private double prevprevHeading;
 	private boolean showing;
 	private double xChange;
 	private double yChange;
@@ -42,7 +49,7 @@ public class Turtle extends Observable implements Cloneable{
 	private int myPenColorIndex;
 	private int myID;
 	private ImageView turtleImage;
-	private ArrayList<Line> myLines = new ArrayList<Line>();
+	private ArrayList<Lines> myLines = new ArrayList<Lines>();
 	private Pane myRoot;
 	private Animation myAnimation;
 
@@ -66,6 +73,7 @@ public class Turtle extends Observable implements Cloneable{
 		myPenColorIndex=0;
 		turtleSpeed=DEFAULT_TURTLE_SPEED;
 		myID=id;
+		myPenColorIndex = 0;
 
 	}
 
@@ -74,16 +82,30 @@ public class Turtle extends Observable implements Cloneable{
 	}
 
 	public void setX(double newX) {
+		prevprevxPos = previousxPos;
 		previousxPos=xPos;	
 		xPos = move(previousxPos,newX,width);
 		if(xPos!=previousxPos){
 			myAnimation = moveAnimation();
 			myAnimation.play();
 		}
-		updatePen();
+		updatePen(myPenColorIndex);
 
 	}
 
+	public void setY(double newY) {
+		prevprevyPos=previousyPos;
+		previousyPos = yPos;
+		yPos = move(previousyPos,newY,getGridHeight());
+
+		if(yPos!=previousyPos){
+			myAnimation = moveAnimation();
+			myAnimation.play();
+		}
+		//updatePen();
+
+	}
+	
 	private double move(double previous, double current, double parameter) {
 		if(current>=parameter){
 			current=current % parameter;
@@ -96,22 +118,15 @@ public class Turtle extends Observable implements Cloneable{
 		return current;
 	}
 
-	public void setY(double newY) {
-		previousyPos = yPos;
-		yPos = move(previousyPos,newY,getGridHeight());
-		
-		if(yPos!=previousyPos){
-			myAnimation = moveAnimation();
-			myAnimation.play();
-		}
 
-	}
 
-	private void updatePen(){
+	private void updatePen(int index){
 		if (penDown){
-			Line current = new Line(previousxPos, previousyPos + 25, xPos, yPos + 25);
+			Lines current = new Lines(previousxPos, previousyPos + 25, xPos, yPos + 25);
+			current.setColorIndex(index);
+			System.out.println("Color is here");
 			myLines.add(current);
-			myRoot.getChildren().add(current);
+			myRoot.getChildren().add(current.getLine());
 		}
 	}
 
@@ -154,8 +169,8 @@ public class Turtle extends Observable implements Cloneable{
 
 
 	public void clearLines(){
-		for(Line current: myLines){
-			myRoot.getChildren().remove(current);
+		for(Lines current: myLines){
+			myRoot.getChildren().remove(current.getLine());
 		}
 		System.out.println("clearsLine");
 		myLines.clear();
@@ -193,11 +208,12 @@ public class Turtle extends Observable implements Cloneable{
 	}
 
 	public void setHeading(double newHeading) {
+		prevprevHeading=previousHeading;
 		previousHeading = heading;
 		heading = newHeading;
-		
-			myAnimation = rotateAnimation();
-			myAnimation.play();
+
+		myAnimation = rotateAnimation();
+		myAnimation.play();
 	}
 
 	public boolean showTurtle(){
@@ -246,6 +262,20 @@ public class Turtle extends Observable implements Cloneable{
 		double incrementalChange = overallChange/numUpdateIncrements;
 		return incrementalChange;
 	}
+	public void setprev(){
+		/*Pos=previousxPos;
+		yPos=previousyPos;
+		heading=	previousHeading;
+		*/
+		setX(previousxPos);
+		setY(previousyPos);
+		setHeading(previousHeading);
+		clearprevlines();
+	}
+	public void clearprevlines(){
+		myLines.remove(myLines.size()-1);
+		myLines.remove(myLines.size()-1);
+	}
 
 /*	public List<Double> getAllChange() {
 		List<Double> changes = new ArrayList<Double>();
@@ -269,6 +299,7 @@ public class Turtle extends Observable implements Cloneable{
 		return myID;
 	}
 	public int setPenColorIndex(int index){
+
 		myPenColorIndex=index;
 		return myPenColorIndex;
 	}

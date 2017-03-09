@@ -31,6 +31,7 @@ public class ConsoleBuilder {
 	private Parser myParser;
 	private TextArea variables;
 	private TurtleViewer tv;
+	private int ID;
 
 	public ConsoleBuilder(ResourceBundle myResourcesIn, Parser parserIn, TurtleViewer tvIn){
 		tv = tvIn;
@@ -120,6 +121,15 @@ public class ConsoleBuilder {
 		EventHandler<ActionEvent> undo = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
+				try {
+					tv.getTurtle(ID).setprev();
+					tv.getTurtle(ID).clearprevlines();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				console.clear();
+				
 				//myParser.
 			}
 		};
