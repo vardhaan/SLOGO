@@ -1,6 +1,7 @@
 package commands;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -45,8 +46,10 @@ public class Parser {
 	    public void parse(String s) throws Exception {
 	    	engine.reset();
 	    	String[] tokens = s.split(WHITESPACE);
+	    	//System.out.println(Arrays.toString(tokens));
 	    	if (tokens.length == 0) {
-	    		//TODO: THROW EXCEPTION OR DO NOTHING
+	    		//TODO:Zhiyong, add exception for empty command
+	    		
 	    	} else {
 
 	    		for (int i=0;i<tokens.length;i++) {
@@ -62,7 +65,6 @@ public class Parser {
 	    					}
 	    					String className = "commands." + symbol.toUpperCase();
 	    					Class<?> clazz = Class.forName(className);
-	    					System.out.println(className);
 	    					Object o = makeClass(clazz);
 	    					Command toAdd = (Command) o;
 	    					

@@ -52,6 +52,7 @@ public class Turtle extends Observable implements Cloneable{
 	private double height=430;
 	private int myPenSize;
 	private ImageView turtleImage;
+	private boolean isActive;
 	public Turtle(int id, Pane myRootIn) {
 		myRoot = myRootIn;
 		this.xPos =0;
@@ -66,7 +67,19 @@ public class Turtle extends Observable implements Cloneable{
 		myID=id;
 		myPenColorIndex = 0;
 		myPenSize = 10;
+		isActive = true;
 
+	}
+	
+	//TODO:Zhiyong, update the activity of the turtle with the corresponding id
+	//This is for the ID class in the backend
+	public boolean getActivity(){
+		return isActive;
+	}
+	
+	//TODO: controlled by other class
+	public void updateActivity(boolean b){
+		
 	}
 
 	public void setTurtleImage(ImageView imageIn) {
@@ -206,7 +219,7 @@ public class Turtle extends Observable implements Cloneable{
 	}
 	
 	public int setImageIndex(int index){
-		myImageIndex=index;			
+		myImageIndex=index;		
 		return myImageIndex;
 	}
 	

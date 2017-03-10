@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 //import javafx.scene.paint.Color;
@@ -66,6 +67,12 @@ public class TurtleViewer extends Observable implements Observer{
 		myRoot.getChildren().add(myTurtleImage);
 		myTurtle.setTurtleImage(myTurtleImage);
 	}
+	
+	//TODO: Zhiyong, get the all the turtles as a HashMap
+	//and then test whether it is active
+	public ArrayList<Turtle> getTurtleList(){
+		return turtles;
+	}
 
 	public void buildTurtle(Pane myRoot){
 		Image image2 = new Image("images/slogo1.jpg");
@@ -95,10 +102,6 @@ public class TurtleViewer extends Observable implements Observer{
 		}
 	}
 	
-	public ArrayList<Turtle> getTurtles(){
-		return turtles;
-	}
-	
 	public void PaintingView (Turtle turtle, String ImagePath, GridPane myRoot){
 		Line lines=line;
 
@@ -123,7 +126,6 @@ public class TurtleViewer extends Observable implements Observer{
 	}
 	
 	private void updatePen(){
-		System.out.println("Update pen is called");
 		if (myTurtle.getPen()){
 			Line current = new Line(myTurtle.getPreviousX(), myTurtle.getPreviousY(), myTurtle.getX(), myTurtle.getY());
 			myLines.add(current);
@@ -142,5 +144,7 @@ public class TurtleViewer extends Observable implements Observer{
 		notifyObservers();
 		super.addObserver(o);
 	}
+	
+
 
 }

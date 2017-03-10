@@ -180,7 +180,7 @@ public class ConsoleBuilder {
 	}
 
 	private void updateVariables() throws Exception{
-		for(Turtle temp: tv.getTurtles()){
+		for(Turtle temp: tv.getTurtleList()){
 			String name = "Turtle" + temp.getID();
 			double xloc = temp.getX();
 			double yloc = temp.getY();
