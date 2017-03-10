@@ -26,12 +26,12 @@ import turtles.Turtle;
 import turtles.TurtleViewer;
 
 public class ConsoleBuilder {
-	private TabPane myTab;
-	private TextArea console;
+	private TabPane myTab = new TabPane();
+	private TextArea console = new TextArea();
 	private ObservableList<Button> pcommands;
 	private ObservableList<TextArea> turtleList;
-	private ListView<Button> plist;
-	private ListView<TextArea> turtleVariables;
+	private ListView<Button> plist = new ListView<Button>();
+	private ListView<TextArea> turtleVariables = new ListView<TextArea>();
 	private ResourceBundle myResources;
 	private Parser myParser;
 	private TurtleViewer tv;
@@ -42,42 +42,14 @@ public class ConsoleBuilder {
 		myResources = myResourcesIn;
 		myParser = parserIn;
 
-		console = new TextArea();
-		console.setPrefColumnCount(50);
-		console.setPrefRowCount(5);
-		console.setMinHeight(150);
-		console.setMaxHeight(150);
+		formatConsole();
 
 		pcommands = FXCollections.observableArrayList();
-		plist = new ListView<Button>();
 		plist.setItems(pcommands);
 		plist.setOrientation(Orientation.VERTICAL);
 		plist.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-		myTab = new TabPane();
-		myTab.setMinWidth(300);
-		myTab.setMaxWidth(300);
-
-		Tab pcTab = new Tab();
-		pcTab.setText("Prev Cmnds");
-		pcTab.setContent(plist);
-		myTab.getTabs().add(pcTab);
-
-		TextArea variables = createNewTurtleTextArea("Turtle" + currentID, 0, 0, 0, true);
-		currentID++;
-
-		turtleList = FXCollections.observableArrayList();
-		turtleVariables = new ListView<TextArea>();
-		turtleVariables.setItems(turtleList);
-		turtleVariables.setOrientation(Orientation.VERTICAL);
-		turtleVariables.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-		turtleList.add(variables);
-
-		Tab turtleTab = new Tab();
-		turtleTab.setText("Turtles");
-		turtleTab.setContent(turtleVariables);
-		myTab.getTabs().add(turtleTab);
+		formatTabPane();
 
 	}
 
@@ -195,6 +167,40 @@ public class ConsoleBuilder {
 		variables.setMaxHeight(120);
 		variables.setText(String.format(name + "\nX: %f \nY: %f \nAngle: %f\nActive: %B", xloc, yloc, angle, active));
 		return variables;
+	}
+	
+	private void formatConsole(){
+		console.setPrefColumnCount(50);
+		console.setPrefRowCount(5);
+		console.setMinHeight(150);
+		console.setMaxHeight(150);
+	}
+	
+	private void formatTabPane(){
+		myTab.setMinWidth(300);
+		myTab.setMaxWidth(300);
+
+		Tab pcTab = new Tab();
+		pcTab.setText("Prev Cmnds");
+		pcTab.setContent(plist);
+		pcTab.setClosable(false);
+		myTab.getTabs().add(pcTab);
+
+		TextArea variables = createNewTurtleTextArea("Turtle" + currentID, 0, 0, 0, true);
+		currentID++;
+
+		turtleList = FXCollections.observableArrayList();
+		turtleVariables.setItems(turtleList);
+		turtleVariables.setOrientation(Orientation.VERTICAL);
+		turtleVariables.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+		turtleList.add(variables);
+
+		Tab turtleTab = new Tab();
+		turtleTab.setText("Turtles");
+		turtleTab.setContent(turtleVariables);
+		turtleTab.setClosable(false);
+		myTab.getTabs().add(turtleTab);
 	}
 
 }

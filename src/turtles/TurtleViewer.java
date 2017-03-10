@@ -2,21 +2,9 @@ package turtles;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 //import javafx.scene.paint.Color;
 
-import javax.imageio.ImageIO;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -119,14 +107,14 @@ public class TurtleViewer{
 		}
 		 */
 	}
-	public void setX(ImageView turtleImage, int myID) throws Exception {
+/*	public void setX(ImageView turtleImage, int myID) throws Exception {
 		turtleImage.setX(getTurtle(myID).getX());
 		updatePen();
 	}
 	public void setY(ImageView turtleImage, int myID) throws Exception {
 		turtleImage.setY(getTurtle(myID).getY());
 		updatePen();
-	}
+	} */
 	
 	public void setImage(String imageIn){
 		currentImage = imageIn;

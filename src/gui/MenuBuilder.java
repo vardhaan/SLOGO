@@ -51,9 +51,9 @@ public class MenuBuilder {
 	public void updateMenu(GridPane myRoot){
 		myRoot.getChildren().remove(menu);
 		//myRoot.getChildren().addAll(menu);
-		
+
 	}
-	
+
 
 	private Menu intHelpMenu() {
 		MenuItem viewHelp = new MenuItem(myResources.getString("ReadmeLabel"));
@@ -78,18 +78,18 @@ public class MenuBuilder {
 
 	private void openHelp() {
 		try {
-            Desktop.getDesktop().browse(new URI("http://www.cs.duke.edu/courses/spring17/compsci308/assign/03_slogo/commands.php"));
-        } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, myResources.getString("JavadocError")).show();
-        }
+			Desktop.getDesktop().browse(new URI("http://www.cs.duke.edu/courses/spring17/compsci308/assign/03_slogo/commands.php"));
+		} catch (Exception e) {
+			new Alert(Alert.AlertType.ERROR, myResources.getString("JavadocError")).show();
+		}
 	}
 
 	private void openReadme() {
-		 try {
-             Desktop.getDesktop().browse(new URI(myResources.getString("ReadmeURL")));
-         } catch (Exception e) {
-             new Alert(Alert.AlertType.ERROR, myResources.getString("ReadmeError")).show();
-         }
+		try {
+			Desktop.getDesktop().browse(new URI(myResources.getString("ReadmeURL")));
+		} catch (Exception e) {
+			new Alert(Alert.AlertType.ERROR, myResources.getString("ReadmeError")).show();
+		}
 	}
 	private void reset(){
 		tv.clear();
@@ -111,7 +111,7 @@ public class MenuBuilder {
 		addOptions(turtleImageSelect);
 		return new Menu("Settings", null, turtleImageSelect);
 	}
-	
+
 	private void addOptions(Menu menuIn){
 		MenuItem turtle1 = new MenuItem(myResources.getString("image1name"));
 		turtle1.setOnAction(e -> turtleImageChange(myResources.getString("image1")));
@@ -123,11 +123,12 @@ public class MenuBuilder {
 		turtle4.setOnAction(e -> turtleImageChange(myResources.getString("image4")));
 		menuIn.getItems().addAll(turtle1, turtle2, turtle3, turtle4);
 	}
-	
+
 	private void turtleImageChange(String image) {
 		tv.setImage(image);
 	}
-		/*
+	
+	/*
 	private void BackgroundColor() {
 		Dialog dbox = new Dialog();
 		dbox.setTitle(myResources.getString("AdjustLabel"));
