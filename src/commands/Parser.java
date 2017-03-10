@@ -27,6 +27,8 @@ public class Parser {
 	 private List<Entry<String, Pattern>> mySymbols;
 	 public CommandEngine engine;
 	 private TurtleViewer myTurtleViewer;
+	 private ArrayList<String> userDefinedCommands;
+	 
 	 
 	 public static final String DEFAULT_LANGUAGE_BUNDLE = "English";
 	 public static final String DEFAULT_SYNTAX_BUNDLE = "Syntax";
@@ -40,6 +42,7 @@ public class Parser {
 	        engine.setTurtleViewer(myTurtleViewer);
 	    	addPatterns(RESOURCE_BUNDLE_URL+DEFAULT_LANGUAGE_BUNDLE);
 	    	addPatterns(RESOURCE_BUNDLE_URL+DEFAULT_SYNTAX_BUNDLE);
+	    	userDefinedCommands = new ArrayList<String>();
 	        
 	    }
 	    
@@ -47,14 +50,19 @@ public class Parser {
 	    
 	    public void parse(String s) throws Exception {
 	    	engine.reset();
-	    	String[] tokens = s.split(WHITESPACE);
+	    	String[] newLineSplit = s.split("\n");
+	    	StringBuilder newCommandsEntry = new StringBuilder();
+	    	for (String comm : newLineSplit ) {
+	    		if (!comm.startsWith("#")) {
+	    			newCommandsEntry.append(comm + " ");
+	    		}
+	    	}
+	    	String convertedNewCommands = newCommandsEntry.toString(); 
+	    	//System.out.println(convertedNewCommands);
+	    	String[] tokens = convertedNewCommands.split(WHITESPACE);
 	    	//System.out.println(Arrays.toString(tokens));
 	    	if (tokens.length == 0) {
-	    		//TODO:Zhiyong, add exception for empty command
-	    		MyException p =  new EmptyParserException();
-				PopUpException pop = new PopUpException(p.getMessage());
-				pop.showMessage();
-				
+	    		
 	    	} else {
 
 	    		for (int i=0;i<tokens.length;i++) {
@@ -62,17 +70,27 @@ public class Parser {
 	    			String symbol = getSymbol(tokens[i]);
 	    			if (checkIfValid(symbol)) {
 	    				if (symbol.equals("Constant")) {
-	    					
+	    					//System.out.println("it's working??");
 	    					engine.addParameter(Double.valueOf(tokens[i]));
 	    				} else {
-	    					if (symbol.equals("Comment")) {
-	    						continue;
-	    					}
+	    					
 	    					String className = "commands." + symbol.toUpperCase();
 	    					Class<?> clazz = Class.forName(className);
+	    					//System.out.println(className);
 	    					Object o = makeClass(clazz);
 	    					Command toAdd = (Command) o;
-	    					
+	    					if (toAdd instanceof VARIABLE) {
+	    						VARIABLE v = (VARIABLE) toAdd;
+	    						v.setName(symbol.substring(1, symbol.length()));
+	    						engine.addCommand(v);
+	    						continue;
+	    					} 
+	    					if (toAdd instanceof TO) {
+	    						TO t = (TO) toAdd;
+	    						t.setMethodName(tokens[i+1]);
+	    						userDefinedCommands.add(tokens[i+1]);
+	    						i++;
+	    					}
 	    					engine.addCommand(toAdd);
 	    				}
 	    			}
@@ -141,11 +159,11 @@ public class Parser {
 				return e.getKey();
 			}
 		}
-		
+
 		MyException p =  new NotMatchException();
 		PopUpException pop = new PopUpException(p.getMessage());
 		pop.showMessage();
-		
+
 		return ERROR;
 	}
 

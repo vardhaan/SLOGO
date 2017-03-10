@@ -19,7 +19,7 @@ public class LESS extends Command{
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
 				returnValue = (parameters.get(0) < parameters.get(1))? 1 : 0;
-				System.out.println("less set ret to be this: " + returnValue);
+				//System.out.println("less set ret to be this: " + returnValue);
 				sendReturnToDependent();
 		}
 	}

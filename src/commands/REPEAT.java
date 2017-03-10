@@ -13,12 +13,13 @@ public class REPEAT extends ListContainingCommand {
 	
 	
 	@Override
-	public boolean addCommandWithin() {
+	public boolean addCommandWithin(Command toAdd) {
 		if (numCommandAsParam + parameters.size()== expectedNumParameters) {
-			System.out.println("repeat actually gets a value");
+			//System.out.println("repeat actually gets a value");
 			return listOfCommands == null || listOfCommands.needsCommand();
 		}
 		return false;
+		
 	}
 	
 	
