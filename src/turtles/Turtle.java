@@ -46,40 +46,40 @@ public class Turtle extends Observable implements Cloneable{
 
 	public static final double DEFAULT_X_POS = 0;
 	public static final double DEFAULT_Y_POS = 0;
-	public static final double DEFAULT_ANGLE = 90;
+	public static final double DEFAULT_ANGLE = 0;
 	private static final double FULL_CIRCLE = 360;
 	private double width=1000;
 	private double height=430;
 	private int myPenSize;
 	private ImageView turtleImage;
 	private boolean isActive;
+
 	public Turtle(int id, Pane myRootIn) {
 		myRoot = myRootIn;
-		this.xPos =0;
-		this.yPos = 0;
-		this.previousxPos = 0;
-		this.previousyPos = 0;
-		this.heading = 0;
+		this.xPos = DEFAULT_X_POS;
+		this.yPos = DEFAULT_Y_POS;
+		this.previousxPos = DEFAULT_X_POS;
+		this.previousyPos = DEFAULT_Y_POS;
+		this.heading = DEFAULT_ANGLE;
 		showing = true;
 		penDown=true;
 		myImageIndex=0;
 		myPenColorIndex=0;
 		myID=id;
 		myPenColorIndex = 0;
-		myPenSize = 10;
+		myPenSize = 4;
 		isActive = true;
-
 	}
-	
+
 	//TODO:Zhiyong, update the activity of the turtle with the corresponding id
 	//This is for the ID class in the backend
 	public boolean getActivity(){
 		return isActive;
 	}
-	
+
 	//TODO: controlled by other class
 	public void updateActivity(boolean b){
-		
+
 	}
 
 	public void setTurtleImage(ImageView imageIn) {
@@ -87,29 +87,32 @@ public class Turtle extends Observable implements Cloneable{
 	}
 
 	public void setX(double newX) {
-		prevprevxPos = previousxPos;
-		previousxPos=xPos;	
-		xPos = move(previousxPos,newX,width);
-		if(xPos!=previousxPos){
-			myAnimation = moveAnimation();
-			myAnimation.play();
+		if(isActive){
+			prevprevxPos = previousxPos;
+			previousxPos=xPos;	
+			xPos = checkBounds(previousxPos,newX,width);
+			if(xPos!=previousxPos){
+				myAnimation = moveAnimation();
+				myAnimation.play();
+			}
+			updatePen(myPenColorIndex, myPenSize);
 		}
-		updatePen(myPenColorIndex, myPenSize);
 
 	}
 
 	public void setY(double newY) {
-		prevprevyPos=previousyPos;
-		previousyPos = yPos;
-		yPos = move(previousyPos,newY,height);
-
-		if(yPos!=previousyPos){
-			myAnimation = moveAnimation();
-			myAnimation.play();
+		if(isActive){
+			prevprevyPos=previousyPos;
+			previousyPos = yPos;
+			yPos = checkBounds(previousyPos,newY,height);
+			if(yPos!=previousyPos){
+				myAnimation = moveAnimation();
+				myAnimation.play();
+			}
 		}
 	}
-	
-	private double move(double previous, double current, double parameter) {
+
+	private double checkBounds(double previous, double current, double parameter) {
 		if(current>=parameter){
 			current=current % parameter;
 			return current;
@@ -137,7 +140,7 @@ public class Turtle extends Observable implements Cloneable{
 		PathTransition pt = new PathTransition(Duration.seconds(2), path, turtleImage);
 		return new SequentialTransition(turtleImage, pt);
 	}
-	
+
 	private Animation rotateAnimation(){
 		RotateTransition rt = new RotateTransition(Duration.seconds(1));
 		rt.setToAngle(heading);
@@ -148,7 +151,6 @@ public class Turtle extends Observable implements Cloneable{
 		for(Lines current: myLines){
 			myRoot.getChildren().remove(current.getLine());
 		}
-		System.out.println("clearsLine");
 		myLines.clear();
 	}
 
@@ -182,7 +184,6 @@ public class Turtle extends Observable implements Cloneable{
 	}
 
 	public boolean showTurtle(){
-		//notifyChange();
 		return showing;
 	}
 
@@ -198,12 +199,12 @@ public class Turtle extends Observable implements Cloneable{
 	public boolean getPen(){
 		return penDown;
 	}
-	
+
 	public void setprev(){
 		/*Pos=previousxPos;
 		yPos=previousyPos;
 		heading=	previousHeading;
-		*/
+		 */
 		setX(previousxPos);
 		setY(previousyPos);
 		setHeading(previousHeading);
@@ -213,24 +214,24 @@ public class Turtle extends Observable implements Cloneable{
 		myLines.remove(myLines.size()-1);
 		myLines.remove(myLines.size()-1);
 	}
-	
+
 	public void setImage(Image imageIn){
 		turtleImage.setImage(imageIn);
 	}
-	
+
 	public int setImageIndex(int index){
 		myImageIndex=index;		
 		return myImageIndex;
 	}
-	
+
 	public int getImageIndex(){
 		return myImageIndex;
 	}
-	
+
 	public int getID(){
 		return myID;
 	}
-	
+
 	public int setPenColorIndex(int index){
 
 		myPenColorIndex=index;
@@ -244,6 +245,6 @@ public class Turtle extends Observable implements Cloneable{
 		myPenSize = pixel;
 		return myPenSize;
 	}
-	
+
 
 }

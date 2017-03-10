@@ -30,7 +30,7 @@ public class ConsoleBuilder {
 	private ResourceBundle myResources;
 	private Parser myParser;
 	private TurtleViewer tv;
-	private int ID;
+	private int currentID = 0;
 
 	public ConsoleBuilder(ResourceBundle myResourcesIn, Parser parserIn, TurtleViewer tvIn){
 		tv = tvIn;
@@ -58,14 +58,8 @@ public class ConsoleBuilder {
 		pcTab.setContent(plist);
 		myTab.getTabs().add(pcTab);
 
-		TextArea variables = new TextArea();
-		variables.setEditable(false);
-		variables.setMaxWidth(280);
-		String name = "Turtle1";
-		double xloc = 0;
-		double yloc = 0;
-		double angle = 0;
-		variables.setText(String.format(name + "\nX: %f \nY: %f \nAngle: %f", xloc, yloc, angle));
+		TextArea variables = createNewTurtleTextArea("Turtle" + currentID, 0, 0, 0, true);
+		currentID++;
 
 		turtleList = FXCollections.observableArrayList();
 		turtleVariables = new ListView<TextArea>();
@@ -101,13 +95,13 @@ public class ConsoleBuilder {
 				try {
 					myParser.parse(console.getText());
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
+					// TODO replace printStackTrace
 					e1.printStackTrace();
 				}
 				try {
 					updateVariables();
 				} catch (Exception e2) {
-					// TODO Auto-generated catch block
+					// TODO replace printStackTrace
 					e2.printStackTrace();
 				}
 				console.clear();
@@ -123,29 +117,22 @@ public class ConsoleBuilder {
 			@Override
 			public void handle(ActionEvent e) {
 				try {
-					tv.getTurtle(ID).setprev();
-					tv.getTurtle(ID).clearprevlines();
+					tv.getTurtle(currentID).setprev();
+					tv.getTurtle(currentID).clearprevlines();
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				console.clear();
-
 				//myParser.
 			}
 		};
 		EventHandler<ActionEvent> addTurtle = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				TextArea turtleVars = new TextArea();
-				turtleVars.setEditable(false);
-				turtleVars.setMaxWidth(280);
-				String name = "Turtle";
-				double xloc = 0;
-				double yloc = 0;
-				double angle = 0;
-				turtleVars.setText(String.format(name + "\nX: %f \nY: %f \nAngle: %f", xloc, yloc, angle));
+				TextArea turtleVars = createNewTurtleTextArea("Turtle" + currentID, 0, 0, 0, true);
 				turtleList.add(turtleVars);
+				tv.addTurtle();
 			}
 		};
 		ArrayList<EventHandler<ActionEvent>> events = new ArrayList<EventHandler<ActionEvent>>();
@@ -171,12 +158,11 @@ public class ConsoleBuilder {
 			try {
 				myParser.parse(previousText);
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
+				// TODO remove printStackTrace
 				e1.printStackTrace();
 			}
 		});
 		pcommands.add(pcommandButton);
-
 	}
 
 	private void updateVariables() throws Exception{
@@ -185,8 +171,18 @@ public class ConsoleBuilder {
 			double xloc = temp.getX();
 			double yloc = temp.getY();
 			double angle = temp.getHeading() % 360;
-			turtleList.get(temp.getID()).setText(String.format("%s\nX: %f \nY: %f \nAngle: %f",name, xloc, yloc, angle));
+			boolean active = temp.getActivity();
+			turtleList.get(temp.getID()).setText(String.format("%s\nX: %f \nY: %f \nAngle: %f\nActive: %B",name, xloc, yloc, angle, active));
 		}
+	}
+	
+	private TextArea createNewTurtleTextArea(String name, double xloc, double yloc, double angle, boolean active){
+		TextArea variables = new TextArea();
+		variables.setEditable(false);
+		variables.setMaxWidth(280);
+		variables.setMaxHeight(120);
+		variables.setText(String.format(name + "\nX: %f \nY: %f \nAngle: %f\nActive: %B", xloc, yloc, angle, active));
+		return variables;
 	}
 
 }
