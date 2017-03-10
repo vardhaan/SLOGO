@@ -17,12 +17,14 @@ public class ForwardBackHelper {
 	 * @param returnValue
 	 */
 	public void getHelp(Turtle target, double returnValue){
-		
+		System.out.println("return value is " + returnValue);
 		double degree = target.getHeading();
 		double y = Math.sin(degree*Math.PI/180) * returnValue;
 		double x = Math.cos(degree*Math.PI/180) * returnValue;
-		target.setY(target.getY() - y);		
+
+		target.setY(target.getY() - y);	
 		target.setX(target.getX() - x);
+
 	}
 
 }

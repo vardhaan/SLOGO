@@ -78,7 +78,8 @@ public class CommandEngine {
 			for (int i=0;i<commandQueue.size();i++) {
 				//////System.out.println("this is i: " + i);
 				Command c = commandQueue.get(i);
-				c.setTurtle(tViewer.getTurtle(0));
+				System.out.println(tViewer.getTurtleList().size() + " is size of turt list");
+				c.setTurtle(tViewer.getTurtleList());
 				
 				
 				

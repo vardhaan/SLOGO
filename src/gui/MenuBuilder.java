@@ -62,6 +62,7 @@ public class MenuBuilder {
 	private void openHelp() {
 		try {
 			Desktop.getDesktop().browse(new URI("http://www.cs.duke.edu/courses/spring17/compsci308/assign/03_slogo/commands.php"));
+			Desktop.getDesktop().browse(new URI("http://www.cs.duke.edu/courses/spring17/compsci308/assign/03_slogo/commands2_J2W.php"));
 		} catch (Exception e) {
 			new Alert(Alert.AlertType.ERROR, myResources.getString("JavadocError")).show();
 		}

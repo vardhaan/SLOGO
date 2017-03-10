@@ -34,6 +34,7 @@ public class Parser {
 	 public static final String DEFAULT_SYNTAX_BUNDLE = "Syntax";
 	 public static final String RESOURCE_BUNDLE_URL = "resources/languages/";
 	 public static final String WHITESPACE = "\\s+";
+	 public static final String COMM = "commands.COMMAND";
 
 	    public Parser(TurtleViewer turtleIn) {
 	    	mySymbols = new ArrayList<>();
@@ -57,12 +58,16 @@ public class Parser {
 	    			newCommandsEntry.append(comm + " ");
 	    		}
 	    	}
+	    	
 	    	String convertedNewCommands = newCommandsEntry.toString(); 
 	    	//System.out.println(convertedNewCommands);
 	    	String[] tokens = convertedNewCommands.split(WHITESPACE);
 	    	//System.out.println(Arrays.toString(tokens));
 	    	if (tokens.length == 0) {
-	    		
+	    		System.out.println("shouldn't be coming from here!!");
+	    		MyException p = new EmptyParserException();
+	    		PopUpException pop = new PopUpException(p.getMessage());
+	    		pop.showMessage();
 	    	} else {
 
 	    		for (int i=0;i<tokens.length;i++) {
@@ -75,6 +80,12 @@ public class Parser {
 	    				} else {
 	    					
 	    					String className = "commands." + symbol.toUpperCase();
+	    					if (className.equals(COMM)) {
+	    						MyException p = new NotMatchException();
+	    						PopUpException pop = new PopUpException(p.getMessage());
+	    						pop.showMessage();
+	    						return;
+	    					}
 	    					Class<?> clazz = Class.forName(className);
 	    					//System.out.println(className);
 	    					Object o = makeClass(clazz);

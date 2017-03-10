@@ -9,13 +9,13 @@ import turtles.TurtleViewer;
 
 public abstract class TurtleCommand extends Command {
 
-	protected int turtleTarget;
+	protected ArrayList<Turtle> turtleTarget;
 	protected boolean penDown;
 	protected boolean showTurtle;
 	protected List< Turtle> turtles;
 	
 	public TurtleCommand() {
-		turtleTarget = 0;
+		turtleTarget = new ArrayList<Turtle>();
 		parameters = new ArrayList<Double>();
 		penDown = true;
 		showTurtle = true;
@@ -24,10 +24,8 @@ public abstract class TurtleCommand extends Command {
 		
 	}
 	
-	@Override
-	public void setTurtle(Turtle turtle) {
-		target = turtle;
-	}
+	
+	
 	
 /*	public Turtle getTurtle() {
 		Turtle ret = new Turtle();
