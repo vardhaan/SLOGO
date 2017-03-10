@@ -28,7 +28,6 @@ public class Parser {
 	 public CommandEngine engine;
 	 private TurtleViewer myTurtleViewer;
 	 
-	 
 	 public static final String DEFAULT_LANGUAGE_BUNDLE = "English";
 	 public static final String DEFAULT_SYNTAX_BUNDLE = "Syntax";
 	 public static final String RESOURCE_BUNDLE_URL = "resources/languages/";

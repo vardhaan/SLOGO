@@ -20,7 +20,7 @@ public abstract class TurtleCommand extends Command {
 		penDown = true;
 		showTurtle = true;
 		
-		turtles = TurtleViewer.getTurtleList();
+	//	turtles = TurtleViewer.getTurtleList();
 		
 	}
 	
