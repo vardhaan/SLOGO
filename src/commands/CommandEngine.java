@@ -88,6 +88,14 @@ public class CommandEngine {
 				////System.out.println("this is i: " + i);
 				Command c = commandQueue.get(i);
 				c.setTurtle(tViewer.getTurtle(0));
+				
+				
+				
+				//TODO:Zhiyong, for the TELL command, the TurtleCommand only will be
+				//executed by the turtles in the TELL list
+				
+				
+				
 				Double ret = c.executeCommand(); //what to do with return value
 			}
 		} else {

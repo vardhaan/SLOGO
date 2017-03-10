@@ -46,8 +46,9 @@ public class Parser {
 	    public void parse(String s) throws Exception {
 	    	engine.reset();
 	    	String[] tokens = s.split(WHITESPACE);
-	    	System.out.println(Arrays.toString(tokens));
+	    	//System.out.println(Arrays.toString(tokens));
 	    	if (tokens.length == 0) {
+	    		//TODO:Zhiyong, add exception for empty command
 	    		
 	    	} else {
 
