@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 //import javafx.scene.paint.Color;
@@ -27,7 +28,7 @@ import turtles.Turtle;
 public class TurtleViewer extends Observable implements Observer{
 
 	private Turtle myTurtle;
-	private HashMap<Integer,Turtle> turtles=new HashMap<Integer,Turtle>();
+	private static HashMap<Integer,Turtle> turtles=new HashMap<Integer,Turtle>();
 	private ArrayList<Line> myLines = new ArrayList<Line>();
 	private double xPos;
 	private double yPos;
@@ -65,6 +66,12 @@ public class TurtleViewer extends Observable implements Observer{
 		myTurtleImage.setFitHeight(50);
 		myRoot.getChildren().add(myTurtleImage);
 		myTurtle.setTurtleImage(myTurtleImage);
+	}
+	
+	//TODO: Zhiyong, get the all the turtles as a HashMap
+	//and then test whether it is active
+	public static Map<Integer, Turtle> getTurtleMap(){
+		return turtles;
 	}
 
 	public void buildTurtle(Pane myRoot){
@@ -119,7 +126,6 @@ public class TurtleViewer extends Observable implements Observer{
 	}
 	
 	private void updatePen(){
-		System.out.println("Update pen is called");
 		if (myTurtle.getPen()){
 			Line current = new Line(myTurtle.getPreviousX(), myTurtle.getPreviousY(), myTurtle.getX(), myTurtle.getY());
 			myLines.add(current);
@@ -138,5 +144,7 @@ public class TurtleViewer extends Observable implements Observer{
 		notifyObservers();
 		super.addObserver(o);
 	}
+	
+
 
 }

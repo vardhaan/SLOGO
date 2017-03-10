@@ -19,7 +19,7 @@ public class  NOT extends Command{
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
-			returnValue = (parameters.get(parameters.size()-1) == 0) ? 0 : 1;
+			returnValue = (parameters.get(parameters.size()-1) == 0) ? 1 : 0;
 			sendReturnToDependent();
 		} 
 	}

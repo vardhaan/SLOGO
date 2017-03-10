@@ -3,24 +3,38 @@
  */
 package commands;
 
+import exceptions.ParameterNotEnoughException;
+import javafx.scene.image.Image;
+
 /**
  * @author Zhiyong
  *
  */
-public class SETSHAPE extends Command {
-	
+public class SETSHAPE extends TurtleCommand {
+	public static final String IMAGE_NAME = "images/slogo";
+	public static final String IMAGE_TYPE = ".jpg";
+
 	public SETSHAPE(){
 		super();
 		expectedNumParameters = 1;
 	}
-	
+
+	@Override
+	public void setReturnValue() throws ParameterNotEnoughException {
+		if (parameters.size() == expectedNumParameters) {
+			returnValue = parameters.get(0);
+
+			sendReturnToDependent();
+		}
+	}
+
 	@Override
 	public double executeCommand() {
-			//ResourceBundle resources = ResourceBundle.getBundle(RESOURCE_BUNDLE);
-			
-			//TODO:add a method to set the shape of the turtle
-			returnValue = parameters.get(0);
-			
+		returnValue = parameters.get(0);
+		//combine the information of the image name as a String
+		target.setImage(new Image(IMAGE_NAME + (Math.round(returnValue) + IMAGE_TYPE)));
+		target.setImageIndex((int) Math.round(returnValue));
+
 		return returnValue;
 	}
 

@@ -1,20 +1,26 @@
 package commands;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import turtles.Turtle;
+import turtles.TurtleViewer;
 
 public abstract class TurtleCommand extends Command {
 
 	protected int turtleTarget;
 	protected boolean penDown;
 	protected boolean showTurtle;
+	protected Map<Integer, Turtle> turtles;
 	
 	public TurtleCommand() {
 		turtleTarget = 0;
 		parameters = new ArrayList<Double>();
 		penDown = true;
 		showTurtle = true;
+		
+		turtles = TurtleViewer.getTurtleMap();
+		
 	}
 	
 	@Override

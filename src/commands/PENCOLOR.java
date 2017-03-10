@@ -10,7 +10,6 @@ public class PENCOLOR extends Command{
 	public PENCOLOR(){
 		super();
 		expectedNumParameters = 0;
-
 	}
 
 	@Override
@@ -21,7 +20,7 @@ public class PENCOLOR extends Command{
 	@Override
 	public double executeCommand() {
 		returnValue = target.getPenColorIndex();
-
+		System.out.println("The pen color is " + returnValue);
 		return returnValue;
 	}
 

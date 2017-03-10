@@ -66,8 +66,8 @@ public class CommandEngine {
 	public boolean commandsReadyToExecute() {
 		////System.out.println(commandQueue.size() + " this is cq size");
 		for (Command c : commandQueue) {
-			System.out.println("This is the command to check: " + c.getClass().getSimpleName());
-			System.out.println(c.getNumParameters() + " " + c.getParameters().size() + " " + c.numCommandAsParam);
+//			System.out.println("This is the command to check: " + c.getClass().getSimpleName());
+//			System.out.println(c.getNumParameters() + " " + c.getParameters().size() + " " + c.numCommandAsParam);
 			if (c.getNumParameters() != c.getParameters().size() + c.numCommandAsParam) {
 				////System.out.println("thic is cNumPar: " + c.getNumParameters() + " " + (c.getParameters().size()+c.numCommandAsParam) + " " + c.getParameters().size());
 
@@ -83,7 +83,7 @@ public class CommandEngine {
 		System.out.println(commandQueue.size());
 		////System.out.println("reaches here");
 		if(commandsReadyToExecute()) {
-			System.out.println("Ready to execute");
+			//System.out.println("Ready to execute");
 			for (int i=0;i<commandQueue.size();i++) {
 				////System.out.println("this is i: " + i);
 				Command c = commandQueue.get(i);
@@ -104,7 +104,7 @@ public class CommandEngine {
 		System.out.println("this is cq size: " + commandQueue.size());
 		for (int i=0;i<commandQueue.size();i++) {
 			Command c = commandQueue.get(i);
-			System.out.println(c.getClass().getSimpleName() + " is the command that is being retvalset");
+			//System.out.println(c.getClass().getSimpleName() + " is the command that is being retvalset");
 			try {
 				c.setReturnValue();
 			} catch (ParameterNotEnoughException e) {
