@@ -28,7 +28,7 @@ import turtles.Turtle;
 public class TurtleViewer extends Observable implements Observer{
 
 	private Turtle myTurtle;
-	private ArrayList<Turtle> turtles=new ArrayList<Turtle>();
+	private static ArrayList<Turtle> turtles=new ArrayList<Turtle>();
 	private ArrayList<Line> myLines = new ArrayList<Line>();
 	private double xPos;
 	private double yPos;
@@ -70,7 +70,7 @@ public class TurtleViewer extends Observable implements Observer{
 	
 	//TODO: Zhiyong, get the all the turtles as a HashMap
 	//and then test whether it is active
-	public ArrayList<Turtle> getTurtleList(){
+	public static ArrayList<Turtle> getTurtleList(){
 		return turtles;
 	}
 

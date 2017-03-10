@@ -11,7 +11,10 @@ import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
 import exceptions.EmptyParserException;
+import exceptions.MyException;
+import exceptions.NotMatchException;
 import exceptions.ParameterNotEnoughException;
+import exceptions.PopUpException;
 import turtles.TurtleViewer;
 
 
@@ -49,7 +52,10 @@ public class Parser {
 	    	//System.out.println(Arrays.toString(tokens));
 	    	if (tokens.length == 0) {
 	    		//TODO:Zhiyong, add exception for empty command
-	    		
+	    		MyException p =  new EmptyParserException();
+				PopUpException pop = new PopUpException(p.getMessage());
+				pop.showMessage();
+				
 	    	} else {
 
 	    		for (int i=0;i<tokens.length;i++) {
@@ -136,6 +142,11 @@ public class Parser {
 				return e.getKey();
 			}
 		}
+		
+		MyException p =  new NotMatchException();
+		PopUpException pop = new PopUpException(p.getMessage());
+		pop.showMessage();
+		
 		return ERROR;
 	}
 
@@ -145,12 +156,4 @@ public class Parser {
 		return regex.matcher(text).matches();
 	}
 
-	//	    public static void main(String[] args) throws ClassNotFoundException {
-	//	    	Parser p = new Parser();
-	//	    	String s = " MAKE :maki 50  DOTIMES [ :maki 10 ] [ fd10 ]";
-	//	    	p.parse(s);
-	//	    	//System.out.println(p.engine.commandQueue.size());
-	//	    	
-	//	    	
-	//	    }
 }
