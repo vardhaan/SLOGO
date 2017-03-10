@@ -59,9 +59,9 @@ public class MenuBuilder {
 		MenuItem viewHelp = new MenuItem(myResources.getString("ReadmeLabel"));
 		viewHelp.setAccelerator(new KeyCodeCombination(KeyCode.H, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN));
 		viewHelp.setOnAction(e -> openReadme());
-		MenuItem viewJavadoc = new MenuItem(myResources.getString("DocumentationLabel"));
+		MenuItem viewJavadoc = new MenuItem(myResources.getString("HelpLabel"));
 		viewJavadoc.setAccelerator(new KeyCodeCombination(KeyCode.J, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN));
-		viewJavadoc.setOnAction(e -> openJavadoc());
+		viewJavadoc.setOnAction(e -> openHelp());
 		MenuItem about = new MenuItem(myResources.getString("AboutLabel"));
 		about.setAccelerator(new KeyCodeCombination(KeyCode.A, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN));
 		about.setOnAction(e -> about());
@@ -70,25 +70,25 @@ public class MenuBuilder {
 	// TODO Auto-generated method stub
 	private void about() {
 		Alert about= new Alert(Alert.AlertType.INFORMATION);
-		about.setHeaderText("Slogo");
-		about.setTitle("About");
-		about.setContentText("AboutContent");
+		about.setHeaderText(myResources.getString("AboutHeader"));
+		about.setTitle(myResources.getString("AboutTitle"));
+		about.setContentText(myResources.getString("AboutContent"));
 		about.showAndWait();
 	}
 
-	private void openJavadoc() {
+	private void openHelp() {
 		try {
-            Desktop.getDesktop().browse(new URI("file://" + //System.getProperty("user.dir").replace('\\','/') + "/doc/index.html"));
+            Desktop.getDesktop().browse(new URI("http://www.cs.duke.edu/courses/spring17/compsci308/assign/03_slogo/commands.php"));
         } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "ErrorDocumentation").show();
+            new Alert(Alert.AlertType.ERROR, myResources.getString("JavadocError")).show();
         }
 	}
 
 	private void openReadme() {
 		 try {
-             Desktop.getDesktop().browse(new URI("http://coursework.cs.duke.edu/CompSci308_2017Spring/slogo_team01"));
+             Desktop.getDesktop().browse(new URI(myResources.getString("ReadmeURL")));
          } catch (Exception e) {
-             new Alert(Alert.AlertType.ERROR, "ErrorReadme").show();
+             new Alert(Alert.AlertType.ERROR, myResources.getString("ReadmeError")).show();
          }
 	}
 	private void reset(){
@@ -96,58 +96,55 @@ public class MenuBuilder {
 	}
 
 	private Menu initResetMenu() {
-		MenuItem resetSimulation = new MenuItem("reset");
+		MenuItem resetSimulation = new MenuItem(myResources.getString("ResetLabel"));
 		resetSimulation.setAccelerator(new KeyCodeCombination(KeyCode.R, KeyCombination.SHORTCUT_DOWN));
 		resetSimulation.setOnAction(e-> reset());
-		return new Menu("Reset", null, resetSimulation);
+		return new Menu(myResources.getString("ResetLabel"), null, resetSimulation);
 	}
 
 	private Menu initSettingsMenu() {
-		MenuItem colorShiftPen = new MenuItem("Adjust_PenColor");
+		/*MenuItem colorShiftPen = new MenuItem("Adjust_PenColor");
 		colorShiftPen.setOnAction(e -> colorShiftPen());
 		MenuItem BackgroundColor= new MenuItem("Background_Color");
-		BackgroundColor.setOnAction(e-> BackgroundColor());
+		BackgroundColor.setOnAction(e-> BackgroundColor());*/
 		Menu turtleImageSelect = new Menu("TurtleImage");
 		addOptions(turtleImageSelect);
-		return new Menu("Settings", null,BackgroundColor,colorShiftPen, turtleImageSelect);
+		return new Menu("Settings", null, turtleImageSelect);
 	}
 	
 	private void addOptions(Menu menuIn){
-		MenuItem turtle1 = new MenuItem("Turtle1");
-		turtle1.setOnAction(e -> turtleImageChange("images/slogo1.jpg"));
-		MenuItem turtle2 = new MenuItem("Turtle2");
-		turtle2.setOnAction(e -> turtleImageChange("images/slogo2.jpg"));
-		MenuItem turtle3 = new MenuItem("RealTurtle");
-		turtle3.setOnAction(e -> turtleImageChange("images/slogo3.jpg"));
-		MenuItem turtle4 = new MenuItem("Duvall");
-		turtle4.setOnAction(e -> turtleImageChange("images/slogo4.jpg"));
+		MenuItem turtle1 = new MenuItem(myResources.getString("image1name"));
+		turtle1.setOnAction(e -> turtleImageChange(myResources.getString("image1")));
+		MenuItem turtle2 = new MenuItem(myResources.getString("image2name"));
+		turtle2.setOnAction(e -> turtleImageChange(myResources.getString("image2")));
+		MenuItem turtle3 = new MenuItem(myResources.getString("image3name"));
+		turtle3.setOnAction(e -> turtleImageChange(myResources.getString("image3")));
+		MenuItem turtle4 = new MenuItem(myResources.getString("image4name"));
+		turtle4.setOnAction(e -> turtleImageChange(myResources.getString("image4")));
 		menuIn.getItems().addAll(turtle1, turtle2, turtle3, turtle4);
 	}
 	
 	private void turtleImageChange(String image) {
 		tv.setImage(image);
 	}
-		
+		/*
 	private void BackgroundColor() {
 		Dialog dbox = new Dialog();
-		dbox.setTitle("Adjust_Color");
-		dbox.setHeaderText("Adjust_Color_Content");
-		dbox.getDialogPane().getButtonTypes().add(new ButtonType("Okay", ButtonBar.ButtonData.CANCEL_CLOSE));
+		dbox.setTitle(myResources.getString("AdjustLabel"));
+		dbox.setHeaderText(myResources.getString("ContentLabel"));
+		dbox.getDialogPane().getButtonTypes().add(new ButtonType(myResources.getString("OkayButton"), ButtonBar.ButtonData.CANCEL_CLOSE));
 		GridPane content = new GridPane();
 		content.getColumnConstraints().add(new ColumnConstraints(90));
 		ColumnConstraints slidersColumn = new ColumnConstraints();
 		slidersColumn.setHgrow(Priority.ALWAYS);
 		content.getColumnConstraints().add(slidersColumn);
 		Slider hSlider = new Slider(0, 360, 0);
-		//hSlider.valueProperty().addListener(e -> cellViews.forEach(f -> f.setHueShift(hSlider.getValue())));
 		content.add(new Label("Hue"), 0, 0);
 		content.add(hSlider, 1, 0);
 		Slider sSlider = new Slider(0, 1, 1);
-		//sSlider.valueProperty().addListener(e -> cellViews.forEach(f -> f.setSaturationShift(sSlider.getValue())));
 		content.add(new Label("Saturation"), 0, 1);
 		content.add(sSlider, 1, 1);
 		Slider lSlider = new Slider(0, 2, 1);
-		//lSlider.valueProperty().addListener(e -> cellViews.forEach(f -> f.setLightnessShift(lSlider.getValue())));
 		content.add(new Label("Lightness"), 0, 2);
 		content.add(lSlider, 1, 2);
 		dbox.getDialogPane().setContent(content);
@@ -156,31 +153,27 @@ public class MenuBuilder {
 
 	private void colorShiftPen() {
 		Dialog dbox = new Dialog();
-		dbox.setTitle("Adjust_Color");
-		dbox.setHeaderText("Adjust_Color_Content");
-		dbox.getDialogPane().getButtonTypes().add(new ButtonType("Okay", ButtonBar.ButtonData.CANCEL_CLOSE));
+		dbox.setTitle(myResources.getString("AdjustLabel"));
+		dbox.setHeaderText(myResources.getString("ContentLabel"));
+		dbox.getDialogPane().getButtonTypes().add(new ButtonType(myResources.getString("OkayButton"), ButtonBar.ButtonData.CANCEL_CLOSE));
 		GridPane content = new GridPane();
 		content.getColumnConstraints().add(new ColumnConstraints(90));
 		ColumnConstraints slidersColumn = new ColumnConstraints();
 		slidersColumn.setHgrow(Priority.ALWAYS);
 		content.getColumnConstraints().add(slidersColumn);
 		Slider hSlider = new Slider(0, 360, 0);
-		//hSlider.valueProperty().addListener(e -> cellViews.forEach(f -> f.setHueShift(hSlider.getValue())));
 		content.add(new Label("Hue"), 0, 0);
 		content.add(hSlider, 1, 0);
 		Slider sSlider = new Slider(0, 1, 1);
-		//sSlider.valueProperty().addListener(e -> cellViews.forEach(f -> f.setSaturationShift(sSlider.getValue())));
 		content.add(new Label("Saturation"), 0, 1);
 		content.add(sSlider, 1, 1);
 		Slider lSlider = new Slider(0, 2, 1);
-		//lSlider.valueProperty().addListener(e -> cellViews.forEach(f -> f.setLightnessShift(lSlider.getValue())));
 		content.add(new Label("Lightness"), 0, 2);
 		content.add(lSlider, 1, 2);
 		dbox.getDialogPane().setContent(content);
 		dbox.showAndWait();
-	}
+	}*/
 }
-
 
 
 

@@ -29,6 +29,12 @@ public class CommandEngine {
 	}
 	
 	
+	public Double getValueForVariable(String variableName) {
+		if (variables.containsKey(variableName)) {
+			return variables.get(variableName);
+		}
+		return 0.0; 
+	}
 	
 	public double executeNextCommand() {
 		if (!commandQueue.isEmpty()) {
@@ -73,6 +79,14 @@ public class CommandEngine {
 				//////System.out.println("this is i: " + i);
 				Command c = commandQueue.get(i);
 				c.setTurtle(tViewer.getTurtle(0));
+				
+				
+				
+				//TODO:Zhiyong, for the TELL command, the TurtleCommand only will be
+				//executed by the turtles in the TELL list
+				
+				
+				
 				Double ret = c.executeCommand(); //what to do with return value
 			}
 		} else {

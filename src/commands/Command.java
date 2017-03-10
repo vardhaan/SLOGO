@@ -35,8 +35,6 @@ public abstract class Command {
 	protected int dependentParameterIndex; // where Command put its return value in dependent command's parameters list
 
 	
-
-	
 	public Command() {
 		parameters = new ArrayList<Double>();
 		returnValue = 0;
@@ -85,7 +83,6 @@ public abstract class Command {
 	}
 	
 	public double getNumParameters() {
-		////System.out.println("goes here");
 		return expectedNumParameters;
 		
 	}
@@ -140,7 +137,6 @@ public abstract class Command {
 		} else {
 			ParameterNotEnoughException p =  new ParameterNotEnoughException();
 			PopUpException pop = new PopUpException(p.getMessage());
-			//System.out.println(this.getClass().getName() + " has " + parameters.size() + " parameters " + " needs " + expectedNumParameters);
 			pop.showMessage();
 		}
 		

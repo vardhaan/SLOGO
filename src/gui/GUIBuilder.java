@@ -21,10 +21,10 @@ public class GUIBuilder {
 	}
 
 	public void buildGUI(GridPane myRoot){
-		Pane myRoot2 = new Pane();
-		TurtleViewer tv = new TurtleViewer(0, myRoot2);
-		myRoot.getChildren().add(myRoot2);
-		GridPane.setConstraints(myRoot2, 0, 1);
+		Pane turtleRoot = new Pane();
+		TurtleViewer tv = new TurtleViewer(turtleRoot);
+		myRoot.getChildren().add(turtleRoot);
+		GridPane.setConstraints(turtleRoot, 0, 1);
 		
 		Parser myParser = new Parser(tv);
 		myParser.changeLanguage(myLanguage);
@@ -35,7 +35,7 @@ public class GUIBuilder {
 		MenuBuilder m=new MenuBuilder(tv);
 		m.buildMenu(myRoot);
 		
-		GridBuilder g = new GridBuilder();
+		GridBuilder g = new GridBuilder("0");
 		g.buildGrid(myRoot);
 	}
 	

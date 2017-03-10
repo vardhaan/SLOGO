@@ -18,6 +18,7 @@ public class ButtonBuilder{
 
 	public ButtonBuilder(String label, int row, int col, EventHandler<ActionEvent> buttonPress) {
 		myButton = new Button();
+		//myButton.setMaxWidth(Double.MAX_VALUE);
 		GridPane.setConstraints(myButton, col, row);
 		myButton.setText(label);
 		myButton.setOnAction(buttonPress);
@@ -25,6 +26,7 @@ public class ButtonBuilder{
 	
 	public ButtonBuilder(String label, EventHandler<ActionEvent> buttonPress) {
 		myButton = new Button();
+		//myButton.setMaxWidth(Double.MAX_VALUE);
 		myButton.setText(label);
 		myButton.setOnAction(buttonPress);
 	}

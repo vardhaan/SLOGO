@@ -1,15 +1,10 @@
-
 package exceptions;
 
 import java.util.ResourceBundle;
 
-/**
- * @author Zhiyong
- *
- */
-public class EmptyParserException extends MyException{
-	 public static final String DEFAULT_RESOURCE_PACKAGE = "resources/exception";
-	 public static final String MESSAGE = "Empty";
+public class ErrorParsing extends MyException{
+	public static final String DEFAULT_RESOURCE_PACKAGE = "resources/exception";
+	public static final String MESSAGE = "ErrorParsing";
 	@Override
 	public String getMessage() {
 		ResourceBundle myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
@@ -17,5 +12,4 @@ public class EmptyParserException extends MyException{
 		
 		return message;
 	}
-
 }

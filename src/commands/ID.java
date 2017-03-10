@@ -2,16 +2,10 @@ package commands;
 
 import exceptions.ParameterNotEnoughException;
 
-/**
- * @author Zhiyong
- *
- */
-public class SHAPE extends Command{
-
-	public SHAPE(){
+public class ID extends TurtleCommand{
+	public ID(){
 		super();
 		expectedNumParameters = 0;
-
 	}
 
 	@Override
@@ -21,8 +15,14 @@ public class SHAPE extends Command{
 
 	@Override
 	public double executeCommand() {
-		returnValue = target.getImageIndex();
-		return returnValue;
+		for(int i = 0; i < turtles.size(); i++){
+			if(turtles.get(i).getActivity()){
+				return i;
+				
+			}
+		}
+		//if there is no turtle, just return the 0th turtle
+		return 0;
 	}
 
 }

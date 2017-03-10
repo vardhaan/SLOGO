@@ -22,8 +22,7 @@ public class RANDOM extends Command{
 		if (parameters.size() == expectedNumParameters) {
 
 			Random random = new Random();
-			
-			returnValue = random.nextInt((int)parameters.get(parameters.size()-1).intValue()) * 1.0;
+			returnValue = parameters.get(0) * random.nextDouble() ;
 
 			sendReturnToDependent();
 		}
@@ -31,9 +30,7 @@ public class RANDOM extends Command{
 
 	@Override
 	public double executeCommand() {
-		double max = parameters.get(0);
-		Random random = new Random((long) max);
-		returnValue = random.nextDouble() ;	
+
 		return returnValue;
 	}
 

@@ -2,27 +2,19 @@ package commands;
 
 import exceptions.ParameterNotEnoughException;
 
-/**
- * @author Zhiyong
- *
- */
-public class SHAPE extends Command{
-
-	public SHAPE(){
+public class TURTLES extends TurtleCommand{
+	public TURTLES(){
 		super();
 		expectedNumParameters = 0;
-
 	}
 
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		//do nothing
 	}
-
 	@Override
 	public double executeCommand() {
-		returnValue = target.getImageIndex();
+		returnValue = turtles.size();
 		return returnValue;
 	}
-
 }
