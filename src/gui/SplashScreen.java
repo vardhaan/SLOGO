@@ -57,6 +57,6 @@ public class SplashScreen {
 			ButtonBuilder newButton = new ButtonBuilder(myResources.getString(buttonLabels[i]), events.get(i));
 			buttons.add(newButton);
 		}
-		ButtonBuilder.addButtonsToBox(buttons, myRoot);
+		ButtonBuilder.addButtonsTo(buttons, myRoot);
 	}
 }
