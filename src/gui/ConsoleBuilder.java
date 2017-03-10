@@ -6,7 +6,9 @@ import java.util.ResourceBundle;
 
 import commands.Parser;
 import exceptions.EmptyParserException;
+import exceptions.ErrorParsing;
 import exceptions.MyException;
+import exceptions.NoTurtleException;
 import exceptions.PopUpException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -107,7 +109,9 @@ public class ConsoleBuilder {
 					updateVariables();
 				} catch (Exception e2) {
 					// TODO replace printStackTrace
-					e2.printStackTrace();
+					MyException p =  new NoTurtleException();
+					PopUpException pop = new PopUpException(p.getMessage());
+					pop.showMessage();
 				}
 				console.clear();
 			}
@@ -125,8 +129,9 @@ public class ConsoleBuilder {
 					tv.getTurtle(currentID).setprev();
 					tv.getTurtle(currentID).clearprevlines();
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					MyException p =  new NoTurtleException();
+					PopUpException pop = new PopUpException(p.getMessage());
+					pop.showMessage();
 				}
 				console.clear();
 				//myParser.
@@ -163,8 +168,9 @@ public class ConsoleBuilder {
 			try {
 				myParser.parse(previousText);
 			} catch (Exception e1) {
-				// TODO remove printStackTrace
-				e1.printStackTrace();
+				MyException p =  new ErrorParsing();
+				PopUpException pop = new PopUpException(p.getMessage());
+				pop.showMessage();
 			}
 		});
 		pcommands.add(pcommandButton);
