@@ -48,9 +48,8 @@ public class Turtle extends Observable implements Cloneable{
 	public static final double DEFAULT_Y_POS = 0;
 	public static final double DEFAULT_ANGLE = 90;
 	private static final double FULL_CIRCLE = 360;
-	
-	private double width=1050;
-	private double height=625;
+	private double width=1000;
+	private double height=430;
 	private int myPenSize;
 	private ImageView turtleImage;
 	private boolean isActive;

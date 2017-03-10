@@ -38,14 +38,6 @@ public class GUIBuilder {
 		GridBuilder g = new GridBuilder("0");
 		g.buildGrid(myRoot);
 	}
-
-	public GridPane buildGridPane(){
-		GridPane myRoot = new GridPane();
-		myRoot.setPadding(new Insets(10,10,10,10));
-		myRoot.setHgap(20);
-		myRoot.setVgap(5);
-		return myRoot;
-	}
 	
 	
 	public MenuBar buildMenu(){

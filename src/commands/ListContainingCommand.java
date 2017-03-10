@@ -38,7 +38,6 @@ public abstract class ListContainingCommand extends Command{
 	}
 	
 	public boolean addCommandWithin() {
-		
 		return (inputs == null || listOfCommands == null || listOfCommands.needsCommand() || inputs.needsCommand());
 	}
 	
@@ -70,6 +69,7 @@ public abstract class ListContainingCommand extends Command{
 	@Override 
 	public void addParameter(Double d) {
 		if (parameters.size() + numCommandAsParam != expectedNumParameters) {
+			System.out.println(this.getClass().getSimpleName() + " has " + (parameters.size()+numCommandAsParam) + " existing parameters and needs this many: " + expectedNumParameters);
 			System.out.println("Parameter is added in the right place " + d);
 			parameters.add(d);
 		} else {
@@ -84,6 +84,7 @@ public abstract class ListContainingCommand extends Command{
 	
 	@Override
 	public void addCommand(Command toAdd) {
+		System.out.println(toAdd.getClass().getSimpleName() + " is the command being added to " + this.getClass().getSimpleName());
 		if (inputs == null) {
 			//System.out.println("should not be null");
 			if (toAdd instanceof LIST) {
