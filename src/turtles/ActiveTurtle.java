@@ -24,7 +24,7 @@ import lines.Lines;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Turtle{
+public class ActiveTurtle implements Turtle{
 
 	private double xPos;
 	private double yPos;
@@ -54,7 +54,7 @@ public class Turtle{
 	private ImageView turtleImage;
 	private boolean isActive;
 
-	public Turtle(int id, Pane myRootIn) {
+	public ActiveTurtle(int id, Pane myRootIn) {
 		myRoot = myRootIn;
 		this.xPos = DEFAULT_X_POS;
 		this.yPos = DEFAULT_Y_POS;
