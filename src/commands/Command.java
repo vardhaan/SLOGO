@@ -32,8 +32,6 @@ public abstract class Command {
 	//the index of RGB
 	protected Map<Integer, List<Integer>> RGBMap;
 	
-
-	
 	public Command() {
 		parameters = new ArrayList<Double>();
 		returnValue = 0;
@@ -74,7 +72,6 @@ public abstract class Command {
 	}
 	
 	public double getNumParameters() {
-		//System.out.println("goes here");
 		return expectedNumParameters;
 		
 	}
@@ -96,14 +93,11 @@ public abstract class Command {
 	}
 	
 	public void addParameter(Double param) {
-		//System.out.println("param ALSO ADDED HERE");
-		System.out.println(param + " was added to " + this.getClass().getSimpleName());
 		this.parameters.add(param);
 	}
 	
 	protected void sendReturnToDependent() {
 		if (dependent != null) {
-			System.out.println("This value is being added to param: " + returnValue);
 			dependent.numCommandAsParam--;
 			dependent.addParameter(returnValue);
 			
@@ -127,7 +121,6 @@ public abstract class Command {
 		} else {
 			ParameterNotEnoughException p =  new ParameterNotEnoughException();
 			PopUpException pop = new PopUpException(p.getMessage());
-			System.out.println("good");
 			pop.showMessage();
 		}
 		

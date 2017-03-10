@@ -20,7 +20,6 @@ public class  NOT extends Command{
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
 			returnValue = (parameters.get(parameters.size()-1) == 0) ? 1 : 0;
-			System.out.println("NOT sets this return val" + returnValue);
 			sendReturnToDependent();
 		} 
 	}
