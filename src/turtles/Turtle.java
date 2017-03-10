@@ -40,7 +40,8 @@ public class Turtle{
 	private int myImageIndex;
 	private int myPenColorIndex;
 	private int myID;
-	private List<Lines> myLines = new ArrayList<Lines>();
+	private List<Lines> myLines; 
+	//= new ArrayList<Lines>();
 	private Pane myRoot;
 	private Animation myAnimation;
 
@@ -61,6 +62,7 @@ public class Turtle{
 		this.previousxPos = DEFAULT_X_POS;
 		this.previousyPos = DEFAULT_Y_POS;
 		this.heading = DEFAULT_ANGLE;
+		myLines= new ArrayList<Lines>();
 		showing = true;
 		penDown=true;
 		myImageIndex=0;
