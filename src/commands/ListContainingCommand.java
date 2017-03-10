@@ -18,15 +18,8 @@ public abstract class ListContainingCommand extends Command{
 	@Override
 	public void setReturnValue() {
 		
-		for(int i=0;i<listOfCommands.subCommands.size();i++) {
-			try {
-				listOfCommands.setReturnValue();
-			} catch (ParameterNotEnoughException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			returnValue = listOfCommands.getReturnValue();
-		}
+		listOfCommands.setReturnValue();
+		returnValue = listOfCommands.getReturnValue();
 		sendReturnToDependent();
 	}
 	
@@ -48,7 +41,7 @@ public abstract class ListContainingCommand extends Command{
 	@Override
 	public boolean needsCommand() {
 		if (inputs == null || listOfCommands == null) {
-			System.out.println("should be triggering");
+			//System.out.println("should be triggering");
 			return true;
 		}
 		if (parameters.size()+numCommandAsParam != expectedNumParameters || listOfCommands.needsCommand() || inputs.needsCommand()) {
@@ -69,8 +62,8 @@ public abstract class ListContainingCommand extends Command{
 	@Override 
 	public void addParameter(Double d) {
 		if (parameters.size() + numCommandAsParam != expectedNumParameters) {
-			System.out.println(this.getClass().getSimpleName() + " has " + (parameters.size()+numCommandAsParam) + " existing parameters and needs this many: " + expectedNumParameters);
-			System.out.println("Parameter is added in the right place " + d);
+			//System.out.println(this.getClass().getSimpleName() + " has " + (parameters.size()+numCommandAsParam) + " existing parameters and needs this many: " + expectedNumParameters);
+			//System.out.println("Parameter is added in the right place " + d);
 			parameters.add(d);
 		} else {
 			if (inputs.needsParameter()) {
@@ -84,9 +77,8 @@ public abstract class ListContainingCommand extends Command{
 	
 	@Override
 	public void addCommand(Command toAdd) {
-		System.out.println(toAdd.getClass().getSimpleName() + " is the command being added to " + this.getClass().getSimpleName());
 		if (inputs == null) {
-			//System.out.println("should not be null");
+			////System.out.println("should not be null");
 			if (toAdd instanceof LIST) {
 				inputs  = (LIST) toAdd;
 				
@@ -97,14 +89,14 @@ public abstract class ListContainingCommand extends Command{
 			return;
 		} 
 		if (inputs.needsCommand()) {
-			//System.out.println("should not be funny");
+			////System.out.println("should not be funny");
 			inputs.addCommand(toAdd);
 			return;
 		}
 		if (listOfCommands == null) {
-			//System.out.println("this was done");
+			////System.out.println("this was done");
 			if (toAdd instanceof LIST) {
-				//System.out.println("triggered");
+				////System.out.println("triggered");
 				listOfCommands = (LIST) toAdd;
 			} else {
 				//TODO: Throw new exception

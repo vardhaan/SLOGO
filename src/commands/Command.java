@@ -31,6 +31,9 @@ public abstract class Command {
 	protected Map<Integer, Image> shape;
 	//the index of RGB
 	protected Map<Integer, List<Integer>> RGBMap;
+	protected ArrayList<HashMap<String, Double>> variables;
+	protected int dependentParameterIndex; // where Command put its return value in dependent command's parameters list
+
 	
 
 	
@@ -56,6 +59,8 @@ public abstract class Command {
 		List<Integer> initRGB = new ArrayList<>();
 		initRGB.addAll(Arrays.asList(0, 0 , 0));
 		RGBMap.put(0, initRGB);
+		variables = new ArrayList<HashMap<String, Double>>();
+		dependentParameterIndex = -1;
 		
 	}
 	
@@ -69,12 +74,18 @@ public abstract class Command {
 		
 	}
 	
+	
+	
+	protected void addVariableSet(Map<String, Double> newMap) {
+		variables.add((HashMap<String, Double>) newMap);
+	}
+	
 	public boolean needsVariable() {
 		return false;
 	}
 	
 	public double getNumParameters() {
-		//System.out.println("goes here");
+		////System.out.println("goes here");
 		return expectedNumParameters;
 		
 	}
@@ -96,18 +107,22 @@ public abstract class Command {
 	}
 	
 	public void addParameter(Double param) {
-		//System.out.println("param ALSO ADDED HERE");
-		System.out.println(param + " was added to " + this.getClass().getSimpleName());
 		this.parameters.add(param);
 	}
 	
+	
+	
 	protected void sendReturnToDependent() {
 		if (dependent != null) {
-			System.out.println("This value is being added to param: " + returnValue);
 			dependent.numCommandAsParam--;
-			dependent.addParameter(returnValue);
-			
-			System.out.println("Dependent, " + dependent.getClass().getSimpleName() + ", now has " + dependent.parameters.size() + " " + numCommandAsParam + " because of " + this.getClass().getSimpleName());
+			if (dependentParameterIndex!=-1) {
+				dependent.parameters.add(dependentParameterIndex, returnValue);
+				dependent.parameters.remove(dependentParameterIndex+1);
+				return;
+			}
+			dependent.parameters.add(returnValue);
+			dependentParameterIndex = dependent.parameters.size()-1;
+			//System.out.println("Dependent, " + dependent.getClass().getSimpleName() + ", now has " + dependent.parameters.size() + " " + numCommandAsParam + " because of " + this.getClass().getSimpleName());
 		}
 		
 	}
@@ -115,9 +130,7 @@ public abstract class Command {
 	public void setDependent(Command dependent) {
 		this.dependent = dependent;
 		dependent.numCommandAsParam++;
-		//System.out.println("Dependent is set " + dependent.getClass().getName());
-		//System.out.println(dependent.numCommandAsParam + " is numComAsParam");
-		//System.out.println("dependent now has: " + (dependent.numCommandAsParam+dependent.parameters.size()));
+		
 	}
 	
 	public void setReturnValue() throws ParameterNotEnoughException {
@@ -127,7 +140,7 @@ public abstract class Command {
 		} else {
 			ParameterNotEnoughException p =  new ParameterNotEnoughException();
 			PopUpException pop = new PopUpException(p.getMessage());
-			System.out.println("good");
+			//System.out.println(this.getClass().getName() + " has " + parameters.size() + " parameters " + " needs " + expectedNumParameters);
 			pop.showMessage();
 		}
 		

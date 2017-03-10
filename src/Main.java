@@ -32,7 +32,6 @@ public class Main extends Application {
 		GUIBuilder builder = new GUIBuilder(language);
 		GridPane myRoot = buildGridPane();
 		builder.buildGUI(myRoot);
-		
 		Scene scene = new Scene(myRoot, SCENE_WIDTH, SCENE_HEIGHT);
 		
 		File cssFile = new File("src/resources/format.css");

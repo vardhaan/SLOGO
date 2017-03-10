@@ -45,8 +45,17 @@ public class Parser {
 	    
 	    public void parse(String s) throws Exception {
 	    	engine.reset();
-	    	String[] tokens = s.split(WHITESPACE);
-	    	System.out.println(Arrays.toString(tokens));
+	    	String[] newLineSplit = s.split("\n");
+	    	StringBuilder newCommandsEntry = new StringBuilder();
+	    	for (String comm : newLineSplit ) {
+	    		if (!comm.startsWith("#")) {
+	    			newCommandsEntry.append(comm + " ");
+	    		}
+	    	}
+	    	String convertedNewCommands = newCommandsEntry.toString(); 
+	    	//System.out.println(convertedNewCommands);
+	    	String[] tokens = convertedNewCommands.split(WHITESPACE);
+	    	//System.out.println(Arrays.toString(tokens));
 	    	if (tokens.length == 0) {
 	    		
 	    	} else {
@@ -56,18 +65,21 @@ public class Parser {
 	    			String symbol = getSymbol(tokens[i]);
 	    			if (checkIfValid(symbol)) {
 	    				if (symbol.equals("Constant")) {
-	    					
+	    					//System.out.println("it's working??");
 	    					engine.addParameter(Double.valueOf(tokens[i]));
 	    				} else {
-	    					if (symbol.equals("Comment")) {
-	    						continue;
-	    					}
+	    					
 	    					String className = "commands." + symbol.toUpperCase();
 	    					Class<?> clazz = Class.forName(className);
-	    					System.out.println(className);
+	    					//System.out.println(className);
 	    					Object o = makeClass(clazz);
 	    					Command toAdd = (Command) o;
-	    					
+	    					if (toAdd instanceof VARIABLE) {
+	    						VARIABLE v = (VARIABLE) toAdd;
+	    						v.setName(symbol.substring(1, symbol.length()));
+	    						engine.addCommand(v);
+	    						continue;
+	    					} 
 	    					engine.addCommand(toAdd);
 	    				}
 	    			}
@@ -149,7 +161,7 @@ public class Parser {
 	//	    	Parser p = new Parser();
 	//	    	String s = " MAKE :maki 50  DOTIMES [ :maki 10 ] [ fd10 ]";
 	//	    	p.parse(s);
-	//	    	//System.out.println(p.engine.commandQueue.size());
+	//	    	////System.out.println(p.engine.commandQueue.size());
 	//	    	
 	//	    	
 	//	    }

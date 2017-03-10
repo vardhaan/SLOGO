@@ -22,7 +22,7 @@ public class SHAPE extends Command{
 	@Override
 	public double executeCommand() {
 		returnValue = target.getID();
-		System.out.println("The current shape is: " + returnValue);
+		//System.out.println("The current shape is: " + returnValue);
 		return returnValue;
 	}
 

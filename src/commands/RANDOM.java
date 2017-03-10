@@ -21,8 +21,9 @@ public class RANDOM extends Command{
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
 
-			Random random = new Random((long)((double)parameters.get(0)));
-			returnValue = random.nextDouble() ;
+			Random random = new Random();
+			
+			returnValue = random.nextInt((int)parameters.get(parameters.size()-1).intValue()) * 1.0;
 
 			sendReturnToDependent();
 		}

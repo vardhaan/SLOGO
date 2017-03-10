@@ -119,7 +119,7 @@ public class TurtleViewer extends Observable implements Observer{
 	}
 	
 	private void updatePen(){
-		System.out.println("Update pen is called");
+		//System.out.println("Update pen is called");
 		if (myTurtle.getPen()){
 			Line current = new Line(myTurtle.getPreviousX(), myTurtle.getPreviousY(), myTurtle.getX(), myTurtle.getY());
 			myLines.add(current);

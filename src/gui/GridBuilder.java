@@ -36,7 +36,7 @@ public class GridBuilder {
 		Background b = new Background(new BackgroundFill((Paint)(Color.web(resources.getString(index))), null, null));
 		myGrid.setBackground(b);
 		myGrid.setOpacity(OPACITY);
-		System.out.println("The op is " + myGrid.getOpacity());
+		//System.out.println("The op is " + myGrid.getOpacity());
 		
 	}
 	

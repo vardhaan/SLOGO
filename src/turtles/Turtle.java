@@ -135,7 +135,7 @@ public class Turtle extends Observable implements Cloneable{
 		for(Lines current: myLines){
 			myRoot.getChildren().remove(current.getLine());
 		}
-		System.out.println("clearsLine");
+		//System.out.println("clearsLine");
 		myLines.clear();
 	}
 

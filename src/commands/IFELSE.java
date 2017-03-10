@@ -20,20 +20,10 @@ public class IFELSE extends ListContainingCommand{
 	public void setReturnValue() {
 		returnValue = 0.0;
 		if (parameters.get(parameters.size()-1) != 0) {
-			try {
-				listOfCommands.setReturnValue();
-			} catch (ParameterNotEnoughException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			listOfCommands.setReturnValue();
 			returnValue = listOfCommands.getReturnValue();
 		} else {
-			try {
-				elseListOfCommands.setReturnValue();
-			} catch (ParameterNotEnoughException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			elseListOfCommands.setReturnValue();
 			returnValue = elseListOfCommands.getReturnValue();
 		}
 		sendReturnToDependent();
@@ -63,7 +53,7 @@ public class IFELSE extends ListContainingCommand{
 	@Override
 	public boolean needsCommand() {
 		if (inputs == null || listOfCommands == null || elseListOfCommands == null) {
-			System.out.println("should be triggering");
+			//System.out.println("should be triggering");
 			return true;
 		}
 		if (parameters.size()+numCommandAsParam != expectedNumParameters || listOfCommands.needsCommand() || inputs.needsCommand()) {
@@ -83,7 +73,7 @@ public class IFELSE extends ListContainingCommand{
 	
 	@Override 
 	public void addParameter(Double d) {
-		System.out.println("This is the parameter being added to IFELSE: " + d);
+		//System.out.println("This is the parameter being added to IFELSE: " + d);
 		if (parameters.size() + numCommandAsParam != expectedNumParameters) {
 			parameters.add(d);
 		} else {
@@ -103,9 +93,9 @@ public class IFELSE extends ListContainingCommand{
 	
 	@Override
 	public void addCommand(Command toAdd) {
-		System.out.println("this is the command being added to IFELSE: " + toAdd.getClass().getSimpleName());
+		//System.out.println("this is the command being added to IFELSE: " + toAdd.getClass().getSimpleName());
 		if (inputs == null) {
-			//System.out.println("should not be null");
+			////System.out.println("should not be null");
 			if (toAdd instanceof LIST) {
 				inputs  = (LIST) toAdd;
 				
@@ -116,14 +106,14 @@ public class IFELSE extends ListContainingCommand{
 			return;
 		} 
 		if (inputs.needsCommand()) {
-			//System.out.println("should not be funny");
+			////System.out.println("should not be funny");
 			inputs.addCommand(toAdd);
 			return;
 		}
 		if (listOfCommands == null) {
-			//System.out.println("this was done");
+			////System.out.println("this was done");
 			if (toAdd instanceof LIST) {
-				//System.out.println("triggered");
+				////System.out.println("triggered");
 				listOfCommands = (LIST) toAdd;
 			} else {
 				//TODO: Throw new exception
@@ -136,7 +126,7 @@ public class IFELSE extends ListContainingCommand{
 		}
 		if (elseListOfCommands == null) {
 			if (toAdd instanceof LIST) {
-				System.out.println("should make list here");
+				//System.out.println("should make list here");
 				elseListOfCommands = (LIST) toAdd;
 			} else {
 				//TODO: Throw exception

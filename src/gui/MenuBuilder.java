@@ -78,7 +78,7 @@ public class MenuBuilder {
 
 	private void openJavadoc() {
 		try {
-            Desktop.getDesktop().browse(new URI("file://" + System.getProperty("user.dir").replace('\\','/') + "/doc/index.html"));
+            Desktop.getDesktop().browse(new URI("file://" + //System.getProperty("user.dir").replace('\\','/') + "/doc/index.html"));
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, "ErrorDocumentation").show();
         }

@@ -30,7 +30,7 @@ public class PENUP extends TurtleCommand {
 		penDown = false;
 		returnValue = 0;
 		target.setPenDown(false);
-		System.out.println("Pen is up");
+		//System.out.println("Pen is up");
 		return returnValue;
 	}
 
