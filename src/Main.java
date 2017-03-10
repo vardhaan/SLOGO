@@ -10,6 +10,12 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
+/**
+ * Main method that compiles the project. It displays the splash screen and then the simulation.
+ * @author Jack
+ *
+ */
 public class Main extends Application {
 	
 	public static final String RESOURCE_LOCATION = "resources/gui";
@@ -20,14 +26,24 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage s) {
-		showGUI(s);
+		showSplash(s);
 	}
 	
-	private void showGUI(Stage s){
+	/**
+	 * This method shows the splash screen
+	 * @param s
+	 */
+	private void showSplash(Stage s){
 		s.setTitle(myResources.getString("StageTitle"));
 		s.setScene(setupSplash(s));
 		s.show();
 	}
+	
+	/**
+	 * This method runs the simulation
+	 * @param s
+	 * @param language
+	 */
 	private void runGame(Stage s, String language){
 		GUIBuilder builder = new GUIBuilder(language);
 		GridPane myRoot = buildGridPane();
@@ -43,6 +59,10 @@ public class Main extends Application {
         s.show();
 	}
 	
+	/**
+	 * this method creates the gridpane that the simulation is built on
+	 * @return
+	 */
 	public GridPane buildGridPane(){
 		GridPane myRoot = new GridPane();
 		myRoot.setPadding(new Insets(10,10,10,10));
@@ -51,6 +71,11 @@ public class Main extends Application {
 		return myRoot;
 	}
 	
+	/**
+	 * this method sets up the scene for the splash screen
+	 * @param s
+	 * @return
+	 */
 	private Scene setupSplash (Stage s) {
 		EventHandler<ActionEvent> Chinese = new EventHandler<ActionEvent>() {
 			@Override
