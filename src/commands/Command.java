@@ -69,8 +69,15 @@ public abstract class Command {
 	public void setTurtle(List<Turtle> turtlesToExec) {
 		if (target == null) {
 			target = (ArrayList<Turtle>) turtlesToExec;
+			return;
 		}
-		target.addAll(turtlesToExec);
+		for (Turtle t : turtlesToExec) {
+			if (!target.contains(t)) {
+				target.add(t);
+			}
+		}
+		
+		
 		System.out.println(target.size() + " is turtle size within command");
 	}
 	
