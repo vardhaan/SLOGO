@@ -28,7 +28,7 @@ import turtles.Turtle;
 public class TurtleViewer extends Observable implements Observer{
 
 	private Turtle myTurtle;
-	private static HashMap<Integer,Turtle> turtles=new HashMap<Integer,Turtle>();
+	private ArrayList<Turtle> turtles=new ArrayList<Turtle>();
 	private ArrayList<Line> myLines = new ArrayList<Line>();
 	private double xPos;
 	private double yPos;
@@ -59,7 +59,7 @@ public class TurtleViewer extends Observable implements Observer{
 	public TurtleViewer(int myID, Pane myRootIn){
 		myRoot = myRootIn;
 		myTurtle=new Turtle(myID, myRoot);
-		turtles.put(myID, myTurtle);
+		turtles.add(myTurtle);
 		Image image2 = new Image(turtleimage1);
 		myTurtleImage=new ImageView(image2);
 		myTurtleImage.setFitWidth(50);
@@ -70,7 +70,7 @@ public class TurtleViewer extends Observable implements Observer{
 	
 	//TODO: Zhiyong, get the all the turtles as a HashMap
 	//and then test whether it is active
-	public static Map<Integer, Turtle> getTurtleMap(){
+	public ArrayList<Turtle> getTurtleList(){
 		return turtles;
 	}
 
@@ -90,11 +90,11 @@ public class TurtleViewer extends Observable implements Observer{
 	}
 
 	public void addTurtle(int ID){
-		turtles.put(ID,new Turtle(ID, myRoot));
+		turtles.add(new Turtle(ID, myRoot));
 
 	}
 	public Turtle getTurtle(int ID) throws Exception{
-		if (turtles.containsKey(ID)){
+		if (turtles.size() > ID){
 			return turtles.get(ID);
 		}
 		else {

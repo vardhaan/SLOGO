@@ -32,7 +32,7 @@ public class SplashScreen {
 
 	public Scene setupSplash(Stage s) {
 
-		VBox root = new VBox();
+		VBox root = new VBox(10);
 
 		Image image = new Image(getClass().getClassLoader().getResourceAsStream(SPLASH_SCREEN));
 		ImageView logo = new ImageView(image);

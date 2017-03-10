@@ -29,7 +29,6 @@ public class ConsoleBuilder {
 	private ListView<TextArea> turtleVariables;
 	private ResourceBundle myResources;
 	private Parser myParser;
-	private TextArea variables;
 	private TurtleViewer tv;
 	private int ID;
 
@@ -53,13 +52,13 @@ public class ConsoleBuilder {
 		myTab = new TabPane();
 		myTab.setMinWidth(300);
 		myTab.setMaxWidth(300);
-		
+
 		Tab pcTab = new Tab();
-		pcTab.setText("Previous Commands");
+		pcTab.setText("Prev Cmnds");
 		pcTab.setContent(plist);
 		myTab.getTabs().add(pcTab);
-		
-		variables = new TextArea();
+
+		TextArea variables = new TextArea();
 		variables.setEditable(false);
 		variables.setMaxWidth(280);
 		String name = "Turtle1";
@@ -67,15 +66,15 @@ public class ConsoleBuilder {
 		double yloc = 0;
 		double angle = 0;
 		variables.setText(String.format(name + "\nX: %f \nY: %f \nAngle: %f", xloc, yloc, angle));
-		
+
 		turtleList = FXCollections.observableArrayList();
 		turtleVariables = new ListView<TextArea>();
 		turtleVariables.setItems(turtleList);
 		turtleVariables.setOrientation(Orientation.VERTICAL);
 		turtleVariables.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		
+
 		turtleList.add(variables);
-		
+
 		Tab turtleTab = new Tab();
 		turtleTab.setText("Turtles");
 		turtleTab.setContent(turtleVariables);
@@ -85,15 +84,16 @@ public class ConsoleBuilder {
 
 	public void buildConsole(GridPane myRoot){
 		GridPane.setConstraints(console, 0, 3);
+		GridPane.setRowSpan(console, 2);
 		GridPane.setConstraints(myTab, 1, 1);
 		GridPane.setRowSpan(myTab, 2);
-		GridPane.setColumnSpan(myTab, 3);
+		GridPane.setColumnSpan(myTab, 2);
 		myRoot.getChildren().addAll(console, myTab);
 		createButtons(myRoot, 3);
 	}
 
 	private void createButtons(GridPane myRoot, int row) {
-		String[] buttonLabels = { "ExecuteButtonLabel", "ClearButtonLabel", "UndoButtonLabel"};
+		String[] buttonLabels = { "ExecuteButtonLabel", "ClearButtonLabel", "UndoButtonLabel", "AddTurtleLabel"};
 		EventHandler<ActionEvent> execute = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -130,19 +130,38 @@ public class ConsoleBuilder {
 					e1.printStackTrace();
 				}
 				console.clear();
-				
+
 				//myParser.
+			}
+		};
+		EventHandler<ActionEvent> addTurtle = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				TextArea turtleVars = new TextArea();
+				turtleVars.setEditable(false);
+				turtleVars.setMaxWidth(280);
+				String name = "Turtle";
+				double xloc = 0;
+				double yloc = 0;
+				double angle = 0;
+				turtleVars.setText(String.format(name + "\nX: %f \nY: %f \nAngle: %f", xloc, yloc, angle));
+				turtleList.add(turtleVars);
 			}
 		};
 		ArrayList<EventHandler<ActionEvent>> events = new ArrayList<EventHandler<ActionEvent>>();
 		events.add(execute);
 		events.add(clear);
 		events.add(undo);
+		events.add(addTurtle);
 		Collection<ButtonBuilder> buttons = new ArrayList<ButtonBuilder>();
-		for (int i = 0; i < buttonLabels.length; i++) {
-			ButtonBuilder newButton = new ButtonBuilder(myResources.getString(buttonLabels[i]), row, i + 1, events.get(i));
-			buttons.add(newButton);
-		}
+		ButtonBuilder newButton = new ButtonBuilder(myResources.getString(buttonLabels[0]), row, 1, events.get(0));
+		buttons.add(newButton);
+		newButton = new ButtonBuilder(myResources.getString(buttonLabels[1]), row, 2, events.get(1));
+		buttons.add(newButton);
+		newButton = new ButtonBuilder(myResources.getString(buttonLabels[2]), row+1, 1, events.get(2));
+		buttons.add(newButton);
+		newButton = new ButtonBuilder(myResources.getString(buttonLabels[3]), row+1, 2, events.get(3));
+		buttons.add(newButton);
 		ButtonBuilder.addButtonsTo(buttons, myRoot);
 	}
 
@@ -159,14 +178,15 @@ public class ConsoleBuilder {
 		pcommands.add(pcommandButton);
 
 	}
-	
+
 	private void updateVariables() throws Exception{
-		String name = "Turtle1";
-		Turtle temp = tv.getTurtle(0);
-		double xloc = temp.getX();
-		double yloc = temp.getY();
-		double angle = temp.getHeading() % 360;
-		variables.setText(String.format("%s\nX: %f \nY: %f \nAngle: %f",name, xloc, yloc, angle));
+		for(Turtle temp: tv.getTurtleList()){
+			String name = "Turtle" + temp.getID();
+			double xloc = temp.getX();
+			double yloc = temp.getY();
+			double angle = temp.getHeading() % 360;
+			turtleList.get(temp.getID()).setText(String.format("%s\nX: %f \nY: %f \nAngle: %f",name, xloc, yloc, angle));
+		}
 	}
 
 }
