@@ -4,37 +4,21 @@ import java.awt.Desktop;
 import java.net.URI;
 import java.util.ResourceBundle;
 
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.RadioMenuItem;
-import javafx.scene.control.Slider;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.effect.Effect;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.stage.Stage;
 import turtles.TurtleViewer;
 
 public class MenuBuilder {
 	private MenuBar menu;
 	public  String RESOURCES_LOCATION = "resources/gui";
 	private  ResourceBundle myResources = ResourceBundle.getBundle(RESOURCES_LOCATION);
-	private GridPane myroot;
 	private TurtleViewer tv;
-	//resources
 
 	public MenuBuilder(TurtleViewer tvIn) {
 		tv = tvIn;
@@ -53,7 +37,6 @@ public class MenuBuilder {
 		//myRoot.getChildren().addAll(menu);
 
 	}
-
 
 	private Menu intHelpMenu() {
 		MenuItem viewHelp = new MenuItem(myResources.getString("ReadmeLabel"));

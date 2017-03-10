@@ -28,8 +28,8 @@ import turtles.TurtleViewer;
 public class ConsoleBuilder {
 	private TabPane myTab = new TabPane();
 	private TextArea console = new TextArea();
-	private ObservableList<Button> pcommands;
-	private ObservableList<TextArea> turtleList;
+	private ObservableList<Button> pcommands = FXCollections.observableArrayList();
+	private ObservableList<TextArea> turtleList = FXCollections.observableArrayList();
 	private ListView<Button> plist = new ListView<Button>();
 	private ListView<TextArea> turtleVariables = new ListView<TextArea>();
 	private ResourceBundle myResources;
@@ -43,11 +43,6 @@ public class ConsoleBuilder {
 		myParser = parserIn;
 
 		formatConsole();
-
-		pcommands = FXCollections.observableArrayList();
-		plist.setItems(pcommands);
-		plist.setOrientation(Orientation.VERTICAL);
-		plist.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
 		formatTabPane();
 
@@ -177,6 +172,10 @@ public class ConsoleBuilder {
 	}
 	
 	private void formatTabPane(){
+		plist.setItems(pcommands);
+		plist.setOrientation(Orientation.VERTICAL);
+		plist.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
 		myTab.setMinWidth(300);
 		myTab.setMaxWidth(300);
 
@@ -189,7 +188,6 @@ public class ConsoleBuilder {
 		TextArea variables = createNewTurtleTextArea("Turtle" + currentID, 0, 0, 0, true);
 		currentID++;
 
-		turtleList = FXCollections.observableArrayList();
 		turtleVariables.setItems(turtleList);
 		turtleVariables.setOrientation(Orientation.VERTICAL);
 		turtleVariables.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -202,5 +200,5 @@ public class ConsoleBuilder {
 		turtleTab.setClosable(false);
 		myTab.getTabs().add(turtleTab);
 	}
-
+	
 }
