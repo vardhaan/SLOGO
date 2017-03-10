@@ -20,7 +20,7 @@ public abstract class Command {
 	protected double expectedNumParameters = 0;
 	protected Command dependent;
 	protected int numCommandAsParam;
-	protected Turtle target;
+	protected ArrayList<Turtle> target;
 	//the background index
 	protected Map<Integer, Color> backgroundColor;
 	//the pen color index
@@ -66,10 +66,12 @@ public abstract class Command {
 		return parameters;
 	}
 	
-	public void setTurtle(Turtle turtle) {
-		// TODO Auto-generated method stub
-		target = turtle;
-		
+	public void setTurtle(List<Turtle> turtlesToExec) {
+		if (target == null) {
+			target = (ArrayList<Turtle>) turtlesToExec;
+		}
+		target.addAll(turtlesToExec);
+		System.out.println(target.size() + " is turtle size within command");
 	}
 	
 	
