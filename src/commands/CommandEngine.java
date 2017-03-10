@@ -105,6 +105,9 @@ public class CommandEngine {
 	
 	
 	public void addCommand(Command toAdd) {
+		if(toAdd instanceof UserDefinedCommand) {
+			UserDefinedCommand udc = (UserDefinedCommand) toAdd;
+		}
 		System.out.println(toAdd.getClass().getSimpleName());
 		toAdd.addVariableSet(variables);
 		int commandIndex = -1;
@@ -116,7 +119,7 @@ public class CommandEngine {
 		if (commandIndex!=-1) {
 			if (commandQueue.get(commandIndex) instanceof ListContainingCommand) {
 				ListContainingCommand lcc = (ListContainingCommand) commandQueue.get(commandIndex);
-				if (lcc.addCommandWithin()) {
+				if (lcc.addCommandWithin(toAdd)) {
 					lcc.addCommand(toAdd);
 				} else {
 					toAdd.setDependent(lcc);

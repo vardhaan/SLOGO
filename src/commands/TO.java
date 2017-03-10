@@ -1,18 +1,37 @@
 package commands;
 
-import exceptions.ParameterNotEnoughException;
+import java.util.HashMap;
+import java.util.Map;
+
 import turtles.Turtle;
 
-public abstract class ListContainingCommand extends Command{
-	protected LIST listOfCommands;
-	protected LIST inputs;
+public class TO extends ListContainingCommand {
+	private String methodName;
+	private HashMap<String, Integer> methodParametersMap;
+	private HashMap<String, LIST> methodCommands;
 	
-	//private ArrayList<Double> parameters;
-	
-	public ListContainingCommand(){
+	public TO() {
 		super();
-		listOfCommands = null;
-		inputs = null;
+		expectedNumParameters = 0;
+	}
+	
+	public void setMethodParamMap(Map<String, Integer> map) {
+		methodParametersMap = (HashMap<String, Integer>) map;
+	}
+	
+	public void setMethodCommands(Map<String, LIST> map) {
+		methodCommands = (HashMap<String, LIST>) map;
+	}
+	
+	
+	
+	
+	public void setMethodName(String s) {
+		methodName = s;
+	}
+	
+	public String getMethodName() {
+		return methodName;
 	}
 	
 	@Override
@@ -34,12 +53,13 @@ public abstract class ListContainingCommand extends Command{
 		return (inputs == null || listOfCommands == null || listOfCommands.needsCommand() || inputs.needsCommand());
 	}
 	
-	public void incrementNumCommAsParam() {
-		numCommandAsParam++;
-	}
 	
 	@Override
 	public boolean needsCommand() {
+		if (inputs != null) {
+			methodParametersMap.put(methodName, inputs.subCommands.size());
+
+		}
 		if (inputs == null || listOfCommands == null) {
 			//System.out.println("should be triggering");
 			return true;
@@ -47,6 +67,7 @@ public abstract class ListContainingCommand extends Command{
 		if (parameters.size()+numCommandAsParam != expectedNumParameters || listOfCommands.needsCommand() || inputs.needsCommand()) {
 			return true;
 		}
+		System.out.println(inputs.needsCommand() + " or " + listOfCommands.needsCommand());
 		return (inputs.needsCommand() || listOfCommands.needsCommand());
 	}
 	
@@ -79,7 +100,6 @@ public abstract class ListContainingCommand extends Command{
 	public void addCommand(Command toAdd) {
 		toAdd.addVariableSet(variables.get(variables.size()-1));
 		if (inputs == null) {
-			////System.out.println("should not be null");
 			if (toAdd instanceof LIST) {
 				inputs  = (LIST) toAdd;
 				
@@ -99,6 +119,7 @@ public abstract class ListContainingCommand extends Command{
 			if (toAdd instanceof LIST) {
 				////System.out.println("triggered");
 				listOfCommands = (LIST) toAdd;
+				methodCommands.put(methodName, listOfCommands) ;
 			} else {
 				//TODO: Throw new exception
 			}
@@ -107,5 +128,14 @@ public abstract class ListContainingCommand extends Command{
 		listOfCommands.addCommand(toAdd);
 		
 	}
+
+	@Override
+	public double executeCommand() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
+
+
+
 }

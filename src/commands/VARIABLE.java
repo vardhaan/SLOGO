@@ -17,10 +17,12 @@ public class VARIABLE extends Command {
 		return variableName;
 	}
 	
+	@Override
 	public boolean needsParameter() {
 		return false;
 	}
 	
+	@Override
 	public boolean needsCommand() {
 		return false;
 	}

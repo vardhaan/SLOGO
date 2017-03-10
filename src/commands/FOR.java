@@ -36,7 +36,7 @@ public class FOR extends ListContainingCommand {
 	}
 	
 	@Override
-	public boolean addCommandWithin() {
+	public boolean addCommandWithin(Command toAdd) {
 		if (inputs == null || inputs.needsCommand()) {
 			return true;
 		}

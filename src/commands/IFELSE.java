@@ -38,7 +38,7 @@ public class IFELSE extends ListContainingCommand{
 	}
 	
 	@Override
-	public boolean addCommandWithin() {
+	public boolean addCommandWithin(Command toAdd) {
 		if (numCommandAsParam + parameters.size()== expectedNumParameters) {
 			
 			return listOfCommands == null || listOfCommands.needsCommand() || elseListOfCommands == null || elseListOfCommands.needsCommand();

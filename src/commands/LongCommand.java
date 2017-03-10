@@ -62,7 +62,7 @@ public abstract class LongCommand extends Command {
 			if (subCommands.get(index) instanceof ListContainingCommand) {
 				ListContainingCommand lcc = (ListContainingCommand) subCommands.get(index);
 				//System.out.println("this def needs to occur");
-				if (lcc.addCommandWithin()) {
+				if (lcc.addCommandWithin(toAdd)) {
 					//System.out.println("needed command within");
 					lcc.addCommand(toAdd);
 				} else {

@@ -50,7 +50,7 @@ public class LIST extends LongCommand{
 		if (commandIndex!=-1) {
 			if (subCommands.get(commandIndex) instanceof ListContainingCommand) {
 				ListContainingCommand lcc = (ListContainingCommand) subCommands.get(commandIndex);
-				if (lcc.addCommandWithin()) {
+				if (lcc.addCommandWithin(toAdd)) {
 					lcc.addCommand(toAdd);
 				} else {
 					toAdd.setDependent(lcc);

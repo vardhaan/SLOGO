@@ -24,6 +24,7 @@ public class Parser {
 	 private List<Entry<String, Pattern>> mySymbols;
 	 public CommandEngine engine;
 	 private TurtleViewer myTurtleViewer;
+	 private ArrayList<String> userDefinedCommands;
 	 
 	 
 	 public static final String DEFAULT_LANGUAGE_BUNDLE = "English";
@@ -38,6 +39,7 @@ public class Parser {
 	        engine.setTurtleViewer(myTurtleViewer);
 	    	addPatterns(RESOURCE_BUNDLE_URL+DEFAULT_LANGUAGE_BUNDLE);
 	    	addPatterns(RESOURCE_BUNDLE_URL+DEFAULT_SYNTAX_BUNDLE);
+	    	userDefinedCommands = new ArrayList<String>();
 	        
 	    }
 	    
@@ -80,6 +82,12 @@ public class Parser {
 	    						engine.addCommand(v);
 	    						continue;
 	    					} 
+	    					if (toAdd instanceof TO) {
+	    						TO t = (TO) toAdd;
+	    						t.setMethodName(tokens[i+1]);
+	    						userDefinedCommands.add(tokens[i+1]);
+	    						i++;
+	    					}
 	    					engine.addCommand(toAdd);
 	    				}
 	    			}
