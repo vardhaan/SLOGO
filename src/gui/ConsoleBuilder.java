@@ -73,6 +73,7 @@ public class ConsoleBuilder {
 					myParser.parse(console.getText());
 				} catch (Exception e1) {
 					// TODO replace printStackTrace
+					System.out.println("is actually coming from here");
 					MyException p =  new EmptyParserException();
 					PopUpException pop = new PopUpException(p.getMessage());
 					pop.showMessage();
