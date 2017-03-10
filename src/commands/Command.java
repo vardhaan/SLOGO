@@ -32,8 +32,6 @@ public abstract class Command {
 	//the index of RGB
 	protected Map<Integer, List<Integer>> RGBMap;
 	
-
-	
 	public Command() {
 		parameters = new ArrayList<Double>();
 		returnValue = 0;
