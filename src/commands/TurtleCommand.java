@@ -1,6 +1,7 @@
 package commands;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import turtles.Turtle;
@@ -11,7 +12,7 @@ public abstract class TurtleCommand extends Command {
 	protected int turtleTarget;
 	protected boolean penDown;
 	protected boolean showTurtle;
-	protected Map<Integer, Turtle> turtles;
+	protected List< Turtle> turtles;
 	
 	public TurtleCommand() {
 		turtleTarget = 0;
