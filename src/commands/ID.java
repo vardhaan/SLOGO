@@ -12,13 +12,16 @@ public class ID extends TurtleCommand{
 	public void setReturnValue() throws ParameterNotEnoughException {
 		//do nothing
 	}
+
 	@Override
 	public double executeCommand() {
-		for(int index: turtles.keySet()){
-			if(turtles.get(index).getActivity()){
-				return index;
+		for(int i = 0; i < turtles.size(); i++){
+			if(turtles.get(i).getActivity()){
+				return i;
+				
 			}
 		}
+		//if there is no turtle, just return the 0th turtle
 		return 0;
 	}
 

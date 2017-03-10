@@ -59,9 +59,9 @@ public class MenuBuilder {
 		MenuItem viewHelp = new MenuItem(myResources.getString("ReadmeLabel"));
 		viewHelp.setAccelerator(new KeyCodeCombination(KeyCode.H, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN));
 		viewHelp.setOnAction(e -> openReadme());
-		MenuItem viewJavadoc = new MenuItem(myResources.getString("DocumentationLabel"));
+		MenuItem viewJavadoc = new MenuItem(myResources.getString("HelpLabel"));
 		viewJavadoc.setAccelerator(new KeyCodeCombination(KeyCode.J, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN));
-		viewJavadoc.setOnAction(e -> openJavadoc());
+		viewJavadoc.setOnAction(e -> openHelp());
 		MenuItem about = new MenuItem(myResources.getString("AboutLabel"));
 		about.setAccelerator(new KeyCodeCombination(KeyCode.A, KeyCombination.SHORTCUT_DOWN, KeyCombination.SHIFT_DOWN));
 		about.setOnAction(e -> about());
@@ -76,9 +76,9 @@ public class MenuBuilder {
 		about.showAndWait();
 	}
 
-	private void openJavadoc() {
+	private void openHelp() {
 		try {
-            Desktop.getDesktop().browse(new URI("file://" + System.getProperty("user.dir").replace('\\','/') + "/doc/index.html"));
+            Desktop.getDesktop().browse(new URI("http://www.cs.duke.edu/courses/spring17/compsci308/assign/03_slogo/commands.php"));
         } catch (Exception e) {
             new Alert(Alert.AlertType.ERROR, "ErrorDocumentation").show();
         }
@@ -103,13 +103,13 @@ public class MenuBuilder {
 	}
 
 	private Menu initSettingsMenu() {
-		MenuItem colorShiftPen = new MenuItem("Adjust_PenColor");
+		/*MenuItem colorShiftPen = new MenuItem("Adjust_PenColor");
 		colorShiftPen.setOnAction(e -> colorShiftPen());
 		MenuItem BackgroundColor= new MenuItem("Background_Color");
-		BackgroundColor.setOnAction(e-> BackgroundColor());
+		BackgroundColor.setOnAction(e-> BackgroundColor());*/
 		Menu turtleImageSelect = new Menu("TurtleImage");
 		addOptions(turtleImageSelect);
-		return new Menu("Settings", null,BackgroundColor,colorShiftPen, turtleImageSelect);
+		return new Menu("Settings", null, turtleImageSelect);
 	}
 	
 	private void addOptions(Menu menuIn){
@@ -127,7 +127,7 @@ public class MenuBuilder {
 	private void turtleImageChange(String image) {
 		tv.setImage(image);
 	}
-		
+		/*
 	private void BackgroundColor() {
 		Dialog dbox = new Dialog();
 		dbox.setTitle("Adjust_Color");
@@ -139,15 +139,12 @@ public class MenuBuilder {
 		slidersColumn.setHgrow(Priority.ALWAYS);
 		content.getColumnConstraints().add(slidersColumn);
 		Slider hSlider = new Slider(0, 360, 0);
-		//hSlider.valueProperty().addListener(e -> cellViews.forEach(f -> f.setHueShift(hSlider.getValue())));
 		content.add(new Label("Hue"), 0, 0);
 		content.add(hSlider, 1, 0);
 		Slider sSlider = new Slider(0, 1, 1);
-		//sSlider.valueProperty().addListener(e -> cellViews.forEach(f -> f.setSaturationShift(sSlider.getValue())));
 		content.add(new Label("Saturation"), 0, 1);
 		content.add(sSlider, 1, 1);
 		Slider lSlider = new Slider(0, 2, 1);
-		//lSlider.valueProperty().addListener(e -> cellViews.forEach(f -> f.setLightnessShift(lSlider.getValue())));
 		content.add(new Label("Lightness"), 0, 2);
 		content.add(lSlider, 1, 2);
 		dbox.getDialogPane().setContent(content);
@@ -165,20 +162,17 @@ public class MenuBuilder {
 		slidersColumn.setHgrow(Priority.ALWAYS);
 		content.getColumnConstraints().add(slidersColumn);
 		Slider hSlider = new Slider(0, 360, 0);
-		//hSlider.valueProperty().addListener(e -> cellViews.forEach(f -> f.setHueShift(hSlider.getValue())));
 		content.add(new Label("Hue"), 0, 0);
 		content.add(hSlider, 1, 0);
 		Slider sSlider = new Slider(0, 1, 1);
-		//sSlider.valueProperty().addListener(e -> cellViews.forEach(f -> f.setSaturationShift(sSlider.getValue())));
 		content.add(new Label("Saturation"), 0, 1);
 		content.add(sSlider, 1, 1);
 		Slider lSlider = new Slider(0, 2, 1);
-		//lSlider.valueProperty().addListener(e -> cellViews.forEach(f -> f.setLightnessShift(lSlider.getValue())));
 		content.add(new Label("Lightness"), 0, 2);
 		content.add(lSlider, 1, 2);
 		dbox.getDialogPane().setContent(content);
 		dbox.showAndWait();
-	}
+	}*/
 }
 
 
