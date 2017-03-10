@@ -1,6 +1,7 @@
 package commands;
 
 import exceptions.ParameterNotEnoughException;
+import exceptions.PopUpException;
 import turtles.Turtle;
 
 public abstract class ListContainingCommand extends Command{
@@ -23,7 +24,8 @@ public abstract class ListContainingCommand extends Command{
 				listOfCommands.setReturnValue();
 			} catch (ParameterNotEnoughException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				PopUpException p = new PopUpException(e.getMessage());
+				p.showMessage();
 			}
 			returnValue = listOfCommands.getReturnValue();
 		}

@@ -24,94 +24,103 @@ import turtles.TurtleViewer;
  */
 
 public class Parser {
-	 private List<Entry<String, Pattern>> mySymbols;
-	 public CommandEngine engine;
-	 private TurtleViewer myTurtleViewer;
-	 
-	 public static final String DEFAULT_LANGUAGE_BUNDLE = "English";
-	 public static final String DEFAULT_SYNTAX_BUNDLE = "Syntax";
-	 public static final String RESOURCE_BUNDLE_URL = "resources/languages/";
-	 public static final String WHITESPACE = "\\s+";
+	private List<Entry<String, Pattern>> mySymbols;
+	public CommandEngine engine;
+	private TurtleViewer myTurtleViewer;
 
-	    public Parser(TurtleViewer turtleIn) {
-	    	mySymbols = new ArrayList<>();
-	        engine = new CommandEngine();
-	        myTurtleViewer = turtleIn;
-	        engine.setTurtleViewer(myTurtleViewer);
-	    	addPatterns(RESOURCE_BUNDLE_URL+DEFAULT_LANGUAGE_BUNDLE);
-	    	addPatterns(RESOURCE_BUNDLE_URL+DEFAULT_SYNTAX_BUNDLE);
-	        
-	    }
-	    
-	    
-	    
-	    public void parse(String s) throws Exception {
-	    	engine.reset();
-	    	String[] tokens = s.split(WHITESPACE);
-	    	//System.out.println(Arrays.toString(tokens));
-	    	if (tokens.length == 0) {
-	    		//TODO:Zhiyong, add exception for empty command
-	    		MyException p =  new EmptyParserException();
-				PopUpException pop = new PopUpException(p.getMessage());
-				pop.showMessage();
-				
-	    	} else {
+	public static final String DEFAULT_LANGUAGE_BUNDLE = "English";
+	public static final String DEFAULT_SYNTAX_BUNDLE = "Syntax";
+	public static final String RESOURCE_BUNDLE_URL = "resources/languages/";
+	public static final String WHITESPACE = "\\s+";
+	public static final String COMM="commands.COMMAND";
 
-	    		for (int i=0;i<tokens.length;i++) {
-    				
-	    			String symbol = getSymbol(tokens[i]);
-	    			if (checkIfValid(symbol)) {
-	    				if (symbol.equals("Constant")) {
-	    					
-	    					engine.addParameter(Double.valueOf(tokens[i]));
-	    				} else {
-	    					if (symbol.equals("Comment")) {
-	    						continue;
-	    					}
-	    					String className = "commands." + symbol.toUpperCase();
-	    					Class<?> clazz = Class.forName(className);
-	    					Object o = makeClass(clazz);
-	    					Command toAdd = (Command) o;
-	    					
-	    					engine.addCommand(toAdd);
-	    				}
-	    			}
-	    		}
-	    	}
-	    	engine.initializeForExecution();
-	    	engine.executeCommands();
-	    	
-	    	
-	    }
-	    
-	    public boolean commandsLeftToExecute() {
-	    	return !(engine.commandExecuteIndex >= (engine.commandQueue.size()-1));
-	    }
-	    
-	    public void executeNextCommand() {
-	    	Double retval = engine.executeNextCommand();
-	    }
-	    
-	    
-	    public Object makeClass (Class<?> clazz) {
+	public Parser(TurtleViewer turtleIn) {
+		mySymbols = new ArrayList<>();
+		engine = new CommandEngine();
+		myTurtleViewer = turtleIn;
+		engine.setTurtleViewer(myTurtleViewer);
+		addPatterns(RESOURCE_BUNDLE_URL+DEFAULT_LANGUAGE_BUNDLE);
+		addPatterns(RESOURCE_BUNDLE_URL+DEFAULT_SYNTAX_BUNDLE);
 
-	        try {
-	            // the more robust way
-	            Constructor<?> ctor = clazz.getDeclaredConstructor();
-	            Object o = ctor.newInstance();
-	            return o;
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	        return null;
-	    }
-	    
-	    private boolean checkIfValid(String s) {
-	    	return !(s.equals("COMMAND") || s.equals("NO MATCH"));
-	    }
-	    
-	    /*public void parse(File f) {
-	    	
+	}
+
+
+
+	public void parse(String s) throws Exception {
+		engine.reset();
+		String[] tokens = s.split(WHITESPACE);
+		//System.out.println(Arrays.toString(tokens));
+		if (tokens.length == 0) {
+			//TODO:Zhiyong, add exception for empty command
+			MyException p =  new EmptyParserException();
+			PopUpException pop = new PopUpException(p.getMessage());
+			pop.showMessage();
+
+		} else {
+
+			for (int i=0;i<tokens.length;i++) {
+
+				String symbol = getSymbol(tokens[i]);
+				if (checkIfValid(symbol)) {
+					if (symbol.equals("Constant")) {
+
+						engine.addParameter(Double.valueOf(tokens[i]));
+					} else {
+						if (symbol.equals("Comment")) {
+							continue;
+						}
+						String className = "commands." + symbol.toUpperCase();
+						if(className.equals(COMM)){
+							MyException p =  new NotMatchException();
+							PopUpException pop = new PopUpException(p.getMessage());
+							pop.showMessage();
+							return;
+						}
+						Class<?> clazz = Class.forName(className);
+						Object o = makeClass(clazz);
+						Command toAdd = (Command) o;
+
+						engine.addCommand(toAdd);
+					}
+				}
+			}
+		}
+		engine.initializeForExecution();
+		engine.executeCommands();
+
+
+	}
+
+	public boolean commandsLeftToExecute() {
+		return !(engine.commandExecuteIndex >= (engine.commandQueue.size()-1));
+	}
+
+	public void executeNextCommand() {
+		Double retval = engine.executeNextCommand();
+	}
+
+
+	public Object makeClass (Class<?> clazz) {
+
+		try {
+			// the more robust way
+			Constructor<?> ctor = clazz.getDeclaredConstructor();
+			Object o = ctor.newInstance();
+			return o;
+		} catch (Exception e) {
+			MyException p =  new NotMatchException();
+			PopUpException pop = new PopUpException(p.getMessage());
+			pop.showMessage();
+		}
+		return null;
+	}
+
+	private boolean checkIfValid(String s) {
+		return !(s.equals("COMMAND") || s.equals("NO MATCH"));
+	}
+
+	/*public void parse(File f) {
+
 	    }*/
 
 	public void changeLanguage(String newLanguage) {
@@ -141,11 +150,11 @@ public class Parser {
 				return e.getKey();
 			}
 		}
-		
+
 		MyException p =  new NotMatchException();
 		PopUpException pop = new PopUpException(p.getMessage());
 		pop.showMessage();
-		
+
 		return ERROR;
 	}
 

@@ -5,6 +5,9 @@ import java.util.Collection;
 import java.util.ResourceBundle;
 
 import commands.Parser;
+import exceptions.EmptyParserException;
+import exceptions.MyException;
+import exceptions.PopUpException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -96,7 +99,9 @@ public class ConsoleBuilder {
 					myParser.parse(console.getText());
 				} catch (Exception e1) {
 					// TODO replace printStackTrace
-					e1.printStackTrace();
+					MyException p =  new EmptyParserException();
+					PopUpException pop = new PopUpException(p.getMessage());
+					pop.showMessage();
 				}
 				try {
 					updateVariables();

@@ -42,7 +42,7 @@ public class CommandEngine {
 		if (variables.containsKey(variableName)) {
 			return variables.get(variableName);
 		}
-		return 0.0; //MAGIC CONSTANT
+		return 0.0; 
 	}
 	
 	public double executeNextCommand() {
