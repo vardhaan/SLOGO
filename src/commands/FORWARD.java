@@ -12,13 +12,14 @@ public class FORWARD extends TurtleCommand {
 
 	@Override
 	public double executeCommand() {
-		Turtle nextExec = null;
 		returnValue = parameters.get(0);
+		ForwardBackHelper f = new ForwardBackHelper();
+
 		for (Turtle t : target) {
-			ForwardBackHelper f = new ForwardBackHelper();
+			System.out.println("t is moving");
 			f.getHelp(t, -returnValue);
+			System.out.println("t finished moving");
 		}
-		
 		
 		return returnValue;
 	}
