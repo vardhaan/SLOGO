@@ -49,6 +49,7 @@ public abstract class LongCommand extends Command {
 	@Override
 	public void addCommand(Command toAdd) {
 		//System.out.println("override does not occur");
+		
 		int index = -1;
 		for (int i=subCommands.size()-1;i>-1;i-=1) {
 			if (subCommands.get(i).needsCommand()) {

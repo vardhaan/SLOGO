@@ -77,6 +77,7 @@ public abstract class ListContainingCommand extends Command{
 	
 	@Override
 	public void addCommand(Command toAdd) {
+		toAdd.addVariableSet(variables.get(variables.size()-1));
 		if (inputs == null) {
 			////System.out.println("should not be null");
 			if (toAdd instanceof LIST) {
