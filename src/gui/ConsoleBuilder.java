@@ -71,8 +71,6 @@ public class ConsoleBuilder {
 				try {
 					myParser.parse(console.getText());
 				} catch (Exception e1) {
-					// TODO replace printStackTrace
-					System.out.println("is actually coming from here");
 					MyException p =  new EmptyParserException();
 					PopUpException pop = new PopUpException(p.getMessage());
 					pop.showMessage();
@@ -97,22 +95,23 @@ public class ConsoleBuilder {
 			@Override
 			public void handle(ActionEvent e) {
 				try {
-					tv.getTurtle(currentID).setprev();
-					tv.getTurtle(currentID).clearprevlines();
+					for(Turtle t: tv.getTurtleList()){
+						t.setprev();
+						t.clearprevlines();
+					}
 				} catch (Exception e1) {
 					MyException p =  new NoTurtleException();
 					PopUpException pop = new PopUpException(p.getMessage());
 					pop.showMessage();
 				}
 				console.clear();
-				//myParser.
 			}
 		};
 		EventHandler<ActionEvent> addTurtle = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				TextArea turtleVars = createNewTurtleTextArea("Turtle" + currentID, 0, 0, 0, true);
 				currentID++;
+				TextArea turtleVars = createNewTurtleTextArea("Turtle" + currentID, 0, 0, 0, true);
 				turtleList.add(turtleVars);
 				tv.addTurtle(currentID);
 			}

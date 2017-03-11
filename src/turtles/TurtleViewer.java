@@ -29,13 +29,12 @@ public class TurtleViewer{
 		ImageView myTurtleImage=new ImageView(image2);
 		myTurtleImage.setFitWidth(50);
 		myTurtleImage.setFitHeight(50);
-		myTurtleImage.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+		myTurtleImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				System.out.println("clicked");
-				turtles.get(0).setActivity(false);
-				turtles.get(0).setImage(new Image(inactiveImage));
-				event.consume();
+				myTurtleImage.setImage(new Image(inactiveImage));
+				baseTurtle.setActivity(false);
 			}
 		});
 		myRoot.getChildren().add(myTurtleImage);
@@ -83,8 +82,13 @@ public class TurtleViewer{
 		ImageView myTurtleImage=new ImageView(tempImage);
 		myTurtleImage.setFitWidth(50);
 		myTurtleImage.setFitHeight(50);
-		myTurtleImage.setOnMouseClicked(event -> {
-			System.out.println("clicked");
+		myTurtleImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				System.out.println("clicked");
+				myTurtleImage.setImage(new Image(inactiveImage));
+				temp.setActivity(false);
+			}
 		});
 		myRoot.getChildren().add(myTurtleImage);
 		temp.setTurtleImage(myTurtleImage);
@@ -118,6 +122,10 @@ public class TurtleViewer{
 				t.setImage(new Image(currentImage));
 			}
 		}
+	}
+	
+	public Pane getTurtlePane(){
+		return myRoot;
 	}
 
 }
