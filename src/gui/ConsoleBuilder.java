@@ -168,9 +168,9 @@ public class ConsoleBuilder {
 		pcommands.add(pcommandButton);
 	}
 	
-	private void addOutput(List parserList){
+	private void addOutput(java.util.List<Double> list){
 		TextArea output = new TextArea();
-		output.setText(parserList.toString());
+		output.setText(list.toString());
 		outputs.add(output);
 	}
 
@@ -239,7 +239,7 @@ public class ConsoleBuilder {
 		myTab.getTabs().add(variablesTab);
 
 		Tab outputTab = new Tab();
-		outputTab.setText("Funcs");
+		outputTab.setText("Outputs");
 		outputTab.setContent(outputList);
 		outputTab.setClosable(false);
 		myTab.getTabs().add(outputTab);
