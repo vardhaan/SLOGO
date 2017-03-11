@@ -91,13 +91,24 @@ public class TurtleViewer{
 		turtles.add(temp);
 	}
 
-	public Turtle getTurtle(int ID) throws Exception{
-		if (turtles.size() > ID){
-			return turtles.get(ID);
+	
+	
+	public Turtle getTurtle(int ID) throws Exception {
+		for (Turtle t : turtles) {
+			if (t.getID() == ID) {
+				return t;
+			}
 		}
-		else {
-			throw new Exception("ID not found");
+		throw new Exception("ID not found");
+	}
+	
+	public boolean containsTurtle(int ID) {
+		for (Turtle t : turtles) {
+			if (t.getID() == ID) {
+				return true;
+			}
 		}
+		return false;
 	}
 
 	public void setImage(String imageIn){
