@@ -17,8 +17,8 @@ public class TurtleViewer{
 	private String inactiveImage = "images/slogo1in.jpg";
 	private Pane myRoot;
 
-	public static final double DEFAULT_X_POS = 0;
-	public static final double DEFAULT_Y_POS = 0;
+	public static final double DEFAULT_X_POS = 500;
+	public static final double DEFAULT_Y_POS = 215;
 	public static final double DEFAULT_ANGLE = 0;
 
 	public TurtleViewer(Pane myRootIn){
@@ -44,6 +44,9 @@ public class TurtleViewer{
 		});
 		myRoot.getChildren().add(myTurtleImage);
 		baseTurtle.setTurtleImage(myTurtleImage);
+		baseTurtle.setX(DEFAULT_X_POS);
+		baseTurtle.setY(DEFAULT_Y_POS);
+		baseTurtle.setHeading(DEFAULT_ANGLE);
 		turtles.add(baseTurtle);
 		activeTurtles.add(baseTurtle);
 	}
@@ -100,8 +103,6 @@ public class TurtleViewer{
 		turtles.add(temp);
 		activeTurtles.add(temp);
 	}
-
-	
 	
 	public Turtle getTurtle(int ID) throws Exception {
 		for (Turtle t : turtles) {
@@ -130,6 +131,14 @@ public class TurtleViewer{
 				t.setImage(new Image(currentImage));
 			}
 		}
+	}
+	
+	public String getImage(){
+		return currentImage;
+	}
+	
+	public String getInactiveImage(){
+		return inactiveImage;
 	}
 	
 	public Pane getTurtlePane(){
