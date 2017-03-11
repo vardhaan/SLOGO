@@ -19,6 +19,10 @@ public class GUIBuilder {
 	public GUIBuilder(String languageIn){
 		myLanguage = languageIn;
 	}
+	/**
+	 * This method adds the different GUI elements to the various roots
+	 * @param myRoot
+	 */
 
 	public void buildGUI(GridPane myRoot){
 		GridBuilder g = new GridBuilder();
@@ -40,7 +44,9 @@ public class GUIBuilder {
 		m.buildMenu(myRoot);
 	}
 	
-	
+	/**
+	 * This method creates a new MenuBar 
+	 */
 	public MenuBar buildMenu(){
 		MenuBar myMenu=new MenuBar();
 		return myMenu;	
