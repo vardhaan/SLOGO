@@ -41,7 +41,6 @@ public class Turtle{
 	private int myPenColorIndex;
 	private int myID;
 	private List<Lines> myLines; 
-	//= new ArrayList<Lines>();
 	private Pane myRoot;
 	private Animation myAnimation;
 
@@ -80,12 +79,14 @@ public class Turtle{
 	}
 
 	//TODO: controlled by other class
-	public void updateActivity(boolean b){
-
+	public void setActivity(boolean b){
+		isActive = b;
 	}
 
 	public void setTurtleImage(ImageView imageIn) {
-		turtleImage = imageIn;
+		if(isActive){
+			turtleImage = imageIn;
+		}
 	}
 
 	public void setX(double newX) {
@@ -247,6 +248,4 @@ public class Turtle{
 		myPenSize = pixel;
 		return myPenSize;
 	}
-
-
 }
