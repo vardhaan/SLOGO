@@ -1,23 +1,15 @@
 package turtles;
 
-import java.util.Observable;
-import java.util.ResourceBundle;
-
 import javafx.animation.Animation;
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.HLineTo;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
-import javafx.scene.shape.VLineTo;
 import javafx.util.Duration;
 import lines.Lines;
 
@@ -47,8 +39,8 @@ public class Turtle{
 	private double width=1000;
 	private double height=430;
 	
-	public static final double DEFAULT_X_POS = 500;
-	public static final double DEFAULT_Y_POS = 215;
+	public static final double DEFAULT_X_POS = 0;
+	public static final double DEFAULT_Y_POS = 0;
 	public static final double DEFAULT_ANGLE = 0;
 	//private static final double FULL_CIRCLE = 360;
 	private int myPenSize;
@@ -82,9 +74,7 @@ public class Turtle{
 	}
 
 	public void setTurtleImage(ImageView imageIn) {
-		if(isActive){
-			turtleImage = imageIn;
-		}
+		turtleImage = imageIn;
 	}
 
 	public void setX(double newX) {

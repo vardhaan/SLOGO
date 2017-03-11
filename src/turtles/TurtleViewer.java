@@ -19,8 +19,8 @@ public class TurtleViewer{
 	private Pane myRoot;
 	
 
-	public static final double DEFAULT_X_POS = 500;
-	public static final double DEFAULT_Y_POS = 215;
+	public static final double DEFAULT_X_POS = 0;
+	public static final double DEFAULT_Y_POS = 0;
 	public static final double DEFAULT_ANGLE = 0;
 
 	public TurtleViewer(Pane myRootIn){
@@ -46,9 +46,6 @@ public class TurtleViewer{
 		});
 		myRoot.getChildren().add(myTurtleImage);
 		baseTurtle.setTurtleImage(myTurtleImage);
-		baseTurtle.setX(DEFAULT_X_POS);
-		baseTurtle.setY(DEFAULT_Y_POS);
-		baseTurtle.setHeading(DEFAULT_ANGLE);
 		turtles.add(baseTurtle);
 		activeTurtles.add(baseTurtle);
 	}
@@ -72,12 +69,9 @@ public class TurtleViewer{
 	}
 
 	public void clear(){
-		for(Turtle t: turtles){
-			t.setX(DEFAULT_X_POS);
-			t.setY(DEFAULT_Y_POS);
-			t.setHeading(DEFAULT_ANGLE);
-			t.clearLines();
-		}
+		myRoot.getChildren().clear();
+		turtles.clear();
+		activeTurtles.clear();
 	}
 
 	public void addTurtle(int ID){
@@ -102,9 +96,6 @@ public class TurtleViewer{
 		});
 		myRoot.getChildren().add(myTurtleImage);
 		temp.setTurtleImage(myTurtleImage);
-		temp.setX(DEFAULT_X_POS);
-		temp.setY(DEFAULT_Y_POS);
-		temp.setHeading(DEFAULT_ANGLE);
 		turtles.add(temp);
 		activeTurtles.add(temp);
 	}

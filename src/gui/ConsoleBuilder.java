@@ -116,7 +116,7 @@ public class ConsoleBuilder {
 				tv.addTurtle(currentID);
 			}
 		};
-		
+
 		ArrayList<EventHandler<ActionEvent>> events = new ArrayList<EventHandler<ActionEvent>>();
 		events.add(execute);
 		events.add(clear);
@@ -149,16 +149,23 @@ public class ConsoleBuilder {
 	}
 
 	private void updateVariables() throws Exception{
-		for(Turtle temp: tv.getTurtleList()){
+		if(tv.getTurtleList().size() > turtleList.size()){
+			for(int i = tv.getTurtleList().size() - turtleList.size(); i > 0; i--){
+				TextArea turtleVars = createNewTurtleTextArea("Turtle" + tv.getTurtleList().get(tv.getTurtleList().size()-i).getID(), 0, 0, 0, true);
+				turtleList.add(turtleVars);
+			}
+		}
+		for(int i = 0; i < tv.getTurtleList().size(); i++){
+			Turtle temp = tv.getTurtleList().get(i);
 			String name = "Turtle" + temp.getID();
 			double xloc = temp.getX();
 			double yloc = temp.getY();
 			double angle = temp.getHeading() % 360;
 			boolean active = temp.getActivity();
-			turtleList.get(temp.getID()).setText(String.format("%s\nX: %f \nY: %f \nAngle: %f\nActive: %B",name, xloc, yloc, angle, active));
+			turtleList.get(i).setText(String.format("%s\nX: %f \nY: %f \nAngle: %f\nActive: %B",name, xloc, yloc, angle, active));
 		}
 	}
-	
+
 	private TextArea createNewTurtleTextArea(String name, double xloc, double yloc, double angle, boolean active){
 		TextArea variables = new TextArea();
 		variables.setEditable(false);
@@ -167,18 +174,18 @@ public class ConsoleBuilder {
 		variables.setText(String.format(name + "\nX: %f \nY: %f \nAngle: %f\nActive: %B", xloc, yloc, angle, active));
 		return variables;
 	}
-	
+
 	private void formatConsole(){
 		console.setPrefColumnCount(50);
 		console.setPrefRowCount(5);
 		console.setMinHeight(150);
 		console.setMaxHeight(150);
 	}
-	
+
 	private void formatTabPane(){
 		myTab.setMinWidth(300);
 		myTab.setMaxWidth(300);
-		
+
 		TextArea turtleVariablesText = createNewTurtleTextArea("Turtle" + currentID, 0, 0, 0, true);
 		turtleList.add(turtleVariablesText);
 
@@ -193,13 +200,13 @@ public class ConsoleBuilder {
 		turtleTab.setContent(turtleVariables);
 		turtleTab.setClosable(false);
 		myTab.getTabs().add(turtleTab);
-		
+
 		Tab variablesTab = new Tab();
 		variablesTab.setText("Vars");
 		variablesTab.setContent(variablesList);
 		variablesTab.setClosable(false);
 		myTab.getTabs().add(variablesTab);
-		
+
 		Tab functionsTab = new Tab();
 		functionsTab.setText("Funcs");
 		functionsTab.setContent(functionsList);
@@ -210,18 +217,18 @@ public class ConsoleBuilder {
 		previousCommandList.setItems(pcommands);
 		previousCommandList.setOrientation(Orientation.VERTICAL);
 		previousCommandList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		
+
 		turtleVariables.setItems(turtleList);
 		turtleVariables.setOrientation(Orientation.VERTICAL);
 		turtleVariables.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		
+
 		variablesList.setItems(variables);
 		variablesList.setOrientation(Orientation.VERTICAL);
 		variablesList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		
+
 		functionsList.setItems(functions);
 		functionsList.setOrientation(Orientation.VERTICAL);
 		functionsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	}
-	
+
 }
