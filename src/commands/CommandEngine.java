@@ -2,6 +2,7 @@ package commands;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import exceptions.MyException;
 import exceptions.ParameterNotEnoughException;
@@ -69,35 +70,43 @@ public class CommandEngine {
 		return true;
 	}
 	
-	public void executeCommands() throws Exception {
+	public List<Double> executeCommands() throws Exception {
+		for (String s : variables.keySet()) {
+			System.out.println("this is s " + s + " and its key " + variables.get(s));
+		}
 		//System.out.println("----------------------------------------------------------------");
 		//System.out.println(commandQueue.size());
 		//////System.out.println("reaches here");
+		List<Double> returnVals = new ArrayList<Double>();
 		if(commandsReadyToExecute()) {
 			//System.out.println("Ready to execute");
 			for (int i=0;i<commandQueue.size();i++) {
 				//////System.out.println("this is i: " + i);
 				Command c = commandQueue.get(i);
 				System.out.println(tViewer.getTurtleList().size() + " is size of turt list");
-				c.setTurtle(tViewer.getTurtleList());
 				
 				
-				
+				c.setTurtle(tViewer.getActiveList());
+
 				//TODO:Zhiyong, for the TELL command, the TurtleCommand only will be
 				//executed by the turtles in the TELL list
 				
 				
 				
 				Double ret = c.executeCommand(); //what to do with return value
+				returnVals.add(ret);
+				
 			}
+			return returnVals;
 		} else {
 			//TODO: THROW EXCEPTION
 			//System.out.println("exceptions coming from here");
 			MyException e = new ParameterNotEnoughException();
-				PopUpException p = new PopUpException(e.getMessage());
-				p.showMessage();
+			PopUpException p = new PopUpException(e.getMessage());
+			p.showMessage();
 			
 		}
+		return null;
 	}
 	
 	private void setAllReturnValues() {
@@ -121,17 +130,21 @@ public class CommandEngine {
 	
 	public void addCommand(Command toAdd) {
 		toAdd.setTurtleViewer(tViewer);
+		toAdd.setTurtle(tViewer.getActiveList());
 		if(toAdd instanceof UserDefinedCommand) {
 			UserDefinedCommand udc = (UserDefinedCommand) toAdd;
 		}
-		System.out.println(toAdd.getClass().getSimpleName());
+		System.out.println("goes even here");
 		toAdd.addVariableSet(variables);
+		System.out.println("goes even here 2");
+
 		int commandIndex = -1;
 		for (int i=commandQueue.size()-1;i>=0;i-=1) {
 			if (commandQueue.get(i).needsCommand()) {
 				commandIndex = i;
 			}
 		}
+		System.out.println(commandIndex + " is the move");
 		if (commandIndex!=-1) {
 			if (commandQueue.get(commandIndex) instanceof ListContainingCommand) {
 				ListContainingCommand lcc = (ListContainingCommand) commandQueue.get(commandIndex);

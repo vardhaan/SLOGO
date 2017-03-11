@@ -1,6 +1,7 @@
 package commands;
 
 import exceptions.ParameterNotEnoughException;
+import turtles.Turtle;
 
 /**
  * @author Zhiyong
@@ -12,6 +13,7 @@ public class SHAPE extends Command{
 		super();
 		expectedNumParameters = 0;
 
+		
 	}
 
 	@Override
