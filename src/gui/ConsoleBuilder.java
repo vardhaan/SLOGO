@@ -156,6 +156,7 @@ public class ConsoleBuilder {
 			double angle = temp.getHeading() % 360;
 			boolean active = temp.getActivity();
 			turtleList.get(temp.getID()).setText(String.format("%s\nX: %f \nY: %f \nAngle: %f\nActive: %B",name, xloc, yloc, angle, active));
+
 		}
 	}
 	
