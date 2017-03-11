@@ -15,6 +15,9 @@ public class GREATER extends Command{
 		expectedNumParameters = 2;
 	}
 	
+	/* 
+	 * set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
@@ -25,6 +28,9 @@ public class GREATER extends Command{
 	}
 	
 
+	/*
+	 *check greater or not
+	 */
 	@Override
 	public double executeCommand() {
 		double x = parameters.get(0);

@@ -16,6 +16,9 @@ public class SHOWTURTLE extends TurtleCommand{
 		super();
 		expectedNumParameters = 0;
 	}
+	/* 
+	 *set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		//DO NOTHING
@@ -23,6 +26,9 @@ public class SHOWTURTLE extends TurtleCommand{
 		sendReturnToDependent();
 	}
 
+	/* 
+	 *let the turtle show up
+	 */
 	@Override
 	public double executeCommand() {
 		showTurtle = true;

@@ -16,6 +16,9 @@ public class COS extends Command{
 		expectedNumParameters = 1;
 	}
 	
+	/*set the return value 
+	 *
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
@@ -25,6 +28,9 @@ public class COS extends Command{
 		}
 	}
 
+	/* 
+	 *calculate the cos of the parameter
+	 */
 	@Override
 	public double executeCommand() {
 		double degree = parameters.get(0);

@@ -15,6 +15,9 @@ public class DIFFERENCE extends Command{
 		expectedNumParameters = 2;
 	}
 
+	/* 
+	 * set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if(parameters.size() == expectedNumParameters){
@@ -23,6 +26,9 @@ public class DIFFERENCE extends Command{
 		sendReturnToDependent();
 	}
 
+	/* 
+	 *calculate the difference of the parameters
+	 */
 	@Override
 	public double executeCommand() {
 		returnValue = (parameters.get(0) - parameters.get(1));

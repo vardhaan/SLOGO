@@ -16,6 +16,9 @@ public class XCOR extends TurtleCommand {
 		expectedNumParameters = 0;
 	}
 
+	/*
+	 * set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		//DO NOTHING
@@ -23,6 +26,9 @@ public class XCOR extends TurtleCommand {
 		sendReturnToDependent();
 	}
 
+	/* 
+	 * get the xcor of the turtle
+	 */
 	@Override
 	public double executeCommand() {
 		returnValue = target.get(target.size()-1).getX();

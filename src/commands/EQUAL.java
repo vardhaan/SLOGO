@@ -15,6 +15,9 @@ public class EQUAL extends Command{
 		expectedNumParameters = 2;
 	}
 	
+	/*
+	 * set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
@@ -24,6 +27,9 @@ public class EQUAL extends Command{
 		}
 	}
 
+	/*
+	 * check equal or not
+	 */
 	@Override
 	public double executeCommand() {
 

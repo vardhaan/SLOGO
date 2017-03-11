@@ -15,6 +15,9 @@ public class SIN extends Command{
 		expectedNumParameters = 1;
 	}
 
+	/* 
+	 *set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
@@ -24,6 +27,9 @@ public class SIN extends Command{
 		}
 	}
 
+	/* 
+	 * do the sin in math
+	 */
 	@Override
 	public double executeCommand() {
 

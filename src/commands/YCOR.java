@@ -17,6 +17,9 @@ public class YCOR extends TurtleCommand {
 	}
 
 
+	/* 
+	 *set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		//DO NOTHING
@@ -24,6 +27,9 @@ public class YCOR extends TurtleCommand {
 		sendReturnToDependent();
 	}
 
+	/* 
+	 * get the ycor of the turtle
+	 */
 	@Override
 	public double executeCommand() {
 		

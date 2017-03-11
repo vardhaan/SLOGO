@@ -15,6 +15,9 @@ public class LOG extends Command{
 		expectedNumParameters = 1;
 	}
 
+	/* 
+	 * set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
@@ -25,6 +28,9 @@ public class LOG extends Command{
 		}
 	}
 
+	/* 
+	 * calculate the log of the parameter, the default value is 0
+	 */
 	@Override
 	public double executeCommand() {
 		double degree = parameters.get(0);

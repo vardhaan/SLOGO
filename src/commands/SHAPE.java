@@ -14,14 +14,20 @@ public class SHAPE extends Command{
 
 	}
 
+	/* 
+	 *set the return value 
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
-		//do nothing
+
 		returnValue = target.get(target.size()-1).getImageIndex();
 		sendReturnToDependent();
 		
 	}
 
+	/*
+	 *get the shape of the turtle
+	 */
 	@Override
 	public double executeCommand() {
 		returnValue = target.get(target.size()-1).getImageIndex();

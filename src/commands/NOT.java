@@ -16,6 +16,9 @@ public class  NOT extends Command{
 	}
 
 
+	/* 
+	 *set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
@@ -24,6 +27,9 @@ public class  NOT extends Command{
 		} 
 	}
 
+	/* 
+	 * change the boolean properties
+	 */
 	@Override
 	public double executeCommand() {
 
