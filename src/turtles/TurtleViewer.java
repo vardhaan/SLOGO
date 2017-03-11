@@ -139,11 +139,13 @@ public class TurtleViewer{
 		return myRoot;
 	}
 	
-	public void setTurtlesInactive(List<Integer> active) {
+	public void setTurtlesInactive(List<Double> active) {
 		for (Turtle t : turtles) {
 			t.setActivity(true);
-			if (!active.contains(t.getID())) {
+			if (!active.contains(new Double(t.getID()))) {
 				t.setActivity(false);
+				activeTurtles.remove(t);
+				t.setImage(new Image(inactiveImage));
 			}
 		}
 	}

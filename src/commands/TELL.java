@@ -107,6 +107,7 @@ public class TELL extends ListContainingCommand{
 			} 
 			tv.getTurtle((int) d.intValue()).setActivity(true);
 		}
+		tv.setTurtlesInactive(parameters);
 		/*for(int i = 0; i < turtleID.size(); i++){
 			if(target.size() <= i){
 				//create a new turtle of id = i
