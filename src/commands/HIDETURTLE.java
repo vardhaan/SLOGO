@@ -17,6 +17,10 @@ public class HIDETURTLE extends TurtleCommand{
 		super();
 		expectedNumParameters = 0;
 	}
+	
+	/* 
+	 * set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		//DO NOTHING
@@ -25,6 +29,9 @@ public class HIDETURTLE extends TurtleCommand{
 	}
 	
 
+	/* 
+	 * hide the turtle in the target list
+	 */
 	@Override
 	public double executeCommand() {
 

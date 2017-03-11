@@ -25,6 +25,10 @@ public class PopUpException{
 	public Scene getScene(){
 		return scene;
 	}
+	
+	/**
+	 * show up the exception from the pop up screen
+	 */
 	public void showMessage(){
 		Pane root = new Pane();
 		// create a place to see the shapes

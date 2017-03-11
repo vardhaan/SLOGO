@@ -17,6 +17,9 @@ public class PENUP extends TurtleCommand {
 		expectedNumParameters = 0;
 	}
 	
+	/* 
+	 * set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
@@ -25,6 +28,9 @@ public class PENUP extends TurtleCommand {
 		}
 	}
 
+	/* 
+	 * the pen is up now
+	 */
 	@Override
 	public double executeCommand() {
 

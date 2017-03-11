@@ -48,11 +48,18 @@ public class GridBuilder {
 		myGrid.setOpacity(OPACITY);
 	
 	}
-	
+	/**
+	 * This method returns the Pane that was passed
+	 * 
+	 * 
+	 */
 	public GridPane getGrid(){
 		return myGrid;
 	}
-
+	/**
+	 * This method build the grid it is passed in the Pane
+	 * @param myPane
+	 */
 	public void buildGrid(GridPane myRoot) {
 		for (int i = 0; i < rowBounds; i++) {
 			RowConstraints rowConstraint = new RowConstraints();

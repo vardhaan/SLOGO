@@ -66,6 +66,7 @@ public class TELL extends ListContainingCommand{
 	@Override
 	public void setReturnValue() {
 		returnValue = 0.0;
+
 		turtleID = new PriorityQueue<Integer>();
 		
 		for (int i=0;i<parameters.size();i++) {

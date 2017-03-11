@@ -19,6 +19,9 @@ public class TOWARDS extends TurtleCommand {
 		expectedNumParameters = 2;
 	}
 
+	/* 
+	 *set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
@@ -32,6 +35,9 @@ public class TOWARDS extends TurtleCommand {
 		}
 	}
 
+	/* 
+	 * towards to the location specified by the parameters and return the distance of the turtle
+	 */
 	@Override
 	public double executeCommand() {
 		double x = parameters.get(0);

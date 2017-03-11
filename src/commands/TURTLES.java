@@ -2,25 +2,22 @@ package commands;
 
 import exceptions.ParameterNotEnoughException;
 
-public class TURTLES extends TurtleCommand {
-
-	public TURTLES() {
+public class TURTLES extends TurtleCommand{
+	public TURTLES(){
 		super();
 		expectedNumParameters = 0;
 	}
-	
+
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
-		returnValue = tv.getTurtleList().size();
+		
+		returnValue = target.size();
 		sendReturnToDependent();
 	}
-	
-	
 	@Override
 	public double executeCommand() {
-		// TODO Auto-generated method stub
-		System.out.println(returnValue);
+		returnValue = target.size();
+		System.out.println("The sise of the target is :" + returnValue);
 		return returnValue;
 	}
-
 }
