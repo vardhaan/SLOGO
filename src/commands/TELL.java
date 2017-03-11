@@ -1,6 +1,8 @@
 package commands;
 
 import java.util.PriorityQueue;
+
+import javafx.scene.layout.Pane;
 import turtles.Turtle;
 
 /**
@@ -92,14 +94,18 @@ public class TELL extends ListContainingCommand{
 	 */
 	private void actUpTurtle(PriorityQueue<Integer> turtleID) {
 		for(int id : turtleID){
-			target.get(id).updateActivity(true);
+			target.get(id).setActivity(true);
 		}
 
 	}
 
 
 	private void createTurtle(PriorityQueue<Integer> turtleID) {
-		for(int i = 0; i < turtleID.size(); i++){
+		Pane toAddOnto = tv.getTurtlePane();
+		for (Double d : parameters) {
+			tv.addTurtle((int) d.intValue());
+		}
+		/*for(int i = 0; i < turtleID.size(); i++){
 			if(target.size() <= i){
 				//create a new turtle of id = i
 				Turtle turtle = new Turtle(i, null);
@@ -110,7 +116,7 @@ public class TELL extends ListContainingCommand{
 				target.add(turtle);
 
 			}
-		}
+		}*/
 
 	}
 }

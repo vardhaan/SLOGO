@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import turtles.Turtle;
+import turtles.TurtleViewer;
 import javafx.scene.image.Image;
 
 public abstract class Command {
@@ -33,7 +34,7 @@ public abstract class Command {
 	protected Map<Integer, List<Integer>> RGBMap;
 	protected ArrayList<HashMap<String, Double>> variables;
 	protected int dependentParameterIndex; // where Command put its return value in dependent command's parameters list
-
+	protected TurtleViewer tv;
 	
 	public Command() {
 		parameters = new ArrayList<Double>();
@@ -64,6 +65,10 @@ public abstract class Command {
 	
 	public List<Double> getParameters() {
 		return parameters;
+	}
+	
+	public void setTurtleViewer(TurtleViewer t) {
+		tv = t;
 	}
 	
 	public void setTurtle(List<Turtle> turtlesToExec) {
