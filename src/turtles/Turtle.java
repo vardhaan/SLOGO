@@ -81,7 +81,7 @@ public class Turtle{
 
 	//TODO: controlled by other class
 	public void updateActivity(boolean b){
-
+		isActive = b;
 	}
 
 	public void setTurtleImage(ImageView imageIn) {
