@@ -8,16 +8,21 @@ import turtles.Turtle;
  *
  */
 public class TELL extends ListContainingCommand{
-	
+	private PriorityQueue<Integer> turtleID;
+
 	public TELL() {
+		
 		super();
+		
 		expectedNumParameters = 0;
 		inputs = new LIST();
 		inputs.addCommand(new LISTEND());
+		System.out.println("the Tell command");
 		inputs.expectedNumCommands = (double) inputs.subCommands.size();
+		
 	}
-	
-	
+
+
 	@Override
 	public boolean addCommandWithin(Command toAdd) {
 		if (numCommandAsParam + parameters.size()== expectedNumParameters) {
@@ -25,34 +30,41 @@ public class TELL extends ListContainingCommand{
 			return listOfCommands == null || listOfCommands.needsCommand();
 		}
 		return false;
-		
+
 	}
-	
+
+	@Override
+	public void setReturnValue() {
+		returnValue = 0.0;
+		turtleID = new PriorityQueue<>();
+		
+		for(int i = 0; i < listOfCommands.subCommands.size(); i++){
+			returnValue = Math.round(listOfCommands.subCommands.get(i).executeCommand());
+			turtleID.add((int) returnValue);
+		}
+		sendReturnToDependent();
+	}
+
 	@Override
 	public double executeCommand() {
 		
-		double d = 0.0;
-
-		PriorityQueue<Integer> turtleID = new PriorityQueue<>();
-		
-		for(int i = 0; i < listOfCommands.subCommands.size(); i ++){
-			d = Math.round(listOfCommands.subCommands.get(i).executeCommand());
-			turtleID.add((int) d);
-		}
-		
 		createTurtle(turtleID);
 		actUpTurtle(turtleID);
-		return d;
-		
-		
+		return returnValue;
+
+
 	}
 
 
+	/**
+	 * act up the turtle in the PriorityQueue
+	 * @param turtleID
+	 */
 	private void actUpTurtle(PriorityQueue<Integer> turtleID) {
 		for(int id : turtleID){
 			target.get(id).updateActivity(true);
 		}
-		
+
 	}
 
 
@@ -66,9 +78,9 @@ public class TELL extends ListContainingCommand{
 					target.add(null);
 				}
 				target.add(turtle);
-				
+
 			}
 		}
-		
+
 	}
 }
