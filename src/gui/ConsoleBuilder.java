@@ -3,7 +3,6 @@ package gui;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ResourceBundle;
-
 import commands.Parser;
 import exceptions.EmptyParserException;
 import exceptions.ErrorParsing;
@@ -15,7 +14,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
@@ -23,9 +21,16 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import turtles.Turtle;
 import turtles.TurtleViewer;
 
+/**
+ * This class builds the Console for input, the buttons that influence the console, and the tabs that contain the existing
+ * turtle variables, the previous commands, the existing variables defined, and the existing functions defined
+ * @author Jack
+ *
+ */
 public class ConsoleBuilder {
 	private TabPane myTab = new TabPane();
 	private TextArea console = new TextArea();
@@ -42,6 +47,12 @@ public class ConsoleBuilder {
 	private TurtleViewer tv;
 	private int currentID = 0;
 
+	/**
+	 * This constructor method takes in a Parser object to send commands to, and a TurtleViewer object to interact with Turtles
+	 * @param myResourcesIn
+	 * @param parserIn
+	 * @param tvIn
+	 */
 	public ConsoleBuilder(ResourceBundle myResourcesIn, Parser parserIn, TurtleViewer tvIn){
 		tv = tvIn;
 		myResources = myResourcesIn;
@@ -51,8 +62,11 @@ public class ConsoleBuilder {
 		formatObservableLists();
 		formatTabPane();
 	}
-
-	public void buildConsole(GridPane myRoot){
+	/**
+	 * This method puts the console, tabs, and buttons into the given root
+	 * @param myRoot
+	 */
+	public void buildConsole(Pane myRoot){
 		GridPane.setConstraints(console, 0, 3);
 		GridPane.setRowSpan(console, 2);
 		GridPane.setConstraints(myTab, 1, 1);
@@ -61,8 +75,7 @@ public class ConsoleBuilder {
 		myRoot.getChildren().addAll(console, myTab);
 		createButtons(myRoot, 3);
 	}
-
-	private void createButtons(GridPane myRoot, int row) {
+	private void createButtons(Pane myRoot, int row) {
 		String[] buttonLabels = { "ExecuteButtonLabel", "ClearButtonLabel", "UndoButtonLabel", "AddTurtleLabel"};
 		EventHandler<ActionEvent> execute = new EventHandler<ActionEvent>() {
 			@Override
@@ -110,6 +123,11 @@ public class ConsoleBuilder {
 		EventHandler<ActionEvent> addTurtle = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
+				if(tv.getCleared()){
+					turtleList.clear();
+					currentID = 0;
+					tv.setCleared(false);
+				}
 				currentID++;
 				TextArea turtleVars = createNewTurtleTextArea("Turtle" + currentID, 0, 0, 0, true);
 				turtleList.add(turtleVars);
@@ -149,6 +167,11 @@ public class ConsoleBuilder {
 	}
 
 	private void updateVariables() throws Exception{
+		if(tv.getCleared()){
+			turtleList.clear();
+			currentID = 0;
+			tv.setCleared(false);
+		}
 		if(tv.getTurtleList().size() > turtleList.size()){
 			for(int i = tv.getTurtleList().size() - turtleList.size(); i > 0; i--){
 				TextArea turtleVars = createNewTurtleTextArea("Turtle" + tv.getTurtleList().get(tv.getTurtleList().size()-i).getID(), 0, 0, 0, true);
