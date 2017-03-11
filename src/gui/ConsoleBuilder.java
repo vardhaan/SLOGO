@@ -168,7 +168,7 @@ public class ConsoleBuilder {
 		pcommands.add(pcommandButton);
 	}
 	
-	private void addOutput(List parserList){
+	private void addOutput(List<Double> parserList){
 		TextArea output = new TextArea();
 		output.setText(parserList.toString());
 		outputs.add(output);
