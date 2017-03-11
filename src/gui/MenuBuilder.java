@@ -4,37 +4,21 @@ import java.awt.Desktop;
 import java.net.URI;
 import java.util.ResourceBundle;
 
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
-import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.RadioMenuItem;
-import javafx.scene.control.Slider;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.effect.Effect;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
-import javafx.stage.Stage;
 import turtles.TurtleViewer;
 
 public class MenuBuilder {
 	private MenuBar menu;
 	public  String RESOURCES_LOCATION = "resources/gui";
 	private  ResourceBundle myResources = ResourceBundle.getBundle(RESOURCES_LOCATION);
-	private GridPane myroot;
 	private TurtleViewer tv;
-	//resources
 
 	public MenuBuilder(TurtleViewer tvIn) {
 		tv = tvIn;
@@ -51,9 +35,8 @@ public class MenuBuilder {
 	public void updateMenu(GridPane myRoot){
 		myRoot.getChildren().remove(menu);
 		//myRoot.getChildren().addAll(menu);
-		
+
 	}
-	
 
 	private Menu intHelpMenu() {
 		MenuItem viewHelp = new MenuItem(myResources.getString("ReadmeLabel"));
@@ -70,36 +53,37 @@ public class MenuBuilder {
 	// TODO Auto-generated method stub
 	private void about() {
 		Alert about= new Alert(Alert.AlertType.INFORMATION);
-		about.setHeaderText("Slogo");
-		about.setTitle("About");
-		about.setContentText("AboutContent");
+		about.setHeaderText(myResources.getString("AboutHeader"));
+		about.setTitle(myResources.getString("AboutTitle"));
+		about.setContentText(myResources.getString("AboutContent"));
 		about.showAndWait();
 	}
 
 	private void openHelp() {
 		try {
-            Desktop.getDesktop().browse(new URI("http://www.cs.duke.edu/courses/spring17/compsci308/assign/03_slogo/commands.php"));
-        } catch (Exception e) {
-            new Alert(Alert.AlertType.ERROR, "ErrorDocumentation").show();
-        }
+			Desktop.getDesktop().browse(new URI("http://www.cs.duke.edu/courses/spring17/compsci308/assign/03_slogo/commands.php"));
+			Desktop.getDesktop().browse(new URI("http://www.cs.duke.edu/courses/spring17/compsci308/assign/03_slogo/commands2_J2W.php"));
+		} catch (Exception e) {
+			new Alert(Alert.AlertType.ERROR, myResources.getString("JavadocError")).show();
+		}
 	}
 
 	private void openReadme() {
-		 try {
-             Desktop.getDesktop().browse(new URI("http://coursework.cs.duke.edu/CompSci308_2017Spring/slogo_team01"));
-         } catch (Exception e) {
-             new Alert(Alert.AlertType.ERROR, "ErrorReadme").show();
-         }
+		try {
+			Desktop.getDesktop().browse(new URI(myResources.getString("ReadmeURL")));
+		} catch (Exception e) {
+			new Alert(Alert.AlertType.ERROR, myResources.getString("ReadmeError")).show();
+		}
 	}
 	private void reset(){
 		tv.clear();
 	}
 
 	private Menu initResetMenu() {
-		MenuItem resetSimulation = new MenuItem("reset");
+		MenuItem resetSimulation = new MenuItem(myResources.getString("ResetLabel"));
 		resetSimulation.setAccelerator(new KeyCodeCombination(KeyCode.R, KeyCombination.SHORTCUT_DOWN));
 		resetSimulation.setOnAction(e-> reset());
-		return new Menu("Reset", null, resetSimulation);
+		return new Menu(myResources.getString("ResetLabel"), null, resetSimulation);
 	}
 
 	private Menu initSettingsMenu() {
@@ -111,28 +95,29 @@ public class MenuBuilder {
 		addOptions(turtleImageSelect);
 		return new Menu("Settings", null, turtleImageSelect);
 	}
-	
+
 	private void addOptions(Menu menuIn){
-		MenuItem turtle1 = new MenuItem("Turtle1");
-		turtle1.setOnAction(e -> turtleImageChange("images/slogo1.jpg"));
-		MenuItem turtle2 = new MenuItem("Turtle2");
-		turtle2.setOnAction(e -> turtleImageChange("images/slogo2.jpg"));
-		MenuItem turtle3 = new MenuItem("RealTurtle");
-		turtle3.setOnAction(e -> turtleImageChange("images/slogo3.jpg"));
-		MenuItem turtle4 = new MenuItem("Duvall");
-		turtle4.setOnAction(e -> turtleImageChange("images/slogo4.jpg"));
+		MenuItem turtle1 = new MenuItem(myResources.getString("image1name"));
+		turtle1.setOnAction(e -> turtleImageChange(myResources.getString("image1")));
+		MenuItem turtle2 = new MenuItem(myResources.getString("image2name"));
+		turtle2.setOnAction(e -> turtleImageChange(myResources.getString("image2")));
+		MenuItem turtle3 = new MenuItem(myResources.getString("image3name"));
+		turtle3.setOnAction(e -> turtleImageChange(myResources.getString("image3")));
+		MenuItem turtle4 = new MenuItem(myResources.getString("image4name"));
+		turtle4.setOnAction(e -> turtleImageChange(myResources.getString("image4")));
 		menuIn.getItems().addAll(turtle1, turtle2, turtle3, turtle4);
 	}
-	
+
 	private void turtleImageChange(String image) {
 		tv.setImage(image);
 	}
-		/*
+	
+	/*
 	private void BackgroundColor() {
 		Dialog dbox = new Dialog();
-		dbox.setTitle("Adjust_Color");
-		dbox.setHeaderText("Adjust_Color_Content");
-		dbox.getDialogPane().getButtonTypes().add(new ButtonType("Okay", ButtonBar.ButtonData.CANCEL_CLOSE));
+		dbox.setTitle(myResources.getString("AdjustLabel"));
+		dbox.setHeaderText(myResources.getString("ContentLabel"));
+		dbox.getDialogPane().getButtonTypes().add(new ButtonType(myResources.getString("OkayButton"), ButtonBar.ButtonData.CANCEL_CLOSE));
 		GridPane content = new GridPane();
 		content.getColumnConstraints().add(new ColumnConstraints(90));
 		ColumnConstraints slidersColumn = new ColumnConstraints();
@@ -153,9 +138,9 @@ public class MenuBuilder {
 
 	private void colorShiftPen() {
 		Dialog dbox = new Dialog();
-		dbox.setTitle("Adjust_Color");
-		dbox.setHeaderText("Adjust_Color_Content");
-		dbox.getDialogPane().getButtonTypes().add(new ButtonType("Okay", ButtonBar.ButtonData.CANCEL_CLOSE));
+		dbox.setTitle(myResources.getString("AdjustLabel"));
+		dbox.setHeaderText(myResources.getString("ContentLabel"));
+		dbox.getDialogPane().getButtonTypes().add(new ButtonType(myResources.getString("OkayButton"), ButtonBar.ButtonData.CANCEL_CLOSE));
 		GridPane content = new GridPane();
 		content.getColumnConstraints().add(new ColumnConstraints(90));
 		ColumnConstraints slidersColumn = new ColumnConstraints();
@@ -174,7 +159,6 @@ public class MenuBuilder {
 		dbox.showAndWait();
 	}*/
 }
-
 
 
 

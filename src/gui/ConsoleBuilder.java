@@ -5,11 +5,17 @@ import java.util.Collection;
 import java.util.ResourceBundle;
 
 import commands.Parser;
+import exceptions.EmptyParserException;
+import exceptions.ErrorParsing;
+import exceptions.MyException;
+import exceptions.NoTurtleException;
+import exceptions.PopUpException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
@@ -21,65 +27,29 @@ import turtles.Turtle;
 import turtles.TurtleViewer;
 
 public class ConsoleBuilder {
-	private TabPane myTab;
-	private TextArea console;
-	private ObservableList<Button> pcommands;
-	private ObservableList<TextArea> turtleList;
-	private ListView<Button> plist;
-	private ListView<TextArea> turtleVariables;
+	private TabPane myTab = new TabPane();
+	private TextArea console = new TextArea();
+	private ObservableList<Button> pcommands = FXCollections.observableArrayList();
+	private ObservableList<TextArea> turtleList = FXCollections.observableArrayList();
+	private ObservableList<TextArea> variables = FXCollections.observableArrayList();
+	private ObservableList<TextArea> functions = FXCollections.observableArrayList();
+	private ListView<Button> previousCommandList = new ListView<Button>();
+	private ListView<TextArea> turtleVariables = new ListView<TextArea>();
+	private ListView<TextArea> variablesList = new ListView<TextArea>();
+	private ListView<TextArea> functionsList = new ListView<TextArea>();
 	private ResourceBundle myResources;
 	private Parser myParser;
 	private TurtleViewer tv;
-	private int ID;
+	private int currentID = 0;
 
 	public ConsoleBuilder(ResourceBundle myResourcesIn, Parser parserIn, TurtleViewer tvIn){
 		tv = tvIn;
 		myResources = myResourcesIn;
 		myParser = parserIn;
 
-		console = new TextArea();
-		console.setPrefColumnCount(50);
-		console.setPrefRowCount(5);
-		console.setMinHeight(150);
-		console.setMaxHeight(150);
-
-		pcommands = FXCollections.observableArrayList();
-		plist = new ListView<Button>();
-		plist.setItems(pcommands);
-		plist.setOrientation(Orientation.VERTICAL);
-		plist.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-		myTab = new TabPane();
-		myTab.setMinWidth(300);
-		myTab.setMaxWidth(300);
-
-		Tab pcTab = new Tab();
-		pcTab.setText("Prev Cmnds");
-		pcTab.setContent(plist);
-		myTab.getTabs().add(pcTab);
-
-		TextArea variables = new TextArea();
-		variables.setEditable(false);
-		variables.setMaxWidth(280);
-		String name = "Turtle1";
-		double xloc = 0;
-		double yloc = 0;
-		double angle = 0;
-		variables.setText(String.format(name + "\nX: %f \nY: %f \nAngle: %f", xloc, yloc, angle));
-
-		turtleList = FXCollections.observableArrayList();
-		turtleVariables = new ListView<TextArea>();
-		turtleVariables.setItems(turtleList);
-		turtleVariables.setOrientation(Orientation.VERTICAL);
-		turtleVariables.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-		turtleList.add(variables);
-
-		Tab turtleTab = new Tab();
-		turtleTab.setText("Turtles");
-		turtleTab.setContent(turtleVariables);
-		myTab.getTabs().add(turtleTab);
-
+		formatConsole();
+		formatObservableLists();
+		formatTabPane();
 	}
 
 	public void buildConsole(GridPane myRoot){
@@ -101,14 +71,18 @@ public class ConsoleBuilder {
 				try {
 					myParser.parse(console.getText());
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					// TODO replace printStackTrace
+					System.out.println("is actually coming from here");
+					MyException p =  new EmptyParserException();
+					PopUpException pop = new PopUpException(p.getMessage());
+					pop.showMessage();
 				}
 				try {
 					updateVariables();
 				} catch (Exception e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
+					MyException p =  new NoTurtleException();
+					PopUpException pop = new PopUpException(p.getMessage());
+					pop.showMessage();
 				}
 				console.clear();
 			}
@@ -123,31 +97,27 @@ public class ConsoleBuilder {
 			@Override
 			public void handle(ActionEvent e) {
 				try {
-					tv.getTurtle(ID).setprev();
-					tv.getTurtle(ID).clearprevlines();
+					tv.getTurtle(currentID).setprev();
+					tv.getTurtle(currentID).clearprevlines();
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					MyException p =  new NoTurtleException();
+					PopUpException pop = new PopUpException(p.getMessage());
+					pop.showMessage();
 				}
 				console.clear();
-
 				//myParser.
 			}
 		};
 		EventHandler<ActionEvent> addTurtle = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				TextArea turtleVars = new TextArea();
-				turtleVars.setEditable(false);
-				turtleVars.setMaxWidth(280);
-				String name = "Turtle";
-				double xloc = 0;
-				double yloc = 0;
-				double angle = 0;
-				turtleVars.setText(String.format(name + "\nX: %f \nY: %f \nAngle: %f", xloc, yloc, angle));
+				TextArea turtleVars = createNewTurtleTextArea("Turtle" + currentID, 0, 0, 0, true);
+				currentID++;
 				turtleList.add(turtleVars);
+				tv.addTurtle(currentID);
 			}
 		};
+		
 		ArrayList<EventHandler<ActionEvent>> events = new ArrayList<EventHandler<ActionEvent>>();
 		events.add(execute);
 		events.add(clear);
@@ -171,12 +141,12 @@ public class ConsoleBuilder {
 			try {
 				myParser.parse(previousText);
 			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				MyException p =  new ErrorParsing();
+				PopUpException pop = new PopUpException(p.getMessage());
+				pop.showMessage();
 			}
 		});
 		pcommands.add(pcommandButton);
-
 	}
 
 	private void updateVariables() throws Exception{
@@ -185,8 +155,74 @@ public class ConsoleBuilder {
 			double xloc = temp.getX();
 			double yloc = temp.getY();
 			double angle = temp.getHeading() % 360;
-			turtleList.get(temp.getID()).setText(String.format("%s\nX: %f \nY: %f \nAngle: %f",name, xloc, yloc, angle));
+			boolean active = temp.getActivity();
+			turtleList.get(temp.getID()).setText(String.format("%s\nX: %f \nY: %f \nAngle: %f\nActive: %B",name, xloc, yloc, angle, active));
 		}
 	}
+	
+	private TextArea createNewTurtleTextArea(String name, double xloc, double yloc, double angle, boolean active){
+		TextArea variables = new TextArea();
+		variables.setEditable(false);
+		variables.setMaxWidth(280);
+		variables.setMaxHeight(120);
+		variables.setText(String.format(name + "\nX: %f \nY: %f \nAngle: %f\nActive: %B", xloc, yloc, angle, active));
+		return variables;
+	}
+	
+	private void formatConsole(){
+		console.setPrefColumnCount(50);
+		console.setPrefRowCount(5);
+		console.setMinHeight(150);
+		console.setMaxHeight(150);
+	}
+	
+	private void formatTabPane(){
+		myTab.setMinWidth(300);
+		myTab.setMaxWidth(300);
+		
+		TextArea turtleVariablesText = createNewTurtleTextArea("Turtle" + currentID, 0, 0, 0, true);
+		turtleList.add(turtleVariablesText);
 
+		Tab pcTab = new Tab();
+		pcTab.setText("Prev Cmnds");
+		pcTab.setContent(previousCommandList);
+		pcTab.setClosable(false);
+		myTab.getTabs().add(pcTab);
+
+		Tab turtleTab = new Tab();
+		turtleTab.setText("Turtles");
+		turtleTab.setContent(turtleVariables);
+		turtleTab.setClosable(false);
+		myTab.getTabs().add(turtleTab);
+		
+		Tab variablesTab = new Tab();
+		variablesTab.setText("Vars");
+		variablesTab.setContent(variablesList);
+		variablesTab.setClosable(false);
+		myTab.getTabs().add(variablesTab);
+		
+		Tab functionsTab = new Tab();
+		functionsTab.setText("Funcs");
+		functionsTab.setContent(functionsList);
+		functionsTab.setClosable(false);
+		myTab.getTabs().add(functionsTab);
+	}
+	private void formatObservableLists(){
+		previousCommandList.setItems(pcommands);
+		previousCommandList.setOrientation(Orientation.VERTICAL);
+		previousCommandList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
+		turtleVariables.setItems(turtleList);
+		turtleVariables.setOrientation(Orientation.VERTICAL);
+		turtleVariables.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
+		variablesList.setItems(variables);
+		variablesList.setOrientation(Orientation.VERTICAL);
+		variablesList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
+		functionsList.setItems(functions);
+		functionsList.setOrientation(Orientation.VERTICAL);
+		functionsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+	}
+	
 }

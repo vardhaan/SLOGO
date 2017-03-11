@@ -24,7 +24,7 @@ import lines.Lines;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Turtle{
+public class ActiveTurtle implements Turtle{
 
 	private double xPos;
 	private double yPos;
@@ -40,8 +40,7 @@ public class Turtle{
 	private int myImageIndex;
 	private int myPenColorIndex;
 	private int myID;
-	private List<Lines> myLines; 
-	//= new ArrayList<Lines>();
+	private List<Lines> myLines = new ArrayList<Lines>();
 	private Pane myRoot;
 	private Animation myAnimation;
 
@@ -55,14 +54,13 @@ public class Turtle{
 	private ImageView turtleImage;
 	private boolean isActive;
 
-	public Turtle(int id, Pane myRootIn) {
+	public ActiveTurtle(int id, Pane myRootIn) {
 		myRoot = myRootIn;
 		this.xPos = DEFAULT_X_POS;
 		this.yPos = DEFAULT_Y_POS;
 		this.previousxPos = DEFAULT_X_POS;
 		this.previousyPos = DEFAULT_Y_POS;
 		this.heading = DEFAULT_ANGLE;
-		myLines= new ArrayList<Lines>();
 		showing = true;
 		penDown=true;
 		myImageIndex=0;

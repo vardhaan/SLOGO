@@ -1,5 +1,7 @@
 package commands;
 
+import turtles.Turtle;
+
 public class FORWARD extends TurtleCommand {
 
 	public FORWARD() {
@@ -10,10 +12,14 @@ public class FORWARD extends TurtleCommand {
 
 	@Override
 	public double executeCommand() {
-		
-		returnValue = parameters.get(0);		
+		returnValue = parameters.get(0);
 		ForwardBackHelper f = new ForwardBackHelper();
-		f.getHelp(target, -returnValue);
+
+		for (Turtle t : target) {
+			System.out.println("t is moving");
+			f.getHelp(t, -returnValue);
+			System.out.println("t finished moving");
+		}
 		
 		return returnValue;
 	}

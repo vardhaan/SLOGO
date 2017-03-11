@@ -20,7 +20,7 @@ public abstract class Command {
 	protected double expectedNumParameters = 0;
 	protected Command dependent;
 	protected int numCommandAsParam;
-	protected Turtle target;
+	protected ArrayList<Turtle> target;
 	//the background index
 	protected Map<Integer, Color> backgroundColor;
 	//the pen color index
@@ -31,6 +31,9 @@ public abstract class Command {
 	protected Map<Integer, Image> shape;
 	//the index of RGB
 	protected Map<Integer, List<Integer>> RGBMap;
+	protected ArrayList<HashMap<String, Double>> variables;
+	protected int dependentParameterIndex; // where Command put its return value in dependent command's parameters list
+
 	
 	public Command() {
 		parameters = new ArrayList<Double>();
@@ -54,6 +57,8 @@ public abstract class Command {
 		List<Integer> initRGB = new ArrayList<>();
 		initRGB.addAll(Arrays.asList(0, 0 , 0));
 		RGBMap.put(0, initRGB);
+		variables = new ArrayList<HashMap<String, Double>>();
+		dependentParameterIndex = -1;
 		
 	}
 	
@@ -61,10 +66,25 @@ public abstract class Command {
 		return parameters;
 	}
 	
-	public void setTurtle(Turtle turtle) {
-		// TODO Auto-generated method stub
-		target = turtle;
+	public void setTurtle(List<Turtle> turtlesToExec) {
+		if (target == null) {
+			target = (ArrayList<Turtle>) turtlesToExec;
+			return;
+		}
+		for (Turtle t : turtlesToExec) {
+			if (!target.contains(t)) {
+				target.add(t);
+			}
+		}
 		
+		
+		System.out.println(target.size() + " is turtle size within command");
+	}
+	
+	
+	
+	protected void addVariableSet(Map<String, Double> newMap) {
+		variables.add((HashMap<String, Double>) newMap);
 	}
 	
 	public boolean needsVariable() {
@@ -96,12 +116,19 @@ public abstract class Command {
 		this.parameters.add(param);
 	}
 	
+	
+	
 	protected void sendReturnToDependent() {
 		if (dependent != null) {
 			dependent.numCommandAsParam--;
-			dependent.addParameter(returnValue);
-			
-			System.out.println("Dependent, " + dependent.getClass().getSimpleName() + ", now has " + dependent.parameters.size() + " " + numCommandAsParam + " because of " + this.getClass().getSimpleName());
+			if (dependentParameterIndex!=-1) {
+				dependent.parameters.add(dependentParameterIndex, returnValue);
+				dependent.parameters.remove(dependentParameterIndex+1);
+				return;
+			}
+			dependent.parameters.add(returnValue);
+			dependentParameterIndex = dependent.parameters.size()-1;
+			//System.out.println("Dependent, " + dependent.getClass().getSimpleName() + ", now has " + dependent.parameters.size() + " " + numCommandAsParam + " because of " + this.getClass().getSimpleName());
 		}
 		
 	}
@@ -109,9 +136,7 @@ public abstract class Command {
 	public void setDependent(Command dependent) {
 		this.dependent = dependent;
 		dependent.numCommandAsParam++;
-		//System.out.println("Dependent is set " + dependent.getClass().getName());
-		//System.out.println(dependent.numCommandAsParam + " is numComAsParam");
-		//System.out.println("dependent now has: " + (dependent.numCommandAsParam+dependent.parameters.size()));
+		
 	}
 	
 	public void setReturnValue() throws ParameterNotEnoughException {

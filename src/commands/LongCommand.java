@@ -31,9 +31,9 @@ public abstract class LongCommand extends Command {
 	
 	@Override
 	public void addParameter(Double d) {
-		//System.out.println("param is being added to subcommand");
+		////System.out.println("param is being added to subcommand");
 		int index = 0;
-		for (int i=0;i<subCommands.size();i++) {
+		for (int i=subCommands.size()-1;i>-1;i-=1) {
 			if (subCommands.get(i).needsParameter()) {
 				index = i;
 			}
@@ -48,20 +48,37 @@ public abstract class LongCommand extends Command {
 	
 	@Override
 	public void addCommand(Command toAdd) {
+		//System.out.println("override does not occur");
+		
 		int index = -1;
-		for (int i=0;i<subCommands.size();i++) {
+		for (int i=subCommands.size()-1;i>-1;i-=1) {
 			if (subCommands.get(i).needsCommand()) {
+				//System.out.println(subCommands.get(i).getClass().getSimpleName() + " needs a command");
 				index = i;
 			}
 		}
-		System.out.println(toAdd.getClass().getSimpleName() + " was added to position " + index + " within LIST");
-		if (index != -1) {
-			System.out.println("Command at index " + index  +" was " + subCommands.get(index).getClass().getSimpleName());
-			Command dep = subCommands.get(index);
-			if (!(dep instanceof LongCommand)) {
-				subCommands.add(index, toAdd);
+		//System.out.println(toAdd.getClass().getSimpleName() + " was added to position " + index + " within LIST");
+		if (index!=-1) {
+			if (subCommands.get(index) instanceof ListContainingCommand) {
+				ListContainingCommand lcc = (ListContainingCommand) subCommands.get(index);
+				//System.out.println("this def needs to occur");
+				if (lcc.addCommandWithin(toAdd)) {
+					//System.out.println("needed command within");
+					lcc.addCommand(toAdd);
+				} else {
+					toAdd.setDependent(lcc);
+					subCommands.add(index, toAdd);
+					
+				}
+			} else {
+				if (subCommands.get(index) instanceof LongCommand) {
+					subCommands.get(index).addCommand(toAdd);
+				} else {
+					toAdd.setDependent(subCommands.get(index));
+					subCommands.add(index, toAdd);
+				}
 			}
-			dep.addCommand(toAdd);
+			
 		} else {
 			subCommands.add(toAdd);
 		}
