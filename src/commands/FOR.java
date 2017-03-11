@@ -10,6 +10,7 @@ public class FOR extends ListContainingCommand {
 		
 	}
 	
+	
 	@Override 
 	public void addParameter(Double d) {
 		System.out.println((parameters.size() + numCommandAsParam) + " "  + expectedNumParameters); 
@@ -62,9 +63,11 @@ public class FOR extends ListContainingCommand {
 		double end = parameters.get(1);
 		double incr = parameters.get(2);
 		for (double i=start;i<=end;i+=incr) {
-			variables.get(variables.size()-1).put(var.getName(), i);
+			localVars.put(var.getName(), i);
+			listOfCommands.setReturnValue();
 			listOfCommands.executeCommand();
 		}
+		
 		return returnValue;
 	}
 

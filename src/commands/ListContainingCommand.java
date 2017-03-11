@@ -1,5 +1,6 @@
 package commands;
 
+import java.util.HashMap;
 import java.util.List;
 
 import exceptions.ParameterNotEnoughException;
@@ -9,13 +10,14 @@ import turtles.Turtle;
 public abstract class ListContainingCommand extends Command{
 	protected LIST listOfCommands;
 	protected LIST inputs;
-	
+	protected HashMap<String, Double> localVars;
 	//private ArrayList<Double> parameters;
 	
 	public ListContainingCommand(){
 		super();
 		listOfCommands = null;
 		inputs = null;
+		localVars = new HashMap<String, Double>();
 	}
 	
 	@Override
@@ -29,9 +31,11 @@ public abstract class ListContainingCommand extends Command{
 	@Override
 	public void setTurtle(List<Turtle> turtlesToAdd) {
 		super.setTurtle(turtlesToAdd);
-		inputs.setTurtle(target);
+		if (inputs != null && listOfCommands != null) {
+			inputs.setTurtle(target);
+			listOfCommands.setTurtle(target);
+		}
 		
-		listOfCommands.setTurtle(target);
 	}
 	
 	public boolean addCommandWithin(Command toAdd) {
@@ -81,7 +85,9 @@ public abstract class ListContainingCommand extends Command{
 	
 	@Override
 	public void addCommand(Command toAdd) {
-		toAdd.addVariableSet(variables.get(variables.size()-1));
+		toAdd.addVariableSet(localVars);
+		System.out.println(toAdd.variables.size() + " is how many maps " + toAdd.getClass().getSimpleName() + " has");
+		
 		if (inputs == null) {
 			////System.out.println("should not be null");
 			if (toAdd instanceof LIST) {
