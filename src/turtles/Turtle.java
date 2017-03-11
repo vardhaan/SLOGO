@@ -101,7 +101,7 @@ public class Turtle{
 		}
 
 	}
-	
+
 
 	public void setY(double newY) {
 		if(isActive){
@@ -178,12 +178,14 @@ public class Turtle{
 	}
 
 	public void setHeading(double newHeading) {
-		prevprevHeading=previousHeading;
-		previousHeading = heading;
-		heading = newHeading;
+		if(isActive){
+			prevprevHeading=previousHeading;
+			previousHeading = heading;
+			heading = newHeading;
 
-		myAnimation = rotateAnimation();
-		myAnimation.play();
+			myAnimation = rotateAnimation();
+			myAnimation.play();
+		}
 	}
 
 	public boolean showTurtle(){

@@ -21,6 +21,9 @@ public class GUIBuilder {
 	}
 
 	public void buildGUI(GridPane myRoot){
+		GridBuilder g = new GridBuilder();
+		g.buildGrid(myRoot);
+		
 		Pane turtleRoot = new Pane();
 		TurtleViewer tv = new TurtleViewer(turtleRoot);
 		myRoot.getChildren().add(turtleRoot);
@@ -34,9 +37,6 @@ public class GUIBuilder {
 
 		MenuBuilder m=new MenuBuilder(tv);
 		m.buildMenu(myRoot);
-		
-		GridBuilder g = new GridBuilder();
-		g.buildGrid(myRoot);
 	}
 	
 	
