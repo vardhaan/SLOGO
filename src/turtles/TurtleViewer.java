@@ -11,8 +11,8 @@ import turtles.Turtle;
 
 public class TurtleViewer{
 
-	private ArrayList<Turtle> turtles=new ArrayList<Turtle>();
-	private int currentID = 0;
+	private ArrayList<Turtle> turtles = new ArrayList<Turtle>();
+	private ArrayList<Turtle> activeTurtles = new ArrayList<Turtle>();
 	public static final double DEFAULT_SIZE = 700;
 	private String currentImage = "images/slogo1.jpg";
 	private String inactiveImage = "images/slogo1in.jpg";
@@ -25,23 +25,29 @@ public class TurtleViewer{
 
 	public TurtleViewer(Pane myRootIn){
 		myRoot = myRootIn;
-		Turtle baseTurtle =new Turtle(currentID, myRoot);
-		currentID++;
+		Turtle baseTurtle = new Turtle(0, myRoot);
 		Image image2 = new Image(currentImage);
-		ImageView myTurtleImage=new ImageView(image2);
+		ImageView myTurtleImage = new ImageView(image2);
 		myTurtleImage.setFitWidth(50);
 		myTurtleImage.setFitHeight(50);
 		myTurtleImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				System.out.println("clicked");
-				myTurtleImage.setImage(new Image(inactiveImage));
-				baseTurtle.setActivity(false);
+				baseTurtle.setActivity(!baseTurtle.getActivity());
+				if(!baseTurtle.getActivity()){
+					activeTurtles.remove(baseTurtle);
+					myTurtleImage.setImage(new Image(inactiveImage));
+				}
+				else{
+					activeTurtles.add(baseTurtle);
+					myTurtleImage.setImage(new Image(currentImage));
+				}
 			}
 		});
 		myRoot.getChildren().add(myTurtleImage);
 		baseTurtle.setTurtleImage(myTurtleImage);
 		turtles.add(baseTurtle);
+		activeTurtles.add(baseTurtle);
 	}
 
 	//TODO: Zhiyong, get the all the turtles as a HashMap
@@ -51,14 +57,7 @@ public class TurtleViewer{
 	}
 	
 	public ArrayList<Turtle> getActiveList(){
-		ArrayList<Turtle> activeList = new ArrayList<Turtle>();
-		activeList = turtles;
-		for(Turtle t: turtles){
-			if(t.getActivity()){
-				activeList.add(t);
-			}
-		}
-		return activeList;
+		return activeTurtles;
 	}
 
 	public void buildTurtle(Pane myRoot){
@@ -87,14 +86,21 @@ public class TurtleViewer{
 		myTurtleImage.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				System.out.println("clicked");
-				myTurtleImage.setImage(new Image(inactiveImage));
-				temp.setActivity(false);
+				temp.setActivity(!temp.getActivity());
+				if(!temp.getActivity()){
+					activeTurtles.remove(temp);
+					myTurtleImage.setImage(new Image(inactiveImage));
+				}
+				else{
+					activeTurtles.add(temp);
+					myTurtleImage.setImage(new Image(currentImage));
+				}
 			}
 		});
 		myRoot.getChildren().add(myTurtleImage);
 		temp.setTurtleImage(myTurtleImage);
 		turtles.add(temp);
+		activeTurtles.add(temp);
 	}
 
 	
@@ -120,6 +126,8 @@ public class TurtleViewer{
 
 	public void setImage(String imageIn){
 		currentImage = imageIn;
+		String[] splitTemp = imageIn.split(".");
+		inactiveImage = splitTemp[0] + "in" + splitTemp[1];
 		for(Turtle t: turtles){
 			if(t.getActivity()){
 				t.setImage(new Image(currentImage));
