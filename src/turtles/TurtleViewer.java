@@ -1,7 +1,10 @@
 package turtles;
 import java.util.ArrayList;
+
+import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import turtles.Turtle;
 
@@ -11,6 +14,7 @@ public class TurtleViewer{
 	private int currentID = 0;
 	public static final double DEFAULT_SIZE = 700;
 	private String currentImage = "images/slogo1.jpg";
+	private String inactiveImage = "images/slogo1in.jpg";
 	private Pane myRoot;
 
 	public static final double DEFAULT_X_POS = 0;
@@ -25,6 +29,15 @@ public class TurtleViewer{
 		ImageView myTurtleImage=new ImageView(image2);
 		myTurtleImage.setFitWidth(50);
 		myTurtleImage.setFitHeight(50);
+		myTurtleImage.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				System.out.println("clicked");
+				turtles.get(0).setActivity(false);
+				turtles.get(0).setImage(new Image(inactiveImage));
+				event.consume();
+			}
+		});
 		myRoot.getChildren().add(myTurtleImage);
 		baseTurtle.setTurtleImage(myTurtleImage);
 		turtles.add(baseTurtle);
@@ -34,6 +47,17 @@ public class TurtleViewer{
 	//and then test whether it is active
 	public ArrayList<Turtle> getTurtleList(){
 		return turtles;
+	}
+	
+	public ArrayList<Turtle> getActiveList(){
+		ArrayList<Turtle> activeList = new ArrayList<Turtle>();
+		activeList = turtles;
+		for(Turtle t: turtles){
+			if(t.getActivity()){
+				activeList.add(t);
+			}
+		}
+		return activeList;
 	}
 
 	public void buildTurtle(Pane myRoot){
@@ -59,11 +83,14 @@ public class TurtleViewer{
 		ImageView myTurtleImage=new ImageView(tempImage);
 		myTurtleImage.setFitWidth(50);
 		myTurtleImage.setFitHeight(50);
+		myTurtleImage.setOnMouseClicked(event -> {
+			System.out.println("clicked");
+		});
 		myRoot.getChildren().add(myTurtleImage);
 		temp.setTurtleImage(myTurtleImage);
 		turtles.add(temp);
 	}
-	
+
 	public Turtle getTurtle(int ID) throws Exception{
 		if (turtles.size() > ID){
 			return turtles.get(ID);
@@ -73,20 +100,12 @@ public class TurtleViewer{
 		}
 	}
 
-/*	public void setX(ImageView turtleImage, int myID) throws Exception {
-		turtleImage.setX(getTurtle(myID).getX());
-		updatePen();
-	}
-	public void setY(ImageView turtleImage, int myID) throws Exception {
-		turtleImage.setY(getTurtle(myID).getY());
-		updatePen();
-	} */
-	
 	public void setImage(String imageIn){
 		currentImage = imageIn;
 		for(Turtle t: turtles){
-			if(t.getActivity())
+			if(t.getActivity()){
 				t.setImage(new Image(currentImage));
+			}
 		}
 	}
 
