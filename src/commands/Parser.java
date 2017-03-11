@@ -49,7 +49,7 @@ public class Parser {
 	    
 	    
 	    
-	    public void parse(String s) throws Exception {
+	    public List<Double> parse(String s) throws Exception {
 	    	engine.reset();
 	    	String[] newLineSplit = s.split("\n");
 	    	StringBuilder newCommandsEntry = new StringBuilder();
@@ -60,7 +60,7 @@ public class Parser {
 	    	}
 	    	
 	    	String convertedNewCommands = newCommandsEntry.toString(); 
-	    	//System.out.println(convertedNewCommands);
+	    	System.out.println(convertedNewCommands);
 	    	String[] tokens = convertedNewCommands.split(WHITESPACE);
 	    	//System.out.println(Arrays.toString(tokens));
 	    	if (tokens.length == 0) {
@@ -71,6 +71,7 @@ public class Parser {
 	    	} else {
 
 	    		for (int i=0;i<tokens.length;i++) {
+	    			System.out.println(tokens[i] + " is the current thing");
     				
 	    			String symbol = getSymbol(tokens[i]);
 
@@ -85,25 +86,31 @@ public class Parser {
 	    						MyException p = new NotMatchException();
 	    						PopUpException pop = new PopUpException(p.getMessage());
 	    						pop.showMessage();
-	    						return;
+	    						return null;
 	    					}
 	    					Class<?> clazz = Class.forName(className);
 	    					//System.out.println(className);
+	    					System.out.println(className);
+
 	    					Object o = makeClass(clazz);
 	    					Command toAdd = (Command) o;
 	    					if (toAdd instanceof VARIABLE) {
 	    						VARIABLE v = (VARIABLE) toAdd;
-	    						v.setName(symbol.substring(1, symbol.length()));
+	    						v.setName(tokens[i].substring(1, tokens[i].length()));
 	    						engine.addCommand(v);
 	    						continue;
 	    					} 
 	    					if (toAdd instanceof TO) {
+	    						System.out.println("should be triggered");
 	    						TO t = (TO) toAdd;
 	    						t.setMethodName(tokens[i+1]);
 	    						userDefinedCommands.add(tokens[i+1]);
 	    						i++;
 	    					}
+    						System.out.println("should be triggered 2");
+
 	    					engine.addCommand(toAdd);
+    						System.out.println("should be triggered 3");
 
 
 	    				}
@@ -112,10 +119,10 @@ public class Parser {
 	    		}
 	    	}
 	    	
-	    		engine.initializeForExecution();
-				engine.executeCommands();
+	    	engine.initializeForExecution();
+			List<Double> rVals = engine.executeCommands();
 		
-	    	
+	    	return rVals;
 	    	
 	    }
 	    

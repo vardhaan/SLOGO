@@ -15,7 +15,6 @@ public class TELL extends ListContainingCommand{
 	public TELL() {
 		
 		super();
-		
 		expectedNumParameters = Integer.MAX_VALUE;
 		inputs = new LIST();
 		inputs.addCommand(new LISTEND());
@@ -70,9 +69,8 @@ public class TELL extends ListContainingCommand{
 
 		turtleID = new PriorityQueue<Integer>();
 		
-		for(int i = 0; i < listOfCommands.subCommands.size(); i++){
-			returnValue = Math.round(listOfCommands.subCommands.get(i).executeCommand());
-			turtleID.add((int) returnValue);
+		for (int i=0;i<parameters.size();i++) {
+			turtleID.add((int) parameters.get(i).intValue());
 		}
 		try {
 			createTurtle(turtleID);

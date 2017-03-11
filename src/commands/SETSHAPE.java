@@ -17,6 +17,7 @@ public class SETSHAPE extends TurtleCommand {
 
 	public SETSHAPE(){
 		super();
+		
 		expectedNumParameters = 1;
 	}
 

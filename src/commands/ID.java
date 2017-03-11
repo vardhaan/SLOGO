@@ -11,18 +11,13 @@ public class ID extends TurtleCommand{
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		//do nothing
+		returnValue = tv.getActiveList().get(tv.getActiveList().size()-1).getID();
+		sendReturnToDependent();
 	}
 
 	@Override
 	public double executeCommand() {
-		for(int i = 0; i < turtles.size(); i++){
-			if(turtles.get(i).getActivity()){
-				return i;
-				
-			}
-		}
-		//if there is no turtle, just return the 0th turtle
-		return 0;
+		return returnValue;
 	}
 
 }

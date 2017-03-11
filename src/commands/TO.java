@@ -1,6 +1,8 @@
 package commands;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import turtles.Turtle;
@@ -24,8 +26,6 @@ public class TO extends ListContainingCommand {
 	}
 	
 	
-	
-	
 	public void setMethodName(String s) {
 		methodName = s;
 	}
@@ -42,15 +42,12 @@ public class TO extends ListContainingCommand {
 		sendReturnToDependent();
 	}
 	
-	@Override
-	public void setTurtle(Turtle turtle) {
-		inputs.setTurtle(turtle);
-		
-		listOfCommands.setTurtle(turtle);
-	}
 	
+	
+	
+	@Override
 	public boolean addCommandWithin(Command toAdd) {
-		return (inputs == null || listOfCommands == null || listOfCommands.needsCommand() || inputs.needsCommand());
+		return true;
 	}
 	
 	
@@ -58,7 +55,6 @@ public class TO extends ListContainingCommand {
 	public boolean needsCommand() {
 		if (inputs != null) {
 			methodParametersMap.put(methodName, inputs.subCommands.size());
-
 		}
 		if (inputs == null || listOfCommands == null) {
 			//System.out.println("should be triggering");
@@ -73,32 +69,18 @@ public class TO extends ListContainingCommand {
 	
 	@Override
 	public boolean needsParameter() {
-		if (parameters != null && listOfCommands != null && inputs!=null) {
-			return (parameters.size() +numCommandAsParam != expectedNumParameters || listOfCommands.needsParameter() || inputs.needsParameter());
-
-		}
-		return true;
+		return listOfCommands.needsParameter();
 	}
 	
 	@Override 
 	public void addParameter(Double d) {
-		if (parameters.size() + numCommandAsParam != expectedNumParameters) {
-			//System.out.println(this.getClass().getSimpleName() + " has " + (parameters.size()+numCommandAsParam) + " existing parameters and needs this many: " + expectedNumParameters);
-			//System.out.println("Parameter is added in the right place " + d);
-			parameters.add(d);
-		} else {
-			if (inputs.needsParameter()) {
-				inputs.addParameter(d);
-			} else {
-				listOfCommands.addParameter(d);
-			}
-			
-		}
+		listOfCommands.needsParameter();
 	}
 	
 	@Override
 	public void addCommand(Command toAdd) {
-		toAdd.addVariableSet(variables.get(variables.size()-1));
+		System.out.println(toAdd.getClass().getSimpleName() + " is being added to TO");
+		toAdd.addVariableSet(localVars);
 		if (inputs == null) {
 			if (toAdd instanceof LIST) {
 				inputs  = (LIST) toAdd;
@@ -126,7 +108,8 @@ public class TO extends ListContainingCommand {
 			return;
 		}
 		listOfCommands.addCommand(toAdd);
-		
+		methodCommands.put(methodName, listOfCommands) ;
+
 	}
 
 	@Override

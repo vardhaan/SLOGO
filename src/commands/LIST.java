@@ -95,6 +95,7 @@ public class LIST extends LongCommand{
 		}
 	}
 	
+	
 	@Override
 	public double executeCommand() {
 		// TODO Auto-generated method stub
