@@ -29,7 +29,6 @@ public class SHOWTURTLE extends TurtleCommand{
 		returnValue = 1;
 		for (Turtle t : target) {
 			t.setShow(true);
-
 		}
 
 		return 1;

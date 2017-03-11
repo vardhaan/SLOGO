@@ -10,11 +10,14 @@ public class TURTLES extends TurtleCommand{
 
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
-		//do nothing
+		
+		returnValue = target.size();
+		sendReturnToDependent();
 	}
 	@Override
 	public double executeCommand() {
-		returnValue = turtles.size();
+		returnValue = target.size();
+		System.out.println("The sise of the target is :" + returnValue);
 		return returnValue;
 	}
 }

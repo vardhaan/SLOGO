@@ -29,7 +29,7 @@ public class PRODUCT extends Command{
 		double x = parameters.get(0);
 		double y = parameters.get(1);
 		returnValue = x * y;
-
+		System.out.println("The producr is : " + returnValue);
 		return returnValue;
 	}
 

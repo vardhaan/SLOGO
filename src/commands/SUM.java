@@ -30,7 +30,7 @@ public class SUM extends Command{
 		double y = parameters.get(1);
 		//parameters.add(1, x + y);
 		returnValue = x + y;
-
+		System.out.println("The sum is :" + returnValue);
 		return returnValue;
 	}
 

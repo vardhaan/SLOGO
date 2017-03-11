@@ -13,7 +13,7 @@ public class TELL extends ListContainingCommand{
 	public TELL() {
 		
 		super();
-		
+		turtleID = new PriorityQueue<>();
 		expectedNumParameters = 0;
 		inputs = new LIST();
 		inputs.addCommand(new LISTEND());
@@ -36,7 +36,7 @@ public class TELL extends ListContainingCommand{
 	@Override
 	public void setReturnValue() {
 		returnValue = 0.0;
-		turtleID = new PriorityQueue<>();
+		
 		
 		for(int i = 0; i < listOfCommands.subCommands.size(); i++){
 			returnValue = Math.round(listOfCommands.subCommands.get(i).executeCommand());
