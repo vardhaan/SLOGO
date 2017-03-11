@@ -120,6 +120,7 @@ public class CommandEngine {
 	
 	
 	public void addCommand(Command toAdd) {
+		toAdd.setTurtleViewer(tViewer);
 		if(toAdd instanceof UserDefinedCommand) {
 			UserDefinedCommand udc = (UserDefinedCommand) toAdd;
 		}

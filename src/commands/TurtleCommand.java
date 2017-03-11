@@ -12,7 +12,6 @@ public abstract class TurtleCommand extends Command {
 	protected ArrayList<Turtle> turtleTarget;
 	protected boolean penDown;
 	protected boolean showTurtle;
-	protected List< Turtle> turtles;
 	
 	public TurtleCommand() {
 		turtleTarget = new ArrayList<Turtle>();
