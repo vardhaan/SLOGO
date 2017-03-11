@@ -1,23 +1,15 @@
 package turtles;
 
-import java.util.Observable;
-import java.util.ResourceBundle;
-
 import javafx.animation.Animation;
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.animation.SequentialTransition;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.HLineTo;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
-import javafx.scene.shape.VLineTo;
 import javafx.util.Duration;
 import lines.Lines;
 
@@ -41,27 +33,27 @@ public class Turtle{
 	private int myPenColorIndex;
 	private int myID;
 	private List<Lines> myLines; 
-	//= new ArrayList<Lines>();
 	private Pane myRoot;
 	private Animation myAnimation;
 
+	private double width=1000;
+	private double height=430;
+	
 	public static final double DEFAULT_X_POS = 0;
 	public static final double DEFAULT_Y_POS = 0;
 	public static final double DEFAULT_ANGLE = 0;
-	private static final double FULL_CIRCLE = 360;
-	private double width=1000;
-	private double height=430;
+	//private static final double FULL_CIRCLE = 360;
 	private int myPenSize;
 	private ImageView turtleImage;
 	private boolean isActive;
 
 	public Turtle(int id, Pane myRootIn) {
 		myRoot = myRootIn;
-		this.xPos = DEFAULT_X_POS;
-		this.yPos = DEFAULT_Y_POS;
-		this.previousxPos = DEFAULT_X_POS;
-		this.previousyPos = DEFAULT_Y_POS;
-		this.heading = DEFAULT_ANGLE;
+		xPos = DEFAULT_X_POS;
+		yPos = DEFAULT_Y_POS;
+		previousxPos = DEFAULT_X_POS;
+		previousyPos = DEFAULT_Y_POS;
+		heading = DEFAULT_ANGLE;
 		myLines= new ArrayList<Lines>();
 		showing = true;
 		penDown=true;
@@ -73,14 +65,11 @@ public class Turtle{
 		isActive = true;
 	}
 
-	//TODO:Zhiyong, update the activity of the turtle with the corresponding id
-	//This is for the ID class in the backend
 	public boolean getActivity(){
 		return isActive;
 	}
 
-	//TODO: controlled by other class
-	public void updateActivity(boolean b){
+	public void setActivity(boolean b){
 		isActive = b;
 	}
 
@@ -101,6 +90,7 @@ public class Turtle{
 		}
 
 	}
+
 
 	public void setY(double newY) {
 		if(isActive){
@@ -177,12 +167,14 @@ public class Turtle{
 	}
 
 	public void setHeading(double newHeading) {
-		prevprevHeading=previousHeading;
-		previousHeading = heading;
-		heading = newHeading;
+		if(isActive){
+			prevprevHeading=previousHeading;
+			previousHeading = heading;
+			heading = newHeading;
 
-		myAnimation = rotateAnimation();
-		myAnimation.play();
+			myAnimation = rotateAnimation();
+			myAnimation.play();
+		}
 	}
 
 	public boolean showTurtle(){
@@ -213,8 +205,9 @@ public class Turtle{
 		clearprevlines();
 	}
 	public void clearprevlines(){
+		myRoot.getChildren().remove(myRoot.getChildren().size()-1);
 		myLines.remove(myLines.size()-1);
-		myLines.remove(myLines.size()-1);
+		//myLines.remove(myLines.size()-1);
 	}
 
 	public void setImage(Image imageIn){
@@ -247,6 +240,4 @@ public class Turtle{
 		myPenSize = pixel;
 		return myPenSize;
 	}
-
-
 }

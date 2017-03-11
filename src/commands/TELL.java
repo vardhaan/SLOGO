@@ -1,6 +1,8 @@
 package commands;
 
 import java.util.PriorityQueue;
+
+import javafx.scene.layout.Pane;
 import turtles.Turtle;
 
 /**
@@ -13,11 +15,10 @@ public class TELL extends ListContainingCommand{
 	public TELL() {
 		
 		super();
-		turtleID = new PriorityQueue<>();
-		expectedNumParameters = 0;
+		
+		expectedNumParameters = Integer.MAX_VALUE;
 		inputs = new LIST();
 		inputs.addCommand(new LISTEND());
-		System.out.println("the Tell command");
 		inputs.expectedNumCommands = (double) inputs.subCommands.size();
 		
 	}
@@ -25,22 +26,59 @@ public class TELL extends ListContainingCommand{
 
 	@Override
 	public boolean addCommandWithin(Command toAdd) {
-		if (numCommandAsParam + parameters.size()== expectedNumParameters) {
-			//System.out.println("repeat actually gets a value");
-			return listOfCommands == null || listOfCommands.needsCommand();
+		if (listOfCommands == null) {
+			return true;
 		}
-		return false;
-
+		return listOfCommands.needsCommand();
+	}
+	
+	
+	@Override
+	public void addCommand(Command toAdd) {
+		if (listOfCommands == null) {
+			listOfCommands = (LIST) toAdd;
+			return;
+		}
+		if (listOfCommands.needsCommand()) {
+			listOfCommands.addCommand(toAdd);
+		}
+		if (!listOfCommands.needsCommand()) {
+			expectedNumParameters = parameters.size();
+		}
+	}
+	
+	@Override
+	public boolean needsCommand() {
+		if ( listOfCommands == null) {
+			//System.out.println("should be triggering");
+			return true;
+		}
+		if (parameters.size()+numCommandAsParam != expectedNumParameters || listOfCommands.needsCommand() || inputs.needsCommand()) {
+			return true;
+		}
+		return (inputs.needsCommand() || listOfCommands.needsCommand());
+	}
+	
+	@Override
+	public void addParameter(Double d) {
+		parameters.add(d);
 	}
 
 	@Override
 	public void setReturnValue() {
 		returnValue = 0.0;
-		
+
+		turtleID = new PriorityQueue<Integer>();
 		
 		for(int i = 0; i < listOfCommands.subCommands.size(); i++){
 			returnValue = Math.round(listOfCommands.subCommands.get(i).executeCommand());
 			turtleID.add((int) returnValue);
+		}
+		try {
+			createTurtle(turtleID);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		sendReturnToDependent();
 	}
@@ -48,8 +86,7 @@ public class TELL extends ListContainingCommand{
 	@Override
 	public double executeCommand() {
 		
-		createTurtle(turtleID);
-		actUpTurtle(turtleID);
+		
 		return returnValue;
 
 
@@ -59,17 +96,20 @@ public class TELL extends ListContainingCommand{
 	/**
 	 * act up the turtle in the PriorityQueue
 	 * @param turtleID
+	 * @throws Exception 
 	 */
-	private void actUpTurtle(PriorityQueue<Integer> turtleID) {
-		for(int id : turtleID){
-			target.get(id).updateActivity(true);
+	
+
+
+	private void createTurtle(PriorityQueue<Integer> turtleID) throws Exception {
+		for (Double d : parameters) {
+			if (!tv.containsTurtle((int)d.intValue())) {
+				tv.addTurtle((int) d.intValue());
+			} 
+			tv.getTurtle((int) d.intValue()).setActivity(true);
 		}
-
-	}
-
-
-	private void createTurtle(PriorityQueue<Integer> turtleID) {
-		for(int i = 0; i < turtleID.size(); i++){
+		tv.setTurtlesInactive(parameters);
+		/*for(int i = 0; i < turtleID.size(); i++){
 			if(target.size() <= i){
 				//create a new turtle of id = i
 				Turtle turtle = new Turtle(i, null);
@@ -80,7 +120,7 @@ public class TELL extends ListContainingCommand{
 				target.add(turtle);
 
 			}
-		}
+		}*/
 
 	}
 }
