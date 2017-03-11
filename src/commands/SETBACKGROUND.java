@@ -3,7 +3,6 @@ package commands;
 import java.util.ResourceBundle;
 
 import exceptions.ParameterNotEnoughException;
-import gui.GridBuilder;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
@@ -39,7 +38,6 @@ public class SETBACKGROUND extends Command{
 			//TODO:add a method in the grid to set the background
 			returnValue = parameters.get(0);
 			//set the color of the grid to be the color at index = returnValue
-			GridBuilder grid = new GridBuilder(Math.round(returnValue)+"");
 //			ResourceBundle resources = ResourceBundle.getBundle(RESOURCE_BUNDLE);
 //			Background b = new Background(new BackgroundFill((Paint)(Color.web(resources.getString(Math.round(returnValue)+""))), null, null));
 //			
