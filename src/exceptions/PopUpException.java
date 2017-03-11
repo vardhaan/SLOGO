@@ -13,7 +13,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class PopUpException{
-	public static final double SIZE =300;
+	public static final double SIZE =400;
 	
 	private Scene scene;
 	private String message;

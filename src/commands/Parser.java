@@ -61,6 +61,7 @@ public class Parser {
 	    		for (int i=0;i<tokens.length;i++) {
     				
 	    			String symbol = getSymbol(tokens[i]);
+
 	    			if (checkIfValid(symbol)) {
 	    				if (symbol.equals("Constant")) {
 	    					
@@ -70,17 +71,28 @@ public class Parser {
 	    						continue;
 	    					}
 	    					String className = "commands." + symbol.toUpperCase();
+	    					if(className.equals("commands.COMMAND")){
+	    			    		MyException p =  new NotMatchException();
+	    						PopUpException pop = new PopUpException(p.getMessage());
+	    						pop.showMessage();
+	    						return;
+	    					}
 	    					Class<?> clazz = Class.forName(className);
+	    					System.out.println("The errors");
 	    					Object o = makeClass(clazz);
-	    					Command toAdd = (Command) o;
-	    					
+	    					Command toAdd = (Command) o;	    					
 	    					engine.addCommand(toAdd);
+
+
 	    				}
 	    			}
+	    			
 	    		}
 	    	}
-	    	engine.initializeForExecution();
-	    	engine.executeCommands();
+	    	
+	    		engine.initializeForExecution();
+				engine.executeCommands();
+		
 	    	
 	    	
 	    }
@@ -142,10 +154,6 @@ public class Parser {
 				return e.getKey();
 			}
 		}
-		
-		MyException p =  new NotMatchException();
-		PopUpException pop = new PopUpException(p.getMessage());
-		pop.showMessage();
 		
 		return ERROR;
 	}
