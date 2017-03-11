@@ -73,8 +73,6 @@ public class Turtle{
 		isActive = true;
 	}
 
-	//TODO:Zhiyong, update the activity of the turtle with the corresponding id
-	//This is for the ID class in the backend
 	public boolean getActivity(){
 		return isActive;
 	}

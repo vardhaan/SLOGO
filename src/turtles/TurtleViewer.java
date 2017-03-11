@@ -102,6 +102,9 @@ public class TurtleViewer{
 		});
 		myRoot.getChildren().add(myTurtleImage);
 		temp.setTurtleImage(myTurtleImage);
+		temp.setX(DEFAULT_X_POS);
+		temp.setY(DEFAULT_Y_POS);
+		temp.setHeading(DEFAULT_ANGLE);
 		turtles.add(temp);
 		activeTurtles.add(temp);
 	}
@@ -109,7 +112,6 @@ public class TurtleViewer{
 	public Turtle getTurtle(int ID) throws Exception {
 		for (Turtle t : turtles) {
 			if (t.getID() == ID) {
-				System.out.println("Should work");
 				return t;
 			}
 		}
@@ -127,21 +129,13 @@ public class TurtleViewer{
 
 	public void setImage(String imageIn){
 		currentImage = imageIn;
-		String[] splitTemp = imageIn.split(".");
-		inactiveImage = splitTemp[0] + "in" + splitTemp[1];
+		String[] splitTemp = imageIn.split("\\.");
+		inactiveImage = splitTemp[0] + "in." + splitTemp[1];
 		for(Turtle t: turtles){
 			if(t.getActivity()){
 				t.setImage(new Image(currentImage));
 			}
 		}
-	}
-	
-	public String getImage(){
-		return currentImage;
-	}
-	
-	public String getInactiveImage(){
-		return inactiveImage;
 	}
 	
 	public Pane getTurtlePane(){
@@ -151,6 +145,7 @@ public class TurtleViewer{
 	public void setTurtlesInactive(List<Double> active) {
 		for (Turtle t : turtles) {
 			t.setActivity(true);
+			t.setImage(new Image(currentImage));
 			if (!active.contains(new Double(t.getID()))) {
 				t.setActivity(false);
 				activeTurtles.remove(t);
