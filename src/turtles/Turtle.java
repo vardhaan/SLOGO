@@ -132,7 +132,7 @@ public class Turtle{
 			current.setColorIndex(colorIndex);
 			current.setThickness(penSize);
 			myLines.add(current);
-			//myRoot.getChildren().add(current.getLine());
+			myRoot.getChildren().add(current.getLine());
 		}
 	}
 

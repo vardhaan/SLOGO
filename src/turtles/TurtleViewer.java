@@ -53,9 +53,8 @@ public class TurtleViewer{
 		}
 	}
 
-	public void addTurtle(){
-		Turtle temp = new Turtle(currentID, myRoot);
-		currentID++;
+	public void addTurtle(int ID){
+		Turtle temp = new Turtle(ID, myRoot);
 		Image tempImage = new Image(currentImage);
 		ImageView myTurtleImage=new ImageView(tempImage);
 		myTurtleImage.setFitWidth(50);
