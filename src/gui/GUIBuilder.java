@@ -25,6 +25,10 @@ public class GUIBuilder {
 	public GUIBuilder(String languageIn){
 		myLanguage = languageIn;
 	}
+	/**
+	 * This method adds the different GUI elements to the various roots
+	 * @param myRoot
+	 */
 
 	/**
 	 * This method is passed a Pane in which it builds the simulation GUI

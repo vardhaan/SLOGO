@@ -17,6 +17,9 @@ public class HOME extends TurtleCommand{
 		expectedNumParameters = 0;
 	}
 	
+	/* 
+	 *set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		//DO NOTHING
@@ -24,6 +27,9 @@ public class HOME extends TurtleCommand{
 		sendReturnToDependent();
 	}
 	
+	/* 
+	 * using the CSHomeHelper to do the home command
+	 */
 	@Override
 	public double executeCommand() {
 		CSHomeHelper c = new CSHomeHelper();

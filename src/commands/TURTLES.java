@@ -1,34 +1,23 @@
-/**
- * 
- */
 package commands;
 
 import exceptions.ParameterNotEnoughException;
 
-/**
- * @author Zhiyong
- *
- */
-public class PI extends Command{
-	public PI(){
+public class TURTLES extends TurtleCommand{
+	public TURTLES(){
 		super();
 		expectedNumParameters = 0;
 	}
 
-
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
-		//DO NOTHING
+		
+		returnValue = target.size();
+		sendReturnToDependent();
 	}
-	
-	/* 
-	 * get PI
-	 */
 	@Override
 	public double executeCommand() {
-		returnValue = Math.PI;
-
+		returnValue = target.size();
+		System.out.println("The sise of the target is :" + returnValue);
 		return returnValue;
 	}
-
 }

@@ -38,7 +38,7 @@ public class Turtle{
 
 	private double width=1000;
 	private double height=430;
-	
+
 	public static final double DEFAULT_X_POS = 0;
 	public static final double DEFAULT_Y_POS = 0;
 	public static final double DEFAULT_ANGLE = 0;
@@ -46,7 +46,11 @@ public class Turtle{
 	private int myPenSize;
 	private ImageView turtleImage;
 	private boolean isActive;
-
+	/**
+	 * This method instantiates the turtle and gives its original characteristics
+	 * @param id
+	 * @param Pane 
+	 */
 	public Turtle(int id, Pane myRootIn) {
 		myRoot = myRootIn;
 		xPos = DEFAULT_X_POS;
@@ -64,7 +68,9 @@ public class Turtle{
 		myPenSize = 4;
 		isActive = true;
 	}
-
+	/**
+	 * This method sees if the turtle is active or not
+	 */
 	public boolean getActivity(){
 		return isActive;
 	}
@@ -76,7 +82,10 @@ public class Turtle{
 	public void setTurtleImage(ImageView imageIn) {
 		turtleImage = imageIn;
 	}
-
+	/**
+	 * This method sets the new x position of the turtle depending on where it is and if its active or not
+	 * @param X coordinate
+	 */
 	public void setX(double newX) {
 		if(isActive){
 			prevprevxPos = previousxPos;
@@ -90,7 +99,10 @@ public class Turtle{
 		}
 
 	}
-
+	/**
+	 * This method sets the new y position of the turtle depending on where it is and if its active or not
+	 * @param Ycoordinate
+	 */
 	public void setY(double newY) {
 		if(isActive){
 			prevprevyPos=previousyPos;

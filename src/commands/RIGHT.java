@@ -12,6 +12,9 @@ public class RIGHT extends TurtleCommand {
 		expectedNumParameters = 1;
 	}
 
+	/* 
+	 *turn right
+	 */
 	@Override
 	public double executeCommand() {
 		returnValue = parameters.get(0);

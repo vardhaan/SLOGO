@@ -12,6 +12,10 @@ import java.util.ResourceBundle;
 public class ParameterNotEnoughException extends MyException{
 	 public static final String DEFAULT_RESOURCE_PACKAGE = "resources/exception";
 	 public static final String MESSAGE = "ParameterNotEnoughException";
+		
+	 /* 
+		 *return message from the properties files
+		 */
 
 	@Override
 	public String getMessage() {

@@ -15,6 +15,9 @@ public class MINUS extends Command{
 		expectedNumParameters = 1;
 	}
 
+	/* 
+	 * set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
@@ -24,6 +27,9 @@ public class MINUS extends Command{
 		}
 	}
 
+	/* 
+	 * minus of the parameter
+	 */
 	@Override
 	public double executeCommand() {
 

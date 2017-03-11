@@ -17,6 +17,9 @@ public class RANDOM extends Command{
 		expectedNumParameters = 1;
 	}
 
+	/*
+	 * the random number less than the paramter
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {

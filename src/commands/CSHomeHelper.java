@@ -10,6 +10,9 @@ import turtles.Turtle;
  *
  */
 public class CSHomeHelper {
+	/**
+	 * this is the heler method for the CS and HOME
+	 */
 	public void getHelp(Turtle target){
 		double x = target.getX();
 		double y = target.getY();
@@ -21,6 +24,10 @@ public class CSHomeHelper {
 		target.setHeading(0);
 	}
 
+	/**
+	 * set the return value
+	 * 
+	 */
 	public Double getRetVal(Turtle target) {
 		double x = target.getX();
 		double y = target.getY();

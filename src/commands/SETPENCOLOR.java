@@ -16,6 +16,9 @@ public class SETPENCOLOR extends TurtleCommand {
 		expectedNumParameters = 1;
 	}
 
+	/* 
+	 * set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
@@ -24,6 +27,9 @@ public class SETPENCOLOR extends TurtleCommand {
 		}
 	}
 
+	/* 
+	 *set the pen color
+	 */
 	@Override
 	public double executeCommand() {
 		for (Turtle t : target) {

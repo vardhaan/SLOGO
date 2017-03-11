@@ -10,6 +10,9 @@ public class FORWARD extends TurtleCommand {
 	}
 	
 
+	/*
+	 * using the  ForwardBackHelper to do the forward
+	 */
 	@Override
 	public double executeCommand() {
 		returnValue = parameters.get(0);

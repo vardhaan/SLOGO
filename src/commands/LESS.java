@@ -15,6 +15,9 @@ public class LESS extends Command{
 		expectedNumParameters = 2;
 	}
 	
+	/* 
+	 * set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
@@ -24,6 +27,9 @@ public class LESS extends Command{
 		}
 	}
 
+	/*
+	 * check whether parameter 0  is less than the parameter 1
+	 */
 	@Override
 	public double executeCommand() {
 
