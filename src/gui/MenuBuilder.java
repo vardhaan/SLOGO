@@ -87,10 +87,6 @@ public class MenuBuilder {
 	}
 
 	private Menu initSettingsMenu() {
-		/*MenuItem colorShiftPen = new MenuItem("Adjust_PenColor");
-		colorShiftPen.setOnAction(e -> colorShiftPen());
-		MenuItem BackgroundColor= new MenuItem("Background_Color");
-		BackgroundColor.setOnAction(e-> BackgroundColor());*/
 		Menu turtleImageSelect = new Menu("TurtleImage");
 		addOptions(turtleImageSelect);
 		return new Menu("Settings", null, turtleImageSelect);
@@ -111,53 +107,6 @@ public class MenuBuilder {
 	private void turtleImageChange(String image) {
 		tv.setImage(image);
 	}
-	
-	/*
-	private void BackgroundColor() {
-		Dialog dbox = new Dialog();
-		dbox.setTitle(myResources.getString("AdjustLabel"));
-		dbox.setHeaderText(myResources.getString("ContentLabel"));
-		dbox.getDialogPane().getButtonTypes().add(new ButtonType(myResources.getString("OkayButton"), ButtonBar.ButtonData.CANCEL_CLOSE));
-		GridPane content = new GridPane();
-		content.getColumnConstraints().add(new ColumnConstraints(90));
-		ColumnConstraints slidersColumn = new ColumnConstraints();
-		slidersColumn.setHgrow(Priority.ALWAYS);
-		content.getColumnConstraints().add(slidersColumn);
-		Slider hSlider = new Slider(0, 360, 0);
-		content.add(new Label("Hue"), 0, 0);
-		content.add(hSlider, 1, 0);
-		Slider sSlider = new Slider(0, 1, 1);
-		content.add(new Label("Saturation"), 0, 1);
-		content.add(sSlider, 1, 1);
-		Slider lSlider = new Slider(0, 2, 1);
-		content.add(new Label("Lightness"), 0, 2);
-		content.add(lSlider, 1, 2);
-		dbox.getDialogPane().setContent(content);
-		dbox.showAndWait();
-	}
-
-	private void colorShiftPen() {
-		Dialog dbox = new Dialog();
-		dbox.setTitle(myResources.getString("AdjustLabel"));
-		dbox.setHeaderText(myResources.getString("ContentLabel"));
-		dbox.getDialogPane().getButtonTypes().add(new ButtonType(myResources.getString("OkayButton"), ButtonBar.ButtonData.CANCEL_CLOSE));
-		GridPane content = new GridPane();
-		content.getColumnConstraints().add(new ColumnConstraints(90));
-		ColumnConstraints slidersColumn = new ColumnConstraints();
-		slidersColumn.setHgrow(Priority.ALWAYS);
-		content.getColumnConstraints().add(slidersColumn);
-		Slider hSlider = new Slider(0, 360, 0);
-		content.add(new Label("Hue"), 0, 0);
-		content.add(hSlider, 1, 0);
-		Slider sSlider = new Slider(0, 1, 1);
-		content.add(new Label("Saturation"), 0, 1);
-		content.add(sSlider, 1, 1);
-		Slider lSlider = new Slider(0, 2, 1);
-		content.add(new Label("Lightness"), 0, 2);
-		content.add(lSlider, 1, 2);
-		dbox.getDialogPane().setContent(content);
-		dbox.showAndWait();
-	}*/
 }
 
 

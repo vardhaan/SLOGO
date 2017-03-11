@@ -25,9 +25,10 @@ public class GUIBuilder {
 		g.buildGrid(myRoot);
 		
 		Pane turtleRoot = new Pane();
+		GridPane.setConstraints(turtleRoot, 0, 1);
+		
 		TurtleViewer tv = new TurtleViewer(turtleRoot);
 		myRoot.getChildren().add(turtleRoot);
-		GridPane.setConstraints(turtleRoot, 0, 1);
 		
 		Parser myParser = new Parser(tv);
 		myParser.changeLanguage(myLanguage);

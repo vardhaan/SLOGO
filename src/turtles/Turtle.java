@@ -44,23 +44,24 @@ public class Turtle{
 	private Pane myRoot;
 	private Animation myAnimation;
 
-	public static final double DEFAULT_X_POS = 0;
-	public static final double DEFAULT_Y_POS = 0;
-	public static final double DEFAULT_ANGLE = 0;
-	private static final double FULL_CIRCLE = 360;
 	private double width=1000;
 	private double height=430;
+	
+	public static final double DEFAULT_X_POS = 500;
+	public static final double DEFAULT_Y_POS = 215;
+	public static final double DEFAULT_ANGLE = 0;
+	//private static final double FULL_CIRCLE = 360;
 	private int myPenSize;
 	private ImageView turtleImage;
 	private boolean isActive;
 
 	public Turtle(int id, Pane myRootIn) {
 		myRoot = myRootIn;
-		this.xPos = DEFAULT_X_POS;
-		this.yPos = DEFAULT_Y_POS;
-		this.previousxPos = DEFAULT_X_POS;
-		this.previousyPos = DEFAULT_Y_POS;
-		this.heading = DEFAULT_ANGLE;
+		xPos = DEFAULT_X_POS;
+		yPos = DEFAULT_Y_POS;
+		previousxPos = DEFAULT_X_POS;
+		previousyPos = DEFAULT_Y_POS;
+		heading = DEFAULT_ANGLE;
 		myLines= new ArrayList<Lines>();
 		showing = true;
 		penDown=true;
@@ -72,8 +73,6 @@ public class Turtle{
 		isActive = true;
 	}
 
-	//TODO:Zhiyong, update the activity of the turtle with the corresponding id
-	//This is for the ID class in the backend
 	public boolean getActivity(){
 		return isActive;
 	}

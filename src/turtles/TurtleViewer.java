@@ -19,8 +19,8 @@ public class TurtleViewer{
 	private Pane myRoot;
 	
 
-	public static final double DEFAULT_X_POS = 0;
-	public static final double DEFAULT_Y_POS = 0;
+	public static final double DEFAULT_X_POS = 500;
+	public static final double DEFAULT_Y_POS = 215;
 	public static final double DEFAULT_ANGLE = 0;
 
 	public TurtleViewer(Pane myRootIn){
@@ -46,6 +46,9 @@ public class TurtleViewer{
 		});
 		myRoot.getChildren().add(myTurtleImage);
 		baseTurtle.setTurtleImage(myTurtleImage);
+		baseTurtle.setX(DEFAULT_X_POS);
+		baseTurtle.setY(DEFAULT_Y_POS);
+		baseTurtle.setHeading(DEFAULT_ANGLE);
 		turtles.add(baseTurtle);
 		activeTurtles.add(baseTurtle);
 	}
@@ -99,16 +102,16 @@ public class TurtleViewer{
 		});
 		myRoot.getChildren().add(myTurtleImage);
 		temp.setTurtleImage(myTurtleImage);
+		temp.setX(DEFAULT_X_POS);
+		temp.setY(DEFAULT_Y_POS);
+		temp.setHeading(DEFAULT_ANGLE);
 		turtles.add(temp);
 		activeTurtles.add(temp);
 	}
-
-	
 	
 	public Turtle getTurtle(int ID) throws Exception {
 		for (Turtle t : turtles) {
 			if (t.getID() == ID) {
-				System.out.println("Should work");
 				return t;
 			}
 		}
@@ -126,8 +129,8 @@ public class TurtleViewer{
 
 	public void setImage(String imageIn){
 		currentImage = imageIn;
-		String[] splitTemp = imageIn.split(".");
-		inactiveImage = splitTemp[0] + "in" + splitTemp[1];
+		String[] splitTemp = imageIn.split("\\.");
+		inactiveImage = splitTemp[0] + "in." + splitTemp[1];
 		for(Turtle t: turtles){
 			if(t.getActivity()){
 				t.setImage(new Image(currentImage));
@@ -142,6 +145,7 @@ public class TurtleViewer{
 	public void setTurtlesInactive(List<Double> active) {
 		for (Turtle t : turtles) {
 			t.setActivity(true);
+			t.setImage(new Image(currentImage));
 			if (!active.contains(new Double(t.getID()))) {
 				t.setActivity(false);
 				activeTurtles.remove(t);
