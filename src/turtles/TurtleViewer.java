@@ -1,5 +1,6 @@
 package turtles;
 import java.util.ArrayList;
+import java.util.List;
 
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
@@ -16,6 +17,7 @@ public class TurtleViewer{
 	private String currentImage = "images/slogo1.jpg";
 	private String inactiveImage = "images/slogo1in.jpg";
 	private Pane myRoot;
+	
 
 	public static final double DEFAULT_X_POS = 0;
 	public static final double DEFAULT_Y_POS = 0;
@@ -100,6 +102,7 @@ public class TurtleViewer{
 	public Turtle getTurtle(int ID) throws Exception {
 		for (Turtle t : turtles) {
 			if (t.getID() == ID) {
+				System.out.println("Should work");
 				return t;
 			}
 		}
@@ -126,6 +129,15 @@ public class TurtleViewer{
 	
 	public Pane getTurtlePane(){
 		return myRoot;
+	}
+	
+	public void setTurtlesInactive(List<Integer> active) {
+		for (Turtle t : turtles) {
+			t.setActivity(true);
+			if (!active.contains(t.getID())) {
+				t.setActivity(false);
+			}
+		}
 	}
 
 }

@@ -73,8 +73,12 @@ public class TELL extends ListContainingCommand{
 			returnValue = Math.round(listOfCommands.subCommands.get(i).executeCommand());
 			turtleID.add((int) returnValue);
 		}
-		createTurtle(turtleID);
-		actUpTurtle(turtleID);
+		try {
+			createTurtle(turtleID);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		sendReturnToDependent();
 	}
 
@@ -91,19 +95,17 @@ public class TELL extends ListContainingCommand{
 	/**
 	 * act up the turtle in the PriorityQueue
 	 * @param turtleID
+	 * @throws Exception 
 	 */
-	private void actUpTurtle(PriorityQueue<Integer> turtleID) {
-		for(int id : turtleID){
-			target.get(id).setActivity(true);
-		}
-
-	}
+	
 
 
-	private void createTurtle(PriorityQueue<Integer> turtleID) {
-		Pane toAddOnto = tv.getTurtlePane();
+	private void createTurtle(PriorityQueue<Integer> turtleID) throws Exception {
 		for (Double d : parameters) {
-			tv.addTurtle((int) d.intValue());
+			if (!tv.containsTurtle((int)d.intValue())) {
+				tv.addTurtle((int) d.intValue());
+			} 
+			tv.getTurtle((int) d.intValue()).setActivity(true);
 		}
 		/*for(int i = 0; i < turtleID.size(); i++){
 			if(target.size() <= i){
