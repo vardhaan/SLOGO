@@ -73,6 +73,7 @@ public class Parser {
 	    		for (int i=0;i<tokens.length;i++) {
     				
 	    			String symbol = getSymbol(tokens[i]);
+
 	    			if (checkIfValid(symbol)) {
 	    				if (symbol.equals("Constant")) {
 	    					//System.out.println("it's working??");
@@ -103,12 +104,17 @@ public class Parser {
 	    						i++;
 	    					}
 	    					engine.addCommand(toAdd);
+
+
 	    				}
 	    			}
+	    			
 	    		}
 	    	}
-	    	engine.initializeForExecution();
-	    	engine.executeCommands();
+	    	
+	    		engine.initializeForExecution();
+				engine.executeCommands();
+		
 	    	
 	    	
 	    }

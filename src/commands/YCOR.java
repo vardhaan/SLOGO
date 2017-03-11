@@ -20,11 +20,13 @@ public class YCOR extends TurtleCommand {
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		//DO NOTHING
+		returnValue = target.get(target.size()-1).getY();
+		sendReturnToDependent();
 	}
 
 	@Override
 	public double executeCommand() {
-		returnValue = target.getY();
+		
 		return returnValue;
 	}
 

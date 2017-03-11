@@ -78,7 +78,6 @@ public class Turtle{
 		return isActive;
 	}
 
-	//TODO: controlled by other class
 	public void setActivity(boolean b){
 		isActive = b;
 	}

@@ -1,5 +1,7 @@
 package commands;
 
+import java.util.List;
+
 import exceptions.ParameterNotEnoughException;
 import exceptions.PopUpException;
 import turtles.Turtle;
@@ -25,10 +27,11 @@ public abstract class ListContainingCommand extends Command{
 	}
 	
 	@Override
-	public void setTurtle(Turtle turtle) {
-		inputs.setTurtle(turtle);
+	public void setTurtle(List<Turtle> turtlesToAdd) {
+		super.setTurtle(turtlesToAdd);
+		inputs.setTurtle(target);
 		
-		listOfCommands.setTurtle(turtle);
+		listOfCommands.setTurtle(target);
 	}
 	
 	public boolean addCommandWithin(Command toAdd) {

@@ -1,6 +1,7 @@
 package commands;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import turtles.Turtle;
 
@@ -87,13 +88,12 @@ public abstract class LongCommand extends Command {
 
 
 
-	public void setTurtle(Turtle turtle) {
+	public void setTurtle(List<Turtle> turtlesToAdd) {
 		// TODO Auto-generated method stub
-		for (int i=0;i<subCommands.size();i++) {
-			Command c = subCommands.get(i);
-			c.setTurtle(turtle);
+		super.setTurtle(turtlesToAdd);
+		for (Command c : subCommands) {
+			c.setTurtle(target);
 		}
-		
 	}
 	
 	

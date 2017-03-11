@@ -20,6 +20,8 @@ public class HIDETURTLE extends TurtleCommand{
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		//DO NOTHING
+		returnValue = 0;
+		sendReturnToDependent();
 	}
 	
 
@@ -28,7 +30,10 @@ public class HIDETURTLE extends TurtleCommand{
 
 		showTurtle = false;
 		returnValue = 0;
-		target.setShow(false);
+		for (Turtle t : target) {
+			t.setShow(false);
+		}
+		
 		
 		return 0;
 	}

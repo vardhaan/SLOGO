@@ -4,6 +4,7 @@
 package commands;
 
 import exceptions.ParameterNotEnoughException;
+import turtles.Turtle;
 
 /**
  * @author Zhiyong
@@ -29,7 +30,10 @@ public class PENUP extends TurtleCommand {
 
 		penDown = false;
 		returnValue = 0;
-		target.setPenDown(false);
+		for (Turtle t : target) {
+			t.setPenDown(false);
+
+		}
 		//System.out.println("Pen is up");
 		return returnValue;
 	}
