@@ -194,7 +194,6 @@ public class Turtle{
 
 	public void setShow(boolean b){
 		showing = b;
-
 	}
 
 	public void setPenDown(boolean b){
@@ -206,10 +205,6 @@ public class Turtle{
 	}
 
 	public void setprev(){
-		/*Pos=previousxPos;
-		yPos=previousyPos;
-		heading=	previousHeading;
-		 */
 		setX(previousxPos);
 		setY(previousyPos);
 		setHeading(previousHeading);
@@ -218,7 +213,6 @@ public class Turtle{
 	public void clearprevlines(){
 		myRoot.getChildren().remove(myRoot.getChildren().size()-1);
 		myLines.remove(myLines.size()-1);
-		//myLines.remove(myLines.size()-1);
 	}
 
 	public void setImage(Image imageIn){
@@ -239,7 +233,6 @@ public class Turtle{
 	}
 
 	public int setPenColorIndex(int index){
-
 		myPenColorIndex=index;
 		return myPenColorIndex;
 	}
