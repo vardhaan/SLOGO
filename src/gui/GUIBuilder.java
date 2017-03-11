@@ -35,7 +35,7 @@ public class GUIBuilder {
 		MenuBuilder m=new MenuBuilder(tv);
 		m.buildMenu(myRoot);
 		
-		GridBuilder g = new GridBuilder("0");
+		GridBuilder g = new GridBuilder();
 		g.buildGrid(myRoot);
 	}
 	
