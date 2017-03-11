@@ -19,11 +19,13 @@ public class ISSHOWING extends TurtleCommand {
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		//DO NOTHING
+		returnValue = (target.get(target.size()-1).showTurtle() == true)? 1 : 0;
+		sendReturnToDependent();
 	}
 	
 	@Override
 	public double executeCommand() {
-		returnValue = (target.showTurtle() == true)? 1 : 0;
+		returnValue = (target.get(target.size()-1).showTurtle() == true)? 1 : 0;
 
 		return returnValue;
 	}

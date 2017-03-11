@@ -1,5 +1,7 @@
 package commands;
 
+import java.util.List;
+
 import exceptions.ParameterNotEnoughException;
 import turtles.Turtle;
 
@@ -30,11 +32,12 @@ public class IFELSE extends ListContainingCommand{
 	}
 	
 	@Override
-	public void setTurtle(Turtle turtle) {
-		inputs.setTurtle(turtle);
+	public void setTurtle(List<Turtle> turtlesToAdd) {
+		super.setTurtle(turtlesToAdd);
+		inputs.setTurtle(target);
 		
-		listOfCommands.setTurtle(turtle);
-		elseListOfCommands.setTurtle(turtle);
+		listOfCommands.setTurtle(target);
+		elseListOfCommands.setTurtle(target);
 	}
 	
 	@Override

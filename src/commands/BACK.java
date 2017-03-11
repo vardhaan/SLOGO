@@ -1,5 +1,7 @@
 package commands;
 
+import turtles.Turtle;
+
 public class BACK extends TurtleCommand {
 	
 	public BACK() {
@@ -12,8 +14,9 @@ public class BACK extends TurtleCommand {
 	
 		returnValue = parameters.get(0);
 		ForwardBackHelper f = new ForwardBackHelper();
-		f.getHelp(target, returnValue);
-	
+		for (Turtle t : target) {
+			f.getHelp(t, returnValue);
+		}
 		return returnValue;
 	}
 	

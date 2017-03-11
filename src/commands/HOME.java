@@ -4,6 +4,7 @@
 package commands;
 
 import exceptions.ParameterNotEnoughException;
+import turtles.Turtle;
 
 /**
  * @author Zhiyong
@@ -19,12 +20,16 @@ public class HOME extends TurtleCommand{
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		//DO NOTHING
+		returnValue = new CSHomeHelper().getRetVal(target.get(target.size()-1));
+		sendReturnToDependent();
 	}
 	
 	@Override
 	public double executeCommand() {
 		CSHomeHelper c = new CSHomeHelper();
-		c.getHelp(target, returnValue);
+		for (Turtle t : target) {
+			c.getHelp(t);
+		}
 		
 		return returnValue;
 	}

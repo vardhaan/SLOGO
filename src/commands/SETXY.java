@@ -8,6 +8,7 @@ package commands;
  *
  */
 import exceptions.ParameterNotEnoughException;
+import turtles.Turtle;
 
 public class SETXY extends TurtleCommand {
 
@@ -31,8 +32,11 @@ public class SETXY extends TurtleCommand {
 		double y = parameters.get(1);
 		//the distance  that turtle turned
 		returnValue = Math.sqrt(x *x + y * y);
-		target.setX(x);
-		target.setY(y);
+		for (Turtle t : target) {
+			t.setX(x);
+			t.setY(y);
+		}
+		
 		return returnValue;			
 	}
 

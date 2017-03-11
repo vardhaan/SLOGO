@@ -8,6 +8,7 @@ package commands;
  *
  */
 import exceptions.ParameterNotEnoughException;
+import turtles.Turtle;
 
 public class TOWARDS extends TurtleCommand {
 
@@ -37,9 +38,12 @@ public class TOWARDS extends TurtleCommand {
 		double y = parameters.get(1);
 		double sinValue = (y == 0 && x == 0)? 0 : x / Math.sqrt(x * x + y * y);
 		//the degree  that turtle turned
-		returnValue = Math.asin(sinValue) * DEGREEOFPI / Math.PI;		
-		target.setX( x);
-		target.setY(y);
+		returnValue = Math.asin(sinValue) * DEGREEOFPI / Math.PI;	
+		for (Turtle t : target) {
+			t.setX(x);
+			t.setY(y);
+		}
+		
 		return returnValue;
 	}
 

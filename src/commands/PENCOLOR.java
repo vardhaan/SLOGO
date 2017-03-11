@@ -15,12 +15,13 @@ public class PENCOLOR extends Command{
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		//do nothing
+		returnValue = target.get(target.size()-1).getPenColorIndex();
+		sendReturnToDependent();
 	}
 
 	@Override
 	public double executeCommand() {
-		returnValue = target.getPenColorIndex();
-		System.out.println("The pen color is " + returnValue);
+		returnValue = target.get(target.size()-1).getPenColorIndex();
 		return returnValue;
 	}
 
