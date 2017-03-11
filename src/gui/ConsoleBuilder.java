@@ -15,6 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Orientation;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
@@ -30,8 +31,12 @@ public class ConsoleBuilder {
 	private TextArea console = new TextArea();
 	private ObservableList<Button> pcommands = FXCollections.observableArrayList();
 	private ObservableList<TextArea> turtleList = FXCollections.observableArrayList();
-	private ListView<Button> plist = new ListView<Button>();
+	private ObservableList<TextArea> variables = FXCollections.observableArrayList();
+	private ObservableList<TextArea> functions = FXCollections.observableArrayList();
+	private ListView<Button> previousCommandList = new ListView<Button>();
 	private ListView<TextArea> turtleVariables = new ListView<TextArea>();
+	private ListView<TextArea> variablesList = new ListView<TextArea>();
+	private ListView<TextArea> functionsList = new ListView<TextArea>();
 	private ResourceBundle myResources;
 	private Parser myParser;
 	private TurtleViewer tv;
@@ -43,9 +48,8 @@ public class ConsoleBuilder {
 		myParser = parserIn;
 
 		formatConsole();
-
+		formatObservableLists();
 		formatTabPane();
-
 	}
 
 	public void buildConsole(GridPane myRoot){
@@ -76,7 +80,6 @@ public class ConsoleBuilder {
 				try {
 					updateVariables();
 				} catch (Exception e2) {
-					// TODO replace printStackTrace
 					MyException p =  new NoTurtleException();
 					PopUpException pop = new PopUpException(p.getMessage());
 					pop.showMessage();
@@ -109,10 +112,12 @@ public class ConsoleBuilder {
 			@Override
 			public void handle(ActionEvent e) {
 				TextArea turtleVars = createNewTurtleTextArea("Turtle" + currentID, 0, 0, 0, true);
+				currentID++;
 				turtleList.add(turtleVars);
-				tv.addTurtle();
+				tv.addTurtle(currentID);
 			}
 		};
+		
 		ArrayList<EventHandler<ActionEvent>> events = new ArrayList<EventHandler<ActionEvent>>();
 		events.add(execute);
 		events.add(clear);
@@ -172,33 +177,52 @@ public class ConsoleBuilder {
 	}
 	
 	private void formatTabPane(){
-		plist.setItems(pcommands);
-		plist.setOrientation(Orientation.VERTICAL);
-		plist.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-		
 		myTab.setMinWidth(300);
 		myTab.setMaxWidth(300);
+		
+		TextArea turtleVariablesText = createNewTurtleTextArea("Turtle" + currentID, 0, 0, 0, true);
+		turtleList.add(turtleVariablesText);
 
 		Tab pcTab = new Tab();
 		pcTab.setText("Prev Cmnds");
-		pcTab.setContent(plist);
+		pcTab.setContent(previousCommandList);
 		pcTab.setClosable(false);
 		myTab.getTabs().add(pcTab);
-
-		TextArea variables = createNewTurtleTextArea("Turtle" + currentID, 0, 0, 0, true);
-		currentID++;
-
-		turtleVariables.setItems(turtleList);
-		turtleVariables.setOrientation(Orientation.VERTICAL);
-		turtleVariables.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-		turtleList.add(variables);
 
 		Tab turtleTab = new Tab();
 		turtleTab.setText("Turtles");
 		turtleTab.setContent(turtleVariables);
 		turtleTab.setClosable(false);
 		myTab.getTabs().add(turtleTab);
+		
+		Tab variablesTab = new Tab();
+		variablesTab.setText("Vars");
+		variablesTab.setContent(variablesList);
+		variablesTab.setClosable(false);
+		myTab.getTabs().add(variablesTab);
+		
+		Tab functionsTab = new Tab();
+		functionsTab.setText("Funcs");
+		functionsTab.setContent(functionsList);
+		functionsTab.setClosable(false);
+		myTab.getTabs().add(functionsTab);
+	}
+	private void formatObservableLists(){
+		previousCommandList.setItems(pcommands);
+		previousCommandList.setOrientation(Orientation.VERTICAL);
+		previousCommandList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
+		turtleVariables.setItems(turtleList);
+		turtleVariables.setOrientation(Orientation.VERTICAL);
+		turtleVariables.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
+		variablesList.setItems(variables);
+		variablesList.setOrientation(Orientation.VERTICAL);
+		variablesList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		
+		functionsList.setItems(functions);
+		functionsList.setOrientation(Orientation.VERTICAL);
+		functionsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	}
 	
 }
