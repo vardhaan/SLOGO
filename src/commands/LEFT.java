@@ -3,6 +3,8 @@
  */
 package commands;
 
+import turtles.Turtle;
+
 public class LEFT extends TurtleCommand {
 
 	public LEFT() {
@@ -13,9 +15,12 @@ public class LEFT extends TurtleCommand {
 	@Override
 	public double executeCommand() {
 		returnValue = parameters.get(0);
-		target.setHeading(target.getHeading() - returnValue);
-		target.setX(target.getX());
-		target.setY(target.getY());
+		for (Turtle t : target) {
+			t.setHeading(t.getHeading() - returnValue);
+			t.setX(t.getX());
+			t.setY(t.getY());
+		}
+		
 		
 		return returnValue;
 	}

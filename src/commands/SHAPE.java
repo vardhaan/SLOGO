@@ -17,11 +17,14 @@ public class SHAPE extends Command{
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		//do nothing
+		returnValue = target.get(target.size()-1).getImageIndex();
+		sendReturnToDependent();
+		
 	}
 
 	@Override
 	public double executeCommand() {
-		returnValue = target.getImageIndex();
+		returnValue = target.get(target.size()-1).getImageIndex();
 		return returnValue;
 	}
 

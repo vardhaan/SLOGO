@@ -5,6 +5,7 @@ package commands;
 
 import exceptions.ParameterNotEnoughException;
 import javafx.scene.image.Image;
+import turtles.Turtle;
 
 /**
  * @author Zhiyong
@@ -32,8 +33,11 @@ public class SETSHAPE extends TurtleCommand {
 	public double executeCommand() {
 		returnValue = parameters.get(0);
 		//combine the information of the image name as a String
-		target.setImage(new Image(IMAGE_NAME + (Math.round(returnValue) + IMAGE_TYPE)));
-		target.setImageIndex((int) Math.round(returnValue));
+		for (Turtle t : target) {
+			t.setImage(new Image(IMAGE_NAME + (Math.round(returnValue) + IMAGE_TYPE)));
+			t.setImageIndex((int) Math.round(returnValue));
+		}
+		
 
 		return returnValue;
 	}

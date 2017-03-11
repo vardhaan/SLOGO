@@ -8,6 +8,7 @@ package commands;
  *
  */
 import exceptions.ParameterNotEnoughException;
+import turtles.Turtle;
 
 public class SETHEADING extends TurtleCommand {
 
@@ -29,7 +30,9 @@ public class SETHEADING extends TurtleCommand {
 	@Override
 	public double executeCommand() {
 		returnValue = parameters.get(0);
-		target.setHeading(returnValue);
+		for (Turtle t : target) {
+			t.setHeading(returnValue);
+		}
 		return returnValue;
 
 

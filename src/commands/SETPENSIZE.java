@@ -4,6 +4,7 @@
 package commands;
 
 import exceptions.ParameterNotEnoughException;
+import turtles.Turtle;
 
 /**
  * @author Zhiyong
@@ -27,7 +28,9 @@ public class SETPENSIZE extends Command {
 	@Override
 	public double executeCommand() {
 		returnValue = parameters.get(0);
-		target.setPenSize((int)Math.round(returnValue));
+		for (Turtle t : target) {
+			t.setPenSize((int)Math.round(returnValue));
+		}
 			
 		return returnValue;
 	}

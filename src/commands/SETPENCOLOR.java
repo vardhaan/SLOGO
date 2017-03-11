@@ -1,6 +1,7 @@
 package commands;
 
 import exceptions.ParameterNotEnoughException;
+import turtles.Turtle;
 
 /**
  * set the color of the pen
@@ -25,8 +26,10 @@ public class SETPENCOLOR extends TurtleCommand {
 
 	@Override
 	public double executeCommand() {
-
-		target.setPenColorIndex((int)Math.round(parameters.get(0)));
+		for (Turtle t : target) {
+			t.setPenColorIndex((int)Math.round(parameters.get(0)));
+		}
+		
 		returnValue = parameters.get(0);
 
 		return returnValue;
