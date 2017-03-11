@@ -16,6 +16,9 @@ public class AND extends Command{
 		expectedNumParameters = 2;
 	}
 
+	/* 
+	 * @see commands.Command#setReturnValue()
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
@@ -26,6 +29,9 @@ public class AND extends Command{
 		}
 	}
 
+	/* 
+	 * if x and y are not 0, the result is zero 
+	 */
 	@Override
 	public double executeCommand() {
 		double x = parameters.get(0);
