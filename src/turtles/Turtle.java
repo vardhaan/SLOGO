@@ -213,8 +213,9 @@ public class Turtle{
 		clearprevlines();
 	}
 	public void clearprevlines(){
+		myRoot.getChildren().remove(myRoot.getChildren().size()-1);
 		myLines.remove(myLines.size()-1);
-		myLines.remove(myLines.size()-1);
+		//myLines.remove(myLines.size()-1);
 	}
 
 	public void setImage(Image imageIn){
