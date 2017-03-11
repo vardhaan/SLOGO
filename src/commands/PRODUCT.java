@@ -15,6 +15,8 @@ public class PRODUCT extends Command{
 		expectedNumParameters = 2;
 	}
 
+	/* set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
@@ -24,6 +26,9 @@ public class PRODUCT extends Command{
 		}
 	}
 
+	/*
+	 * do the product of the parameter
+	 */
 	@Override
 	public double executeCommand() {
 		double x = parameters.get(0);

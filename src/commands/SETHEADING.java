@@ -17,6 +17,9 @@ public class SETHEADING extends TurtleCommand {
 		expectedNumParameters = 1;
 	}
 
+	/* 
+	 * set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
@@ -27,6 +30,9 @@ public class SETHEADING extends TurtleCommand {
 	}
 
 
+	/* 
+	 * change the heading of the turtle
+	 */
 	@Override
 	public double executeCommand() {
 		returnValue = parameters.get(0);

@@ -15,6 +15,9 @@ public class POW extends Command{
 		expectedNumParameters = 2;
 	}
 
+	/* 
+	 * set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
@@ -24,6 +27,9 @@ public class POW extends Command{
 		}
 	}
 
+	/*
+	 * do the power of the parameters
+	 */
 	@Override
 	public double executeCommand() {
 		double x = parameters.get(0);

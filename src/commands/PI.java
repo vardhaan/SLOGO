@@ -15,11 +15,15 @@ public class PI extends Command{
 		expectedNumParameters = 0;
 	}
 
+
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		//DO NOTHING
 	}
-
+	
+	/* 
+	 * get PI
+	 */
 	@Override
 	public double executeCommand() {
 		returnValue = Math.PI;

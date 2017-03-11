@@ -17,6 +17,9 @@ public class SETPENSIZE extends Command {
 		expectedNumParameters = 1;
 	}
 	
+	/* 
+	 *set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
@@ -25,6 +28,9 @@ public class SETPENSIZE extends Command {
 		}
 	}
 	
+	/*
+	 * set the size of the pen
+	 */
 	@Override
 	public double executeCommand() {
 		returnValue = parameters.get(0);

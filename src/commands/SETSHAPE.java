@@ -20,6 +20,9 @@ public class SETSHAPE extends TurtleCommand {
 		expectedNumParameters = 1;
 	}
 
+	/* 
+	 * set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		if (parameters.size() == expectedNumParameters) {
@@ -29,6 +32,9 @@ public class SETSHAPE extends TurtleCommand {
 		}
 	}
 
+	/* 
+	 * choose a shape of the turtle
+	 */
 	@Override
 	public double executeCommand() {
 		returnValue = parameters.get(0);

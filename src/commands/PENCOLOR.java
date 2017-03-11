@@ -12,6 +12,9 @@ public class PENCOLOR extends Command{
 		expectedNumParameters = 0;
 	}
 
+	/* 
+	 * set the return value
+	 */
 	@Override
 	public void setReturnValue() throws ParameterNotEnoughException {
 		//do nothing
@@ -19,6 +22,9 @@ public class PENCOLOR extends Command{
 		sendReturnToDependent();
 	}
 
+	/* 
+	 * get the pencolor of the turtle
+	 */
 	@Override
 	public double executeCommand() {
 		returnValue = target.get(target.size()-1).getPenColorIndex();
