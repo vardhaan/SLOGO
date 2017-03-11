@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.List;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ResourceBundle;
@@ -37,13 +38,14 @@ public class ConsoleBuilder {
 	private ObservableList<Button> pcommands = FXCollections.observableArrayList();
 	private ObservableList<TextArea> turtleList = FXCollections.observableArrayList();
 	private ObservableList<TextArea> variables = FXCollections.observableArrayList();
-	private ObservableList<TextArea> functions = FXCollections.observableArrayList();
+	private ObservableList<TextArea> outputs = FXCollections.observableArrayList();
 	private ListView<Button> previousCommandList = new ListView<Button>();
 	private ListView<TextArea> turtleVariables = new ListView<TextArea>();
 	private ListView<TextArea> variablesList = new ListView<TextArea>();
-	private ListView<TextArea> functionsList = new ListView<TextArea>();
+	private ListView<TextArea> outputList = new ListView<TextArea>();
 	private ResourceBundle myResources;
 	private Parser myParser;
+	//private List outputParser = new List();
 	private TurtleViewer tv;
 	private int currentID = 0;
 
@@ -82,7 +84,7 @@ public class ConsoleBuilder {
 			public void handle(ActionEvent e) {
 				addPreviousCommand(console.getText());
 				try {
-					myParser.parse(console.getText());
+					addOutput(myParser.parse(console.getText()));
 				} catch (Exception e1) {
 					MyException p =  new EmptyParserException();
 					PopUpException pop = new PopUpException(p.getMessage());
@@ -165,6 +167,12 @@ public class ConsoleBuilder {
 		});
 		pcommands.add(pcommandButton);
 	}
+	
+	private void addOutput(List parserList){
+		TextArea output = new TextArea();
+		output.setText(parserList.toString());
+		outputs.add(output);
+	}
 
 	private void updateVariables() throws Exception{
 		if(tv.getCleared()){
@@ -230,11 +238,11 @@ public class ConsoleBuilder {
 		variablesTab.setClosable(false);
 		myTab.getTabs().add(variablesTab);
 
-		Tab functionsTab = new Tab();
-		functionsTab.setText("Funcs");
-		functionsTab.setContent(functionsList);
-		functionsTab.setClosable(false);
-		myTab.getTabs().add(functionsTab);
+		Tab outputTab = new Tab();
+		outputTab.setText("Funcs");
+		outputTab.setContent(outputList);
+		outputTab.setClosable(false);
+		myTab.getTabs().add(outputTab);
 	}
 	private void formatObservableLists(){
 		previousCommandList.setItems(pcommands);
@@ -249,9 +257,9 @@ public class ConsoleBuilder {
 		variablesList.setOrientation(Orientation.VERTICAL);
 		variablesList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-		functionsList.setItems(functions);
-		functionsList.setOrientation(Orientation.VERTICAL);
-		functionsList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+		outputList.setItems(outputs);
+		outputList.setOrientation(Orientation.VERTICAL);
+		outputList.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 	}
 
 }
